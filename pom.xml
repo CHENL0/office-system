@@ -13,16 +13,16 @@
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
-        <!-- spring版本号 -->
-        <spring.version>4.2.5.RELEASE</spring.version>
-        <!-- mybatis版本号 -->
-        <mybatis.version>3.2.8</mybatis.version>
-        <!-- mysql驱动版本号 -->
-        <mysql-driver.version>5.1.29</mysql-driver.version>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+      <!-- spring版本号 -->
+      <spring.version>4.2.5.RELEASE</spring.version>
+      <!-- mybatis版本号 -->
+      <mybatis.version>3.2.8</mybatis.version>
+      <!-- mysql驱动版本号 -->
+      <mysql-driver.version>5.1.29</mysql-driver.version>
 
     </properties>
 
