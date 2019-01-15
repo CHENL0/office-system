@@ -3,12 +3,9 @@ package com.office.system.modlues.sysMsgM.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class SysOUser {
-    private String id;
+import com.office.system.common.baseEntity.DataEntity;
 
-    private Date createDate;
-
-    private String delFlag;
+public class SysOUser extends DataEntity<SysOUser>{
 
     private String name;
 
@@ -32,29 +29,6 @@ public class SysOUser {
 
     private String emailId;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag == null ? null : delFlag.trim();
-    }
 
     public String getName() {
         return name;

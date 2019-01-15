@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.itheima.mybatis.mapper.WkWorkReportMapper" >
-  <resultMap id="BaseResultMap" type="com.itheima.mybatis.pojo.WkWorkReport" >
+<mapper namespace="com.office.system.modlues.wkM.dao.WkWorkReportDao" >
+  <resultMap id="BaseResultMap" type="WkWorkReport" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="text" property="text" jdbcType="VARCHAR" />
     <result column="start_date" property="startDate" jdbcType="DATE" />
@@ -71,7 +71,7 @@
   <sql id="Base_Column_List" >
     id, text, start_date, end_date, create_by, create_date, del_flag
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.itheima.mybatis.pojo.WkWorkReportExample" >
+  <!-- <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.itheima.mybatis.pojo.WkWorkReportExample" >
     select
     <if test="distinct" >
       distinct
@@ -84,7 +84,7 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
-  </select>
+  </select> -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
@@ -95,13 +95,13 @@
     delete from WK_WORK_REPORT
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.itheima.mybatis.pojo.WkWorkReportExample" >
+  <!-- <delete id="deleteByExample" parameterType="com.itheima.mybatis.pojo.WkWorkReportExample" >
     delete from WK_WORK_REPORT
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-  </delete>
-  <insert id="insert" parameterType="com.itheima.mybatis.pojo.WkWorkReport" >
+  </delete> -->
+  <insert id="insert" parameterType="WkWorkReport" >
     insert into WK_WORK_REPORT (id, text, start_date, 
       end_date, create_by, create_date, 
       del_flag)
@@ -109,7 +109,7 @@
       #{endDate,jdbcType=DATE}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, 
       #{delFlag,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.itheima.mybatis.pojo.WkWorkReport" >
+  <insert id="insertSelective" parameterType="WkWorkReport" >
     insert into WK_WORK_REPORT
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -158,12 +158,12 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.itheima.mybatis.pojo.WkWorkReportExample" resultType="java.lang.Integer" >
+  <!-- <select id="countByExample" parameterType="com.itheima.mybatis.pojo.WkWorkReportExample" resultType="java.lang.Integer" >
     select count(*) from WK_WORK_REPORT
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-  </select>
+  </select> -->
   <update id="updateByExampleSelective" parameterType="map" >
     update WK_WORK_REPORT
     <set >
@@ -206,7 +206,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.itheima.mybatis.pojo.WkWorkReport" >
+  <update id="updateByPrimaryKeySelective" parameterType="WkWorkReport" >
     update WK_WORK_REPORT
     <set >
       <if test="text != null" >
@@ -230,7 +230,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.itheima.mybatis.pojo.WkWorkReport" >
+  <update id="updateByPrimaryKey" parameterType="WkWorkReport" >
     update WK_WORK_REPORT
     set text = #{text,jdbcType=VARCHAR},
       start_date = #{startDate,jdbcType=DATE},

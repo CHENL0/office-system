@@ -1,7 +1,6 @@
 package com.office.system.modlues.sysMsgM.entity;
 
 import com.office.system.common.baseEntity.DataEntity;
-import com.office.system.modlues.msgM.entity.Email;
 
 public class User extends DataEntity<User> {
 	
@@ -25,18 +24,22 @@ public class User extends DataEntity<User> {
 	
 	private String role;//角色
 	
-	private Email email;
-	
-
-	public Email getEmail() {
-		return email;
-	}
-
-	public void setEmail(Email email) {
-		this.email = email;
-	}
+//	private Email email;
+//	
+//
+//	public Email getEmail() {
+//		return email;
+//	}
+//
+//	public void setEmail(Email email) {
+//		this.email = email;
+//	}
 
 	public User(){
+	}
+	public User(String id){
+		
+		this.id = id;
 	}
 
 	public String getLoginName() {

@@ -12,12 +12,12 @@ import com.office.system.modlues.sysMsgM.entity.User;
 @Transactional(readOnly = true)
 public class UserService extends CrudService<UserDao, User>{
 	
-	@Autowired 
+	/*@Autowired 
 	UserDao userDao;
 	
 	public User getUser(User user){
-		return userDao.getUser(user);
-	}
+		return userDao.get(user);
+	}*/
 	
 
 }
