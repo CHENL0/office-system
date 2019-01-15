@@ -2,9 +2,10 @@ package com.office.system.modlues.msgM.entity;
 
 import java.util.Date;
 
-public class InfEmail {
-    private String id;
+import com.office.system.common.baseEntity.DataEntity;
 
+public class InfEmail extends DataEntity<InfEmail> {
+	
     private String text;
 
     private String staut;
@@ -14,12 +15,6 @@ public class InfEmail {
     private String getUserId;
 
     private String sendUserId;
-
-    private String delFlag;
-
-    private String creatBy;
-
-    private Date createDate;
 
     public String getId() {
         return id;
@@ -67,29 +62,5 @@ public class InfEmail {
 
     public void setSendUserId(String sendUserId) {
         this.sendUserId = sendUserId == null ? null : sendUserId.trim();
-    }
-
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag == null ? null : delFlag.trim();
-    }
-
-    public String getCreatBy() {
-        return creatBy;
-    }
-
-    public void setCreatBy(String creatBy) {
-        this.creatBy = creatBy == null ? null : creatBy.trim();
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 }

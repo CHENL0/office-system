@@ -2,8 +2,9 @@ package com.office.system.modlues.rlM.entity;
 
 import java.util.Date;
 
-public class RlLeave {
-    private String id;
+import com.office.system.common.baseEntity.DataEntity;
+
+public class RlLeave extends DataEntity<RlLeave>{
 
     private String reason;
 
@@ -11,21 +12,7 @@ public class RlLeave {
 
     private Date endDate;
 
-    private String createBy;
-
-    private Date createDate;
-
-    private String delFlag;
-
     private String auditUserId;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
 
     public String getReason() {
         return reason;
@@ -49,30 +36,6 @@ public class RlLeave {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy == null ? null : createBy.trim();
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag == null ? null : delFlag.trim();
     }
 
     public String getAuditUserId() {

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.itheima.mybatis.mapper.SysORoleMapper" >
-  <resultMap id="BaseResultMap" type="com.itheima.mybatis.pojo.SysORole" >
+<mapper namespace="com.office.system.modlues.sysMsgM.dao.SysORoleDao" >
+  <resultMap id="BaseResultMap" type="SysORole" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="create_by" property="createBy" jdbcType="VARCHAR" />
-    <result column="creat_date" property="creatDate" jdbcType="DATE" />
+    <result column="creat_date" property="createDate" jdbcType="DATE" />
     <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
   </resultMap>
@@ -69,7 +69,7 @@
   <sql id="Base_Column_List" >
     id, create_by, creat_date, del_flag, name
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.itheima.mybatis.pojo.SysORoleExample" >
+<!--   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.itheima.mybatis.pojo.SysORoleExample" >
     select
     <if test="distinct" >
       distinct
@@ -82,7 +82,7 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
-  </select>
+  </select> -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
@@ -93,19 +93,19 @@
     delete from SYS_O_ROLE
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.itheima.mybatis.pojo.SysORoleExample" >
+ <!--  <delete id="deleteByExample" parameterType="com.itheima.mybatis.pojo.SysORoleExample" >
     delete from SYS_O_ROLE
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-  </delete>
-  <insert id="insert" parameterType="com.itheima.mybatis.pojo.SysORole" >
+  </delete> -->
+  <insert id="insert" parameterType="SysORole" >
     insert into SYS_O_ROLE (id, create_by, creat_date, 
       del_flag, name)
-    values (#{id,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{creatDate,jdbcType=DATE}, 
+    values (#{id,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, 
       #{delFlag,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.itheima.mybatis.pojo.SysORole" >
+  <insert id="insertSelective" parameterType="SysORole" >
     insert into SYS_O_ROLE
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -114,7 +114,7 @@
       <if test="createBy != null" >
         create_by,
       </if>
-      <if test="creatDate != null" >
+      <if test="createDate != null" >
         creat_date,
       </if>
       <if test="delFlag != null" >
@@ -131,8 +131,8 @@
       <if test="createBy != null" >
         #{createBy,jdbcType=VARCHAR},
       </if>
-      <if test="creatDate != null" >
-        #{creatDate,jdbcType=DATE},
+      <if test="createDate != null" >
+        #{createDate,jdbcType=DATE},
       </if>
       <if test="delFlag != null" >
         #{delFlag,jdbcType=VARCHAR},
@@ -142,12 +142,12 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.itheima.mybatis.pojo.SysORoleExample" resultType="java.lang.Integer" >
+  <!-- <select id="countByExample" parameterType="com.itheima.mybatis.pojo.SysORoleExample" resultType="java.lang.Integer" >
     select count(*) from SYS_O_ROLE
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-  </select>
+  </select> -->
   <update id="updateByExampleSelective" parameterType="map" >
     update SYS_O_ROLE
     <set >
@@ -157,8 +157,8 @@
       <if test="record.createBy != null" >
         create_by = #{record.createBy,jdbcType=VARCHAR},
       </if>
-      <if test="record.creatDate != null" >
-        creat_date = #{record.creatDate,jdbcType=DATE},
+      <if test="record.createDate != null" >
+        creat_date = #{record.createDate,jdbcType=DATE},
       </if>
       <if test="record.delFlag != null" >
         del_flag = #{record.delFlag,jdbcType=VARCHAR},
@@ -175,21 +175,21 @@
     update SYS_O_ROLE
     set id = #{record.id,jdbcType=VARCHAR},
       create_by = #{record.createBy,jdbcType=VARCHAR},
-      creat_date = #{record.creatDate,jdbcType=DATE},
+      creat_date = #{record.createDate,jdbcType=DATE},
       del_flag = #{record.delFlag,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.itheima.mybatis.pojo.SysORole" >
+  <update id="updateByPrimaryKeySelective" parameterType="SysORole" >
     update SYS_O_ROLE
     <set >
       <if test="createBy != null" >
         create_by = #{createBy,jdbcType=VARCHAR},
       </if>
-      <if test="creatDate != null" >
-        creat_date = #{creatDate,jdbcType=DATE},
+      <if test="createDate != null" >
+        creat_date = #{createDate,jdbcType=DATE},
       </if>
       <if test="delFlag != null" >
         del_flag = #{delFlag,jdbcType=VARCHAR},
@@ -200,10 +200,10 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.itheima.mybatis.pojo.SysORole" >
+  <update id="updateByPrimaryKey" parameterType="SysORole" >
     update SYS_O_ROLE
     set create_by = #{createBy,jdbcType=VARCHAR},
-      creat_date = #{creatDate,jdbcType=DATE},
+      creat_date = #{createDate,jdbcType=DATE},
       del_flag = #{delFlag,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}

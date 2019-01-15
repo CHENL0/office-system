@@ -3,8 +3,9 @@ package com.office.system.modlues.wkM.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class WkWorkTarget {
-    private BigDecimal id;
+import com.office.system.common.baseEntity.DataEntity;
+
+public class WkWorkTarget  extends DataEntity<WkWorkTarget>{
 
     private String text;
 
@@ -12,19 +13,6 @@ public class WkWorkTarget {
 
     private Date endDate;
 
-    private String createBy;
-
-    private String delFlag;
-
-    private Date createDate;
-
-    public BigDecimal getId() {
-        return id;
-    }
-
-    public void setId(BigDecimal id) {
-        this.id = id;
-    }
 
     public String getText() {
         return text;
@@ -48,29 +36,5 @@ public class WkWorkTarget {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy == null ? null : createBy.trim();
-    }
-
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag == null ? null : delFlag.trim();
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
     }
 }

@@ -20,11 +20,11 @@ public class UserController {
     @Autowired
 	UserService userService;
 	
-	@RequestMapping("/test")
+	@RequestMapping("/test.do")
 	public String test(Model model){
 		User user = new User();
 		user.setId("123");
-		List<User> user2 = userService.findList(user);
+		User user2 = userService.get(user);
 		return "sysMsgM/index";
 		
 	}
