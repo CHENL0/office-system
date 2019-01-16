@@ -24,6 +24,8 @@ public class User extends DataEntity<User> {
 	
 	private String role;//角色
 	
+	private SysODepartment sysODepartment;//部门
+	
 //	private Email email;
 //	
 //
@@ -120,6 +122,12 @@ public class User extends DataEntity<User> {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+	public SysODepartment getSysODepartment() {
+		return sysODepartment;
+	}
+	public void setSysODepartment(SysODepartment sysODepartment) {
+		this.sysODepartment = sysODepartment;
 	}
 	
 
