@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.office.system.modlues.sysMsgM.entity.User;
 import com.office.system.modlues.sysMsgM.service.UserService;
+
+
+
 /**
  * 访问主页
  * @author 
@@ -30,7 +33,7 @@ public class IndexController {
 		  if(loginFlag.equals("true")){
 			//向model添加内容
 			  User currentUser = userService.get(new User(currentUserId));
-			  model.addAttribute(currentUser);
+			  model.addAttribute("currentUser",currentUser);
 			return "common/index";
 		  }
 		}
