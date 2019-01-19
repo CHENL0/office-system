@@ -3,8 +3,8 @@
 <mapper namespace="com.office.system.modlues.sysMsgM.dao.SysORoleDao" >
   <resultMap id="BaseResultMap" type="SysORole" >
     <id column="id" property="id" jdbcType="VARCHAR" />
-    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
-    <result column="creat_date" property="createDate" jdbcType="DATE" />
+<!--     <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+ -->    <result column="creat_date" property="createDate" jdbcType="DATE" />
     <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
   </resultMap>
@@ -102,8 +102,8 @@
   <insert id="insert" parameterType="SysORole" >
     insert into SYS_O_ROLE (id, create_by, creat_date, 
       del_flag, name)
-    values (#{id,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, 
-      #{delFlag,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR})
+<!--     values (#{id,jdbcType=VARCHAR}, #{createBy.id,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, 
+ -->      #{delFlag,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="SysORole" >
     insert into SYS_O_ROLE
@@ -128,9 +128,9 @@
       <if test="id != null" >
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="createBy != null" >
-        #{createBy,jdbcType=VARCHAR},
-      </if>
+    <!--   <if test="createBy != null" >
+        #{createBy.id,jdbcType=VARCHAR},
+      </if> -->
       <if test="createDate != null" >
         #{createDate,jdbcType=DATE},
       </if>
@@ -154,9 +154,9 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=VARCHAR},
       </if>
-      <if test="record.createBy != null" >
-        create_by = #{record.createBy,jdbcType=VARCHAR},
-      </if>
+  <!--     <if test="record.createBy != null" >
+        create_by = #{record.createBy.id,jdbcType=VARCHAR},
+      </if> -->
       <if test="record.createDate != null" >
         creat_date = #{record.createDate,jdbcType=DATE},
       </if>
@@ -174,8 +174,8 @@
   <update id="updateByExample" parameterType="map" >
     update SYS_O_ROLE
     set id = #{record.id,jdbcType=VARCHAR},
-      create_by = #{record.createBy,jdbcType=VARCHAR},
-      creat_date = #{record.createDate,jdbcType=DATE},
+<!--       create_by = #{record.createBy.id,jdbcType=VARCHAR},
+ -->      creat_date = #{record.createDate,jdbcType=DATE},
       del_flag = #{record.delFlag,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR}
     <if test="_parameter != null" >
@@ -185,9 +185,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="SysORole" >
     update SYS_O_ROLE
     <set >
-      <if test="createBy != null" >
-        create_by = #{createBy,jdbcType=VARCHAR},
-      </if>
+     <!--  <if test="createBy != null" >
+        create_by = #{createBy.id,jdbcType=VARCHAR},
+      </if> -->
       <if test="createDate != null" >
         creat_date = #{createDate,jdbcType=DATE},
       </if>
@@ -202,7 +202,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="SysORole" >
     update SYS_O_ROLE
-    set create_by = #{createBy,jdbcType=VARCHAR},
+    set create_by = <!-- #{createBy.id,jdbcType=VARCHAR}, -->
       creat_date = #{createDate,jdbcType=DATE},
       del_flag = #{delFlag,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR}

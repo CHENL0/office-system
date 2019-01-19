@@ -10,8 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.office.system.modlues.sysMsgM.entity.SysOUser;
 import com.office.system.modlues.sysMsgM.entity.User;
+import com.office.system.modlues.sysMsgM.service.SysOUserService;
 import com.office.system.modlues.sysMsgM.service.UserService;
+
+import oracle.net.aso.s;
 /**
  * 登录
  * @author lzc
@@ -22,7 +26,7 @@ import com.office.system.modlues.sysMsgM.service.UserService;
 public class LoginController {
 	
 	@Autowired
-	UserService userService;
+	 SysOUserService sysOUserService;
 	
 	@RequestMapping(value="/login.do",method=RequestMethod.GET)
 	public String login(HttpServletRequest request){
@@ -31,12 +35,12 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/login.do",method=RequestMethod.POST)
-	public String login1(HttpServletRequest request,User user){
-		    List<User> users = userService.findList(new User());
+	public String login1(HttpServletRequest request,SysOUser sysOUser){
+		    List<SysOUser> users = sysOUserService.findList(new SysOUser());
 		    String message  = null;
-		    for (User user2 : users) {
-				if(user2.getOldPassword().equals(user.getOldPassword()) && user2.getLoginName().equals(user.getLoginName())){
-					request.getSession().setAttribute("login_flag", "true");
+		    for (SysOUser user2 : users) {
+				if(user2.getPassword().equals(sysOUser.getPassword()) && user2.getLoginName().equals(sysOUser.getLoginName())){
+					request.getSession().setAttribute("login_flag", "true");//设置登录标志true为登录成功
 					request.getSession().setAttribute("currentUserId", user2.getId());//为了首页能获取当前用户的
 					return "redirect:" + "/a/index.do";
 				}

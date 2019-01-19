@@ -12,6 +12,7 @@ public class LogoutController {
 	@RequestMapping("/logout.do")
 	public String logout(HttpServletRequest request){
 		request.getSession().removeAttribute("login_flag");
+		request.getSession().removeAttribute("currentUserId");
 		return "common/login";
 	}
 

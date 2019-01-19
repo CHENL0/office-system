@@ -9,10 +9,10 @@
     <result column="get_user_id" property="getUserId" jdbcType="VARCHAR" />
     <result column="send_user_id" property="sendUserId" jdbcType="VARCHAR" />
     <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
-    <result column="creat_by" property="createBy" jdbcType="VARCHAR" />
-    <result column="create_date" property="createDate" jdbcType="DATE" />
-    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
-    <result column="update_date" property="updateDate" jdbcType="DATE" />
+<!--     <result column="creat_by" property="createBy" jdbcType="VARCHAR" />
+ -->    <result column="create_date" property="createDate" jdbcType="DATE" />
+<!--     <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+ -->    <result column="update_date" property="updateDate" jdbcType="DATE" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -113,8 +113,8 @@
       update_by, update_date)
     values (#{id,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, #{staut,jdbcType=VARCHAR}, 
       #{sendtime,jdbcType=DATE}, #{getUserId,jdbcType=VARCHAR}, #{sendUserId,jdbcType=VARCHAR}, 
-      #{delFlag,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, 
-      #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=DATE})
+      #{delFlag,jdbcType=VARCHAR}, #{createBy.id,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, 
+     <!--  #{updateBy,jdbcType=VARCHAR} -->, #{updateDate,jdbcType=DATE})
   </insert>
   <insert id="insertSelective" parameterType="InfEmail" >
     insert into INF_EMAIL
@@ -140,15 +140,15 @@
       <if test="delFlag != null" >
         del_flag,
       </if>
-      <if test="createBy != null" >
+    <!--   <if test="createBy != null" >
         creat_by,
-      </if>
+      </if> -->
       <if test="createDate != null" >
         create_date,
       </if>
-      <if test="updateBy != null" >
+    <!--   <if test="updateBy != null" >
         update_by,
-      </if>
+      </if> -->
       <if test="updateDate != null" >
         update_date,
       </if>
@@ -175,15 +175,15 @@
       <if test="delFlag != null" >
         #{delFlag,jdbcType=VARCHAR},
       </if>
-      <if test="createBy != null" >
+     <!--  <if test="createBy != null" >
         #{createBy,jdbcType=VARCHAR},
-      </if>
+      </if> -->
       <if test="createDate != null" >
         #{createDate,jdbcType=DATE},
       </if>
-      <if test="updateBy != null" >
+     <!--  <if test="updateBy != null" >
         #{updateBy,jdbcType=VARCHAR},
-      </if>
+      </if> -->
       <if test="updateDate != null" >
         #{updateDate,jdbcType=DATE},
       </if>
@@ -195,7 +195,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select> -->
-  <update id="updateByExampleSelective" parameterType="map" >
+<!--   <update id="updateByExampleSelective" parameterType="map" >
     update INF_EMAIL
     <set >
       <if test="record.id != null" >
@@ -235,24 +235,8 @@
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update INF_EMAIL
-    set id = #{record.id,jdbcType=VARCHAR},
-      text = #{record.text,jdbcType=VARCHAR},
-      staut = #{record.staut,jdbcType=VARCHAR},
-      sendTime = #{record.sendtime,jdbcType=DATE},
-      get_user_id = #{record.getUserId,jdbcType=VARCHAR},
-      send_user_id = #{record.sendUserId,jdbcType=VARCHAR},
-      del_flag = #{record.delFlag,jdbcType=VARCHAR},
-      creat_by = #{record.createBy,jdbcType=VARCHAR},
-      create_date = #{record.createDate,jdbcType=DATE},
-      update_by = #{record.updateBy,jdbcType=VARCHAR},
-      update_date = #{record.updateDate,jdbcType=DATE}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
+  </update> -->
+  
   <update id="updateByPrimaryKeySelective" parameterType="InfEmail" >
     update INF_EMAIL
     <set >
@@ -274,15 +258,15 @@
       <if test="delFlag != null" >
         del_flag = #{delFlag,jdbcType=VARCHAR},
       </if>
-      <if test="createBy != null" >
+    <!--   <if test="createBy != null" >
         creat_by = #{createBy,jdbcType=VARCHAR},
-      </if>
+      </if> -->
       <if test="createDate != null" >
         create_date = #{createDate,jdbcType=DATE},
       </if>
-      <if test="updateBy != null" >
+      <!-- <if test="updateBy != null" >
         update_by = #{updateBy,jdbcType=VARCHAR},
-      </if>
+      </if> -->
       <if test="updateDate != null" >
         update_date = #{updateDate,jdbcType=DATE},
       </if>
@@ -297,10 +281,10 @@
       get_user_id = #{getUserId,jdbcType=VARCHAR},
       send_user_id = #{sendUserId,jdbcType=VARCHAR},
       del_flag = #{delFlag,jdbcType=VARCHAR},
-      creat_by = #{createBy,jdbcType=VARCHAR},
+      creat_by = #{createBy.id,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=DATE},
-      update_by = #{updateBy,jdbcType=VARCHAR},
-      update_date = #{updateDate,jdbcType=DATE}
+<!--       update_by = #{updateBy,jdbcType=VARCHAR},
+ -->      update_date = #{updateDate,jdbcType=DATE}
     where id = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>
