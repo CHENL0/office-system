@@ -97,6 +97,10 @@
 	</select>
 	<!-- 插入用户 -->
 	<insert id="insert" parameterType="SysOUser" >
+	<!-- 在插入之前id生成UUID，并赋值到SysOUser对象中 -->
+	 <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            select  lower(sys_guid()) from DUAL
+     </selectKey>
     insert into SYS_O_USER 
     ("id", "create_date", "del_flag","create_by","update_date",
       "name", "login_name","phone",
@@ -119,6 +123,7 @@
        "sex" = #{sex,jdbcType=VARCHAR},
       "photo" = #{photo,jdbcType=VARCHAR},
       "no" = #{no,jdbcType=VARCHAR},
+      "email" = #{email,jdbcType=VARCHAR},
       <!-- old_password = #{oldPassword,jdbcType=VARCHAR},
       new_password = #{newPassword,jdbcType=VARCHAR}, -->
       "password" = #{password,jdbcType=VARCHAR},

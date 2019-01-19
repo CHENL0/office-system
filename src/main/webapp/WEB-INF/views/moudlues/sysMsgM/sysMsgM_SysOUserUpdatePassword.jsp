@@ -34,11 +34,11 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="<%=basePath%>a/sysUser/updatePassword.do" method="post" class="form form-horizontal" id="form-change-password">
+	<form action="<%=basePath%>a/sysUser/updatePassword.do" method="post" class="form form-horizontal">
 	  <input type="hidden" value="${sysOUser.id }"name="id" id="id">
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>账户：</label>
-			<div class="formControls col-xs-8 col-sm-9"> 张三 </div>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>登录名：</label>
+			<div class="formControls col-xs-8 col-sm-9"> ${sysOUser.loginName } </div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>新密码：</label>

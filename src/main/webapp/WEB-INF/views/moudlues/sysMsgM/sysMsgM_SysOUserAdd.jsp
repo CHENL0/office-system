@@ -34,9 +34,8 @@
 </head>
 <body>
 <article class="page-container">
-   <input type="hidden" value="" >
 	<form action="<%=basePath%>/a/sysUser/save.do" method="post" class="form form-horizontal"  enctype="multipart/form-data">
-	  <input type="hidden" name="id" id="id" value="2">
+	    <input type="hidden" value="${param.current_user_Id}" name="createBy.id" id="createBy.id" >
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>姓名：</label>
 			<div class="formControls col-xs-8 col-sm-9">

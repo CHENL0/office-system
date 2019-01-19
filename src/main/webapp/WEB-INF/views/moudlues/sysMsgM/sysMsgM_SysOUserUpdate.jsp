@@ -35,7 +35,8 @@
 <body>
 <article class="page-container">
 	<form action="<%=basePath%>/a/sysUser/update.do" method="post" class="form form-horizontal">
-	   <input type="hidden" value="${sysOUser.id }" name="updateBy.id" id="updateBy.id">
+	   <input type="hidden" value="${param.current_user_Id }" name="updateBy.id" id="updateBy.id">
+	    <input type="hidden" value="${sysOUser.id }" name="id" id="id">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>姓名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -57,12 +58,14 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属的部门：</label>
 			<div class="formControls col-xs-8 col-sm-9">
+			    <input type="hidden" name="sysODepartment.id" id="sysODepartment.id" value="${sysOUser.sysODepartment.id }">
 				<input type="text" class="input-text" value="${sysOUser.sysODepartment.name }" placeholder="" id="sysODepartment.name" name="sysODepartment.name">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色：</label>
 			<div class="formControls col-xs-8 col-sm-9">
+			    <input type="hidden" name="sysORole.id" id="sysORole.id" value="${sysOUser.sysORole.id }">
 				<input type="text" class="input-text" value="${sysOUser.sysORole.name }" placeholder="" id="sysORole.name" name="sysORole.name">
 			</div>
 		</div>

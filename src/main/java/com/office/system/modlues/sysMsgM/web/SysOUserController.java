@@ -40,6 +40,7 @@ public class SysOUserController {
     //保存
 	@RequestMapping(value="/save.do",method=RequestMethod.POST)
 	public String save(Model model,@RequestParam MultipartFile Mphoto,SysOUser sysOUser,HttpSession session) throws IllegalStateException, IOException{
+		
 		if (sysOUser !=null && sysOUser.getDelFlag().equals("0")) {
 			sysOUserService.save(sysOUser,Mphoto,session);
 		}
@@ -82,7 +83,7 @@ public class SysOUserController {
 	@RequestMapping("/del.do")
 	public String del(Model model,SysOUser sysOUser){
 		sysOUserService.delete(sysOUser);
-		return "moudlues/sysMsgM/sysMsgM_SysOUserList";
+		return "redirect:"+"/a/sysUser/list.do";
 	}
 	//查询个人信息
 	@RequestMapping("/show.do")
