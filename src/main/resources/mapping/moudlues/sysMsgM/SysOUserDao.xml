@@ -140,7 +140,12 @@
 			"del_flag" = 1
 		WHERE "id" = #{id}
  </update>
- 
+ <!-- 逻辑级联删除用户的邮件 -->
+  <update id="deleteSysOUserEmail">
+		UPDATE INF_EMAIL SET 
+			"del_flag" = 1
+		WHERE "create_by" = #{id}
+  </update>
  	<!-- 更新用户密码 -->
 	<update id="updatePasswordById">
 		UPDATE SYS_O_USER SET 

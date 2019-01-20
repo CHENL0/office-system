@@ -2,6 +2,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <%@ page isELIgnored="false" %>
+<% Date nowDate = new Date(); request.setAttribute("nowDate", nowDate); %>
 <!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
 <html>
@@ -36,6 +37,7 @@
 <article class="page-container">
 	<form action="<%=basePath%>/a/sysUser/save.do" method="post" class="form form-horizontal"  enctype="multipart/form-data">
 	    <input type="hidden" value="${param.current_user_Id}" name="createBy.id" id="createBy.id" >
+	     <input type="hidden" value="${nowDate}" name="createDate" id="createDate">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>姓名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -108,11 +110,11 @@
 		 <div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">所属部门：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select class="select" size="1" name="city">
+				<select class="select" size="1" name="sysODepartment.id" id="sysODepartment.id">
 					<option value="" selected>请部门</option>
-					<option value="1">北京</option>
-					<option value="2">上海</option>
-					<option value="3">广州</option>
+					<c:forEach items="${sysODepartments}" var="sysODepartment">
+					<option value="${sysODepartment.id }">${sysODepartment.name }</option>
+					</c:forEach>
 				</select>
 				</span> 
 				</div>
@@ -120,11 +122,11 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">角色：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select class="select" size="1" name="city">
+				<select class="select" size="1" name="sysORole.id" id="sysORole.id">
 					<option value="" selected>请分配角色</option>
-					<option value="1">北京</option>
-					<option value="2">上海</option>
-					<option value="3">广州</option>
+					<c:forEach items="${sysORoles }" var="sysORole">
+					<option value="${sysORole.id }">${sysORole.name }</option>
+					</c:forEach>
 				</select>
 				</span> 
 				</div>

@@ -25,10 +25,11 @@ public class SysOUserService extends CrudService<SysOUserDao,SysOUser>{
 	@Autowired
 	SysOUserDao sysOUserDao;
 	
+	//修改密码
 	public void updatePasswordById(SysOUser sysOUser){
 		sysOUserDao.updatePasswordById(sysOUser);
 	}
-	
+	//保存
 	public void save(SysOUser sysOUser,MultipartFile Mphoto,HttpSession session) throws IllegalStateException, IOException{
 
 		String path = session.getServletContext().getRealPath("/sysOUserPhoto");//获取应用根目录下的sysOUserPhoto文件夹
@@ -38,8 +39,11 @@ public class SysOUserService extends CrudService<SysOUserDao,SysOUser>{
    		sysOUser.setPhoto(fileName);
    		sysOUserDao.insert(sysOUser);
    		
-   		
-		
+	}
+	//删除
+	public void delete(SysOUser sysOUser){
+		super.delete(sysOUser);
+		sysOUserDao.deleteSysOUserEmail(sysOUser);
 	}
 	
 

@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.office.system.modlues.sysMsgM.entity.SysODepartment;
+import com.office.system.modlues.sysMsgM.entity.SysORole;
 import com.office.system.modlues.sysMsgM.entity.SysOUser;
 import com.office.system.modlues.sysMsgM.entity.User;
 import com.office.system.modlues.sysMsgM.service.SysODepartmentService;
+import com.office.system.modlues.sysMsgM.service.SysORoleService;
 import com.office.system.modlues.sysMsgM.service.SysOUserService;
 import com.office.system.modlues.sysMsgM.service.UserService;
 
@@ -37,6 +39,10 @@ public class SysOUserController {
     @Autowired
     SysODepartmentService sysODepartmentService;
     
+    @Autowired
+    SysORoleService sysORoleService;
+    
+    
     //保存
 	@RequestMapping(value="/save.do",method=RequestMethod.POST)
 	public String save(Model model,@RequestParam MultipartFile Mphoto,SysOUser sysOUser,HttpSession session) throws IllegalStateException, IOException{
@@ -44,11 +50,14 @@ public class SysOUserController {
 		if (sysOUser !=null && sysOUser.getDelFlag().equals("0")) {
 			sysOUserService.save(sysOUser,Mphoto,session);
 		}
-		return "moudlues/sysMsgM/sysMsgM_SysOUserAdd";
+		return "redirect:"+"/a/sysUser/list.do";
 	}
 	@RequestMapping(value="/save.do",method=RequestMethod.GET)
-	public String save2(SysOUser sysOUser) throws IllegalStateException, IOException{
-		
+	public String save2(Model model,SysOUser sysOUser){
+		List<SysODepartment> sysODepartments = sysODepartmentService.findList(new SysODepartment());
+		model.addAttribute("sysODepartments", sysODepartments);
+		List<SysORole> sysORoles = sysORoleService.findList(new SysORole());
+		model.addAttribute("sysORoles", sysORoles);
 		return "moudlues/sysMsgM/sysMsgM_SysOUserAdd";
 	}
 	//post请求的更新，要做更新
@@ -63,6 +72,10 @@ public class SysOUserController {
 	public String updateForGet(Model model,SysOUser sysOUser){
 		SysOUser sysOUser2 = sysOUserService.get(sysOUser);
 		model.addAttribute("sysOUser", sysOUser2);
+		List<SysODepartment> sysODepartments = sysODepartmentService.findList(new SysODepartment());
+		model.addAttribute("sysODepartments", sysODepartments);
+		List<SysORole> sysORoles = sysORoleService.findList(new SysORole());
+		model.addAttribute("sysORoles", sysORoles);
 		return "moudlues/sysMsgM/sysMsgM_SysOUserUpdate";
 	}
 	//post更新密码

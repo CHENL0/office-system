@@ -11,5 +11,7 @@ import java.util.List;
 public interface SysOUserDao extends CrudDao<SysOUser>{
 	//更新密码
 	public void updatePasswordById(SysOUser sysOUser);
+	//逻辑上删除用户所拥有的邮件
+	public void deleteSysOUserEmail(SysOUser sysOUser);
    
 }

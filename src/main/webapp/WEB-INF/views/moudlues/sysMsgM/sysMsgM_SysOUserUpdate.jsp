@@ -2,6 +2,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <%@ page isELIgnored="false" %>
+<% Date nowDate = new Date(); request.setAttribute("nowDate", nowDate); %>
 <!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
 <html>
@@ -36,6 +37,7 @@
 <article class="page-container">
 	<form action="<%=basePath%>/a/sysUser/update.do" method="post" class="form form-horizontal">
 	   <input type="hidden" value="${param.current_user_Id }" name="updateBy.id" id="updateBy.id">
+	   <input type="hidden" value="${nowDate}" name="updateDate" id="updateDate">
 	    <input type="hidden" value="${sysOUser.id }" name="id" id="id">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>姓名：</label>
@@ -97,6 +99,18 @@
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" placeholder="@" name="email" id="email">
 			</div>
+		</div>
+		 <div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">所属部门：</label>
+			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
+				<select class="select" size="1" name="sysODepartment.id" id="sysODepartment.id">
+					<option value="" selected>请部门</option>
+					<c:forEach items="${sysODepartments}" var="sysODepartment">
+					<option value="${sysODepartment.id }">${sysODepartment.name }</option>
+					</c:forEach>
+				</select>
+				</span> 
+				</div>
 		</div>
 		<!-- <div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">附件：</label>
