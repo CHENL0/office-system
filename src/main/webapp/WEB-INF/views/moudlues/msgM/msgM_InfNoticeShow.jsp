@@ -32,15 +32,15 @@
 		<tbody>
 			<tr>
 				<th class="text-r" width="80">标题：</th>
-				<td>${sysOUser.sex }</td>
+				<td>${infNotice.title }</td>
 			</tr>
 			<tr>
 				<th class="text-r">内容：</th>
-				<td>${sysOUser.phone }</td>
+				<td>${infNotice.text }</td>
 			</tr>
 			<tr>
 				<th class="text-r">发送时间：</th>
-				<td>2014.12.20</td>
+				<td>${infNotice.createDate }</td>
 			</tr>
 			
 		</tbody>

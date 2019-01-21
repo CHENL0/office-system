@@ -140,7 +140,9 @@
                     -->
                     <li><a data-href="<%=basePath%>a/sysUser/updatePassword.do?id=${currentUser.id}" data-title="修改密码" href="javascript:;">修改密码</a></li>
                     <li><a data-href="<%=basePath%>a/sysUser/update.do?id=${currentUser.id}&current_user_Id=${currentUser.id}" data-title="修改个人信息" href="javascript:;">修改个人信息</a></li>
-                    <li><a data-href="member-list.html" data-title="部门调度信息" href="javascript:;">部门调度信息</a></li>
+                    <li><a data-href="<%=basePath%>a/sysODepartmentDispatch/list.do?currentUserId=${currentUser.id}" data-title="部门调度信息" href="javascript:;">部门调度信息</a></li>
+                    <li><a data-href="<%=basePath%>a/sysODepartment/list.do?currentUserId=${currentUser.id}" data-title="部门管理" href="javascript:;">部门管理</a></li>
+                    <li><a data-href="<%=basePath%>a/sysORole/list.do?currentUserId=${currentUser.id}" data-title="角色管理" href="javascript:;">角色管理</a></li>
                     <li><a data-href="<%=basePath%>a/sysUser/list.do?currentUserId=${currentUser.id}" data-title="员工信息" href="javascript:;">员工信息</a></li>
 			</ul>
 		</dd>

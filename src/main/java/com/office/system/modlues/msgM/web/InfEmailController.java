@@ -61,9 +61,7 @@ public class InfEmailController {
 	@RequestMapping("/show.do")
 	public String get(InfEmail infEmail,Model model){
 		infEmailSeivice.get(infEmail);
-		List<SysOUser> sysOUsers = sysOUserService.findList(new SysOUser());
 		model.addAttribute("infEmail", infEmail);
-		model.addAttribute("sysOUsers", sysOUsers);
 		return "moudlues/msgM/msgM_InfEmailShow";
 	}
 	

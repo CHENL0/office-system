@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.office.system.modlues.sysMsgM.entity.SysODepartment;
@@ -94,9 +95,10 @@ public class SysOUserController {
 	}
 	//逻辑上删除
 	@RequestMapping("/del.do")
+	@ResponseBody
 	public String del(Model model,SysOUser sysOUser){
 		sysOUserService.delete(sysOUser);
-		return "redirect:"+"/a/sysUser/list.do";
+		return "删除成功!";
 	}
 	//查询个人信息
 	@RequestMapping("/show.do")

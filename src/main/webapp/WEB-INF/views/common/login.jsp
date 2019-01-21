@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
+<%@ page isELIgnored="false" %>
 <html>
 <head>
 <meta charset="utf-8">
@@ -19,6 +21,7 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
+
 <title>中小企业管理系统后台登录 </title>
 <meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
 <meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
@@ -62,11 +65,13 @@
     </form>
   </div>
 </div>
+<input value="${message }" name="msg" id="msg">
 <div class="footer">中小企业管理系统后台</div>
-<script type="<%=basePath%>static/text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
-<script type="<%=basePath%>static/text/javascript" src="static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>static/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="<%=basePath%>static/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>static/lib/layer/2.4/layer.js"></script>
 <!--此乃百度统计代码，请自行删除-->
-<script>
+<!-- <script>
 var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
@@ -74,6 +79,13 @@ var _hmt = _hmt || [];
   var s = document.getElementsByTagName("script")[0]; 
   s.parentNode.insertBefore(hm, s);
 })();
+</script> -->
+<script type="text/javascript">
+window.onload=function(){
+	var msg = document.getElementById('msg').value;
+	if(msg != null && msg != '') {layer.msg(msg,{icon: 5,time:2000});}
+	
+} 
 </script>
 <!--/此乃百度统计代码，请自行删除-->
 </body>

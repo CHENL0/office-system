@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -35,7 +36,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/login.do",method=RequestMethod.POST)
-	public String login1(HttpServletRequest request,SysOUser sysOUser){
+	public String login1(HttpServletRequest request,SysOUser sysOUser,Model model){
 		    List<SysOUser> users = sysOUserService.findList(new SysOUser());
 		    String message  = null;
 		    for (SysOUser user2 : users) {
@@ -46,6 +47,7 @@ public class LoginController {
 				}
 			}
 			message = "登录失败，用户名或密码错误";
+			model.addAttribute("message", message);
 			return "common/login";		
 	}
 

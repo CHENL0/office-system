@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.office.system.modlues.sysMsgM.dao.SysODepartmentDao" >
-  <resultMap id="BaseResultMap" type="SysODepartment" >
+<mapper namespace="com.office.system.modlues.sysMsgM.dao.SysODepartmentDispatchDao" >
+  <resultMap id="BaseResultMap" type="SysODepartmentDispatch" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="DATE" />
     <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
     <result column="text" property="text" jdbcType="VARCHAR" />
     <association property="updateBy"
                  javaType="SysOUser"
@@ -17,23 +17,41 @@
                  column="create_by"
                  select="findSysOUserBase">
     </association>
+     <association property="dispatchUser"
+                 javaType="SysOUser"
+                 column="dispatch_user_id"
+                 select="findSysOUserBase">
+    </association>
+     <association property="oldDepartment"
+                 javaType="SysOUser"
+                 column="old_department_id"
+                 select="findSysODepartmentBase">
+    </association>
+      <association property="newDeparment"
+                 javaType="SysOUser"
+                 column="new_department_id"
+                 select="findSysODepartmentBase">
+    </association>
   </resultMap>
   <select id="findSysOUserBase" resultType="SysOUser">
    select * from SYS_O_USER where "id"=#{xxx}
   </select>
+  <select id="findSysODepartmentBase" resultType="SysODepartment">
+   select * from SYS_O_DEPARTMENT where "id"=#{xxx}
+  </select>
   <sql id="Base_Column_List" >
-    "id", "create_by", "create_date", "del_flag", "name", "text","update_date","update_by"
+    "id", "create_by", "create_date", "del_flag", "reason", "dispatch_user_id","new_department_id","old_department_id","update_date","update_by"
   </sql>
   <!-- 查询部门信息 -->
   <select id="findList" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
-    from SYS_O_DEPARTMENT a
+    from SYS_O_DEPARTMENT_DISPATCH a
         <where>
 			a."del_flag" = #{delFlag}
-			<if test="name != null and name != ''">
-				AND a."name" LIKE 
-					'%'||#{name}||'%'
+			<if test="reason != null and reason != ''">
+				AND a."reason" LIKE 
+					'%'||#{reason}||'%'
 					<!-- <if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
 					<if test="dbName == 'mysql'">CONCAT('%', #{title}, '%')</if> -->
 			</if>
@@ -43,7 +61,7 @@
   <select id="get" resultMap="BaseResultMap" >
     select 
     <include refid="Base_Column_List" />
-    from SYS_O_DEPARTMENT
+    from SYS_O_DEPARTMENT_DISPATCH
     where "id" = #{id,jdbcType=VARCHAR}
   </select>
   <!--删除部门 -->
@@ -57,17 +75,19 @@
 	 <selectKey keyProperty="id" resultType="String" order="BEFORE">
             select  lower(sys_guid()) from DUAL
      </selectKey>
-    insert into SYS_O_DEPARTMENT ("id", "create_by", "create_date", 
-      "del_flag", "name", "text","update_by","update_date"
+    insert into SYS_O_DEPARTMENT_DISPATCH ("id", "create_by", "create_date", 
+      "del_flag", "reason", "dispatch_user_id","old_department_id","new_department_id","update_by","update_date"
       )
     values (#{id,jdbcType=VARCHAR}, #{createBy.id,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, 
-      #{delFlag,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR},#{updateBy.id,jdbcType=VARCHAR},
+      #{delFlag,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, #{dispatchUser.id,jdbcType=VARCHAR},
+      #{oldDepartment.id,jdbcType=VARCHAR},#{newDeparment.id,jdbcType=VARCHAR},
+      #{updateBy.id,jdbcType=VARCHAR},
       #{updateDate,jdbcType=DATE}
       )
   </insert>
    <!-- 逻辑删除部门 -->
   <update id="delete">
-		UPDATE SYS_O_DEPARTMENT SET 
+		UPDATE SYS_O_DEPARTMENT_DISPATCH SET 
 			"del_flag" = 1
 		WHERE "id" = #{id}
  </update>
@@ -78,7 +98,7 @@
     </if>
   </select> -->
   <update id="update" >
-    update SYS_O_DEPARTMENT
+    update SYS_O_DEPARTMENT_DISPATCH
     <set >
       <if test="createBy != null and createBy.id != null and createBy.id != ''">
         "create_by" = #{createBy.id,jdbcType=VARCHAR},
@@ -90,10 +110,16 @@
         "del_flag" = #{delFlag,jdbcType=VARCHAR},
       </if>
       <if test="name != null" >
-       " name" = #{name,jdbcType=VARCHAR},
+       " reason" = #{reason,jdbcType=VARCHAR},
       </if>
-      <if test="text != null" >
-        "text" = #{text,jdbcType=VARCHAR},
+      <if test="dispatchUser != null and dispatchUser.id != null and dispatchUser.id != ''" >
+        "dispatch_user_id" = #{dispatchUser.id,jdbcType=VARCHAR},
+      </if>
+      <if test="oldDepartment != null and oldDepartment.id != null and oldDepartment.id != ''" >
+        "old_department_id" = #{oldDepartment.id,jdbcType=VARCHAR},
+      </if>
+      <if test="newDeparment != null and newDeparment.id != null and newDeparment.id != ''" >
+        "new_department_id" = #{newDeparment.id,jdbcType=VARCHAR},
       </if>
       <if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
         "update_by" = #{updateBy.id,jdbcType=VARCHAR},

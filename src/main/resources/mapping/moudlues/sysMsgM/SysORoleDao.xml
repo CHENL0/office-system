@@ -52,6 +52,10 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete> -->
   <insert id="insert">
+  <!-- 在插入之前id生成UUID，并赋值到SysOUser对象中 -->
+	 <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            select  lower(sys_guid()) from DUAL
+     </selectKey>
     insert into SYS_O_ROLE ("id", "create_by", "create_date", 
       "del_flag", "name","update_by","update_date")
      values (#{id,jdbcType=VARCHAR}, #{createBy.id,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, 

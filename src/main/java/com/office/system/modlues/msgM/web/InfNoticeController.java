@@ -58,7 +58,9 @@ public class InfNoticeController {
 	
 	@RequestMapping("/show.do")
 	public String show(Model model,InfNotice infNotice){
-		return null;
+		InfNotice infNotice1 = infNoticeSeivice.get(infNotice);
+		model.addAttribute("infNotice", infNotice1);
+		return "moudlues/sysMsgM/msgM_InfNoticeShow";
 		
 	}
 

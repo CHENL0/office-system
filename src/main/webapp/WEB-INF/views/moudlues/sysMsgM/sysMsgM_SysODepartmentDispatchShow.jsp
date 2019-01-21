@@ -23,24 +23,41 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>邮件查看</title>
+<title>用户查看</title>
 </head>
 <body>
-
+<div class="cl pd-20" style=" background-color:#5bacb6">
+	<img class="avatar size-XL l" src="<%=basePath%>/sysOUserPhoto/${sysOUser.photo }">
+	<dl style="margin-left:80px; color:#fff">
+		<dt>
+			<span class="f-18">${sysOUser.name }</span>
+			<span class="pl-10 f-12">余额：40</span>
+		</dt>
+		<dd class="pt-10 f-12" style="margin-left:0">这家伙很懒，什么也没有留下</dd>
+	</dl>
+</div>
 <div class="pd-20">
 	<table class="table">
 		<tbody>
 			<tr>
-				<th class="text-r" width="80">标题：</th>
-				<td>${infEmail.title }</td>
+				<th class="text-r" width="80">性别：</th>
+				<td>${sysOUser.sex }</td>
 			</tr>
 			<tr>
-				<th class="text-r">内容：</th>
-				<td>${infEmail.text }</td>
+				<th class="text-r">手机：</th>
+				<td>${sysOUser.phone }</td>
 			</tr>
 			<tr>
-				<th class="text-r">发送时间：</th>
-				<td>${infEmail.sendTime }</td>
+				<th class="text-r">邮箱：</th>
+				<td>${sysOUser.email }</td>
+			</tr>
+			<tr>
+				<th class="text-r">地址：</th>
+				<td>${sysOUser.adress }</td>
+			</tr>
+			<tr>
+				<th class="text-r">注册时间：</th>
+				<td>2014.12.20</td>
 			</tr>
 			
 		</tbody>

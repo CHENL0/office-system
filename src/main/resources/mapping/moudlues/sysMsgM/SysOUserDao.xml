@@ -149,7 +149,13 @@
  	<!-- 更新用户密码 -->
 	<update id="updatePasswordById">
 		UPDATE SYS_O_USER SET 
-			"password" = #{password} 
+			"departme_id" = #{password} 
+		WHERE "id" = #{id}
+	</update>
+	<!-- 更新部门 -->
+	<update id="updateDepartmentByDepartmentName">
+	  UPDATE SYS_O_USER SET 
+			"password" = #{sysODepartment.id} 
 		WHERE "id" = #{id}
 	</update>
 </mapper> 

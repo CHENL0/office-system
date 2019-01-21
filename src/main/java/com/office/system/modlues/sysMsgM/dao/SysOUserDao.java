@@ -13,5 +13,7 @@ public interface SysOUserDao extends CrudDao<SysOUser>{
 	public void updatePasswordById(SysOUser sysOUser);
 	//逻辑上删除用户所拥有的邮件
 	public void deleteSysOUserEmail(SysOUser sysOUser);
+	//更新部门
+	public void updateDepartment(SysOUser sysOUser);
    
 }

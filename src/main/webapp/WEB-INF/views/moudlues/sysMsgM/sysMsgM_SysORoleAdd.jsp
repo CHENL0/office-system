@@ -29,41 +29,23 @@
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
 
-<title>发布公告 </title>
+<title>角色用户 </title>
 <meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
 <meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
 <article class="page-container">
-	<form action="<%=basePath%>/a/infNotice/save.do" method="post" class="form form-horizontal"  enctype="multipart/form-data">
-	     <input type="hidden" value="${param.current_user_Id}" name="createBy.id" id="createBy.id" >
+	<form action="<%=basePath%>/a/sysORole/save.do" method="post" class="form form-horizontal"  enctype="multipart/form-data">
+	    <input type="hidden" value="${param.current_user_Id}" name="createBy.id" id="createBy.id" >
 	     <input type="hidden" value="${nowDate}" name="createDate" id="createDate">
+		
+		
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>标题：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>名字：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="title" name="title">
+				<input type="text" class="input-text" value="" placeholder="" id="name" name="name">
 			</div>
 		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">内容：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="beizhu" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"id="text" name="text"></textarea>
-				<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>类型：</label>
-			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select class="select" size="1" name="type.id" id="type.id">
-					<option value="" selected>请选择公告的类型</option>
-					<c:forEach items="${infNoticeTypes}" var="infNoticeType">
-					<option value="${infNoticeType.id }">${infNoticeType.name }</option>
-					</c:forEach>
-				</select>
-				</span> 
-			</div>
-		</div>
-	
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
 				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
