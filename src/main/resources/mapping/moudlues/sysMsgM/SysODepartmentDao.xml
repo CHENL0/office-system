@@ -76,7 +76,7 @@
   <update id="update" >
     update SYS_O_DEPARTMENT
     <set >
-      <if test="createBy != null" >
+      <if test="createBy != null and createBy.id != null and createBy.id != ''">
         "create_by" = #{createBy.id,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null" >
@@ -91,7 +91,7 @@
       <if test="text != null" >
         "text" = #{text,jdbcType=VARCHAR},
       </if>
-        <if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
+      <if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
         "update_by" = #{updateBy.id,jdbcType=VARCHAR},
       </if>
        <if test="updateDate != null" >

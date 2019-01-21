@@ -17,7 +17,7 @@ import com.office.system.modlues.sysMsgM.service.UserService;
 
 import oracle.net.aso.s;
 /**
- * 登录
+ * 登录管理
  * @author lzc
  *
  */

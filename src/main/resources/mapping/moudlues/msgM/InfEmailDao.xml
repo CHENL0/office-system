@@ -4,119 +4,153 @@
   <resultMap id="BaseResultMap" type="InfEmail" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="text" property="text" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="staut" property="staut" jdbcType="VARCHAR" />
-    <result column="sendTime" property="sendtime" jdbcType="DATE" />
-    <result column="get_user_id" property="getUserId" jdbcType="VARCHAR" />
-    <result column="send_user_id" property="sendUserId" jdbcType="VARCHAR" />
+    <result column="sendTime" property="sendTime" jdbcType="DATE" />
     <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
-<!--     <result column="creat_by" property="createBy" jdbcType="VARCHAR" />
- -->    <result column="create_date" property="createDate" jdbcType="DATE" />
-<!--     <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
- -->    <result column="update_date" property="updateDate" jdbcType="DATE" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
+    <result column="create_date" property="createDate" jdbcType="DATE" />
+    <result column="update_date" property="updateDate" jdbcType="DATE" />
+   <association property="updateBy"
+                 javaType="SysOUser"
+                 column="update_by"
+                 select="findSysOUserBase">
+    </association>
+    <association property="createBy"
+                 javaType="SysOUser"
+                 column="create_by"
+                 select="findSysOUserBase"
+                 >
+    </association>
+    <association property="getUser"
+                 javaType="SysOUser"
+                 column="get_user_id"
+                 select="findSysOUserBase"
+                 >
+    </association>
+    <association property="sendUser"
+                 javaType="SysOUser"
+                 column="send_user_id"
+                 select="findSysOUserBase"
+                 >
+    </association>
+ </resultMap>
+  <select id="findSysOUserBase" resultType="SysOUser">
+   select * from SYS_O_USER where "id"=#{xxx}
+  </select>
+  
   <sql id="Base_Column_List" >
-    id, text, staut, sendTime, get_user_id, send_user_id, del_flag, creat_by, create_date, 
-    update_by, update_date
+    "id","title", "text", "staut", "sendTime", "get_user_id", "send_user_id", "del_flag", "create_by", "create_date", 
+    "update_by", "update_date"
   </sql>
-<!--   <select id="selectByExample" resultMap="BaseResultMap" parameterType="InfEmailExample" >
+ <select id="findList" resultMap="BaseResultMap" >
     select
-    <if test="distinct" >
-      distinct
-    </if>
     <include refid="Base_Column_List" />
-    from INF_EMAIL
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select> -->
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    from INF_EMAIL a
+     <where>
+			a."del_flag" = #{delFlag}
+			<if test="text != null and text != ''">
+				AND a."text" LIKE 
+					'%'||#{text}||'%'
+					<!-- <if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
+					<if test="dbName == 'mysql'">CONCAT('%', #{title}, '%')</if> -->
+			</if>
+			 <if test="title != null and title != ''">
+				AND a."title" LIKE 
+					'%'||#{title}||'%'
+			</if>
+		    <if test="staut != null and staut != ''">
+				AND a."staut" LIKE 
+					'%'||#{staut}||'%'
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a."create_by"  = #{createBy.id}
+			</if>
+		</where>
+ </select>
+  <select id="get" resultMap="BaseResultMap" >
     select 
     <include refid="Base_Column_List" />
     from INF_EMAIL
-    where id = #{id,jdbcType=VARCHAR}
+    where "id" = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from INF_EMAIL
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
-<!--   <delete id="deleteByExample" parameterType="InfEmailExample" >
-    delete from INF_EMAIL
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete> -->
-  <insert id="insert" parameterType="InfEmail" >
-    insert into INF_EMAIL (id, text, staut, 
-      sendTime, get_user_id, send_user_id, 
-      del_flag, creat_by, create_date, 
-      update_by, update_date)
+
+  <insert id="insert" >
+  	<!-- 在插入之前id生成UUID，并赋值到SysOUser对象中 -->
+	 <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            select  lower(sys_guid()) from DUAL
+     </selectKey>
+    insert into INF_EMAIL ("id", "text", "staut", 
+      "sendTime", "get_user_id", "send_user_id", 
+      "del_flag", "create_by", "create_date", 
+      "update_by", "update_date")
     values (#{id,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, #{staut,jdbcType=VARCHAR}, 
-      #{sendtime,jdbcType=DATE}, #{getUserId,jdbcType=VARCHAR}, #{sendUserId,jdbcType=VARCHAR}, 
+      #{sendTime,jdbcType=DATE}, #{getUser.id,jdbcType=VARCHAR}, #{sendUser.id,jdbcType=VARCHAR}, 
       #{delFlag,jdbcType=VARCHAR}, #{createBy.id,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, 
-     <!--  #{updateBy,jdbcType=VARCHAR} -->, #{updateDate,jdbcType=DATE})
+      #{updateBy.id,jdbcType=VARCHAR}, #{updateDate,jdbcType=DATE})
   </insert>
-  <insert id="insertSelective" parameterType="InfEmail" >
+     <!-- 逻辑删除邮件 -->
+  <update id="delete">
+		UPDATE INF_EMAIL SET 
+			"del_flag" = 1
+		WHERE "id" = #{id}
+ </update>
+ 
+   <update id="update"  >
+    update INF_EMAIL
+    <set >
+      <if test="text != null" >
+        "text" = #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="staut != null" >
+        "staut" = #{staut,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null" >
+        "sendTime" = #{sendTime,jdbcType=DATE},
+      </if>
+    <!--   <if test="getUserId != null" >
+        "get_user_id" = #{getUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="sendUserId != null" >
+        "send_user_id" = #{sendUserId,jdbcType=VARCHAR},
+      </if> -->
+      <if test="delFlag != null" >
+        "del_flag" = #{delFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null and createBy.id != null and createBy.id != ''">
+        "create_by" = #{createBy.id,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        "create_date" = #{createDate,jdbcType=DATE},
+      </if>
+      <if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
+        "update_by" = #{updateBy.id,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        "update_date" = #{updateDate,jdbcType=DATE},
+      </if>
+    </set>
+    where "id" = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="InfEmail" >
+    update INF_EMAIL
+    set "text" = #{text,jdbcType=VARCHAR},
+      "staut" = #{staut,jdbcType=VARCHAR},
+      "sendTime" = #{sendTime,jdbcType=DATE},
+      "get_user_id" = #{getUser.id,jdbcType=VARCHAR},
+      "send_user_id" = #{sendUser.id,jdbcType=VARCHAR},
+      "del_flag" = #{delFlag,jdbcType=VARCHAR},
+      "creat_by" = #{createBy.id,jdbcType=VARCHAR},
+      "create_date" = #{createDate,jdbcType=DATE},
+       "update_by" = #{updateBy.id,jdbcType=VARCHAR},
+       "update_date" = #{updateDate,jdbcType=DATE}
+    where "id" = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
+    <!-- 统计邮件数 -->
+<!--   <select id="countByExample" resultType="java.lang.Integer" >
+    select count(*) from INF_EMAIL
+  </select> -->
+  <!-- <insert id="insertSelective" parameterType="InfEmail" >
     insert into INF_EMAIL
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -140,15 +174,15 @@
       <if test="delFlag != null" >
         del_flag,
       </if>
-    <!--   <if test="createBy != null" >
+      <if test="createBy != null" >
         creat_by,
-      </if> -->
+      </if>
       <if test="createDate != null" >
         create_date,
       </if>
-    <!--   <if test="updateBy != null" >
+      <if test="updateBy != null" >
         update_by,
-      </if> -->
+      </if>
       <if test="updateDate != null" >
         update_date,
       </if>
@@ -175,26 +209,25 @@
       <if test="delFlag != null" >
         #{delFlag,jdbcType=VARCHAR},
       </if>
-     <!--  <if test="createBy != null" >
+      <if test="createBy != null" >
         #{createBy,jdbcType=VARCHAR},
-      </if> -->
+      </if>
       <if test="createDate != null" >
         #{createDate,jdbcType=DATE},
       </if>
-     <!--  <if test="updateBy != null" >
+      <if test="updateBy != null" >
         #{updateBy,jdbcType=VARCHAR},
-      </if> -->
+      </if>
       <if test="updateDate != null" >
         #{updateDate,jdbcType=DATE},
       </if>
     </trim>
-  </insert>
-<!--   <select id="countByExample" parameterType="InfEmailExample" resultType="java.lang.Integer" >
-    select count(*) from INF_EMAIL
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select> -->
+  </insert> -->
+  <!--   <delete id="deleteByPrimaryKey" >
+    delete from INF_EMAIL
+    where id = #{id,jdbcType=VARCHAR}
+  </delete> -->
+
 <!--   <update id="updateByExampleSelective" parameterType="map" >
     update INF_EMAIL
     <set >
@@ -237,54 +270,4 @@
     </if>
   </update> -->
   
-  <update id="updateByPrimaryKeySelective" parameterType="InfEmail" >
-    update INF_EMAIL
-    <set >
-      <if test="text != null" >
-        text = #{text,jdbcType=VARCHAR},
-      </if>
-      <if test="staut != null" >
-        staut = #{staut,jdbcType=VARCHAR},
-      </if>
-      <if test="sendtime != null" >
-        sendTime = #{sendtime,jdbcType=DATE},
-      </if>
-      <if test="getUserId != null" >
-        get_user_id = #{getUserId,jdbcType=VARCHAR},
-      </if>
-      <if test="sendUserId != null" >
-        send_user_id = #{sendUserId,jdbcType=VARCHAR},
-      </if>
-      <if test="delFlag != null" >
-        del_flag = #{delFlag,jdbcType=VARCHAR},
-      </if>
-    <!--   <if test="createBy != null" >
-        creat_by = #{createBy,jdbcType=VARCHAR},
-      </if> -->
-      <if test="createDate != null" >
-        create_date = #{createDate,jdbcType=DATE},
-      </if>
-      <!-- <if test="updateBy != null" >
-        update_by = #{updateBy,jdbcType=VARCHAR},
-      </if> -->
-      <if test="updateDate != null" >
-        update_date = #{updateDate,jdbcType=DATE},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="InfEmail" >
-    update INF_EMAIL
-    set text = #{text,jdbcType=VARCHAR},
-      staut = #{staut,jdbcType=VARCHAR},
-      sendTime = #{sendtime,jdbcType=DATE},
-      get_user_id = #{getUserId,jdbcType=VARCHAR},
-      send_user_id = #{sendUserId,jdbcType=VARCHAR},
-      del_flag = #{delFlag,jdbcType=VARCHAR},
-      creat_by = #{createBy.id,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=DATE},
-<!--       update_by = #{updateBy,jdbcType=VARCHAR},
- -->      update_date = #{updateDate,jdbcType=DATE}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-</mapper>
+ 

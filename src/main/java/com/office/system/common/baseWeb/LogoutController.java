@@ -4,7 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+/**
+ * 登出管理
+ * 
+ */
 @Controller
 @RequestMapping("/a")
 public class LogoutController {

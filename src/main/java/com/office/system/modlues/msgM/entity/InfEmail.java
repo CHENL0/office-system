@@ -3,28 +3,31 @@ package com.office.system.modlues.msgM.entity;
 import java.util.Date;
 
 import com.office.system.common.baseEntity.DataEntity;
+import com.office.system.modlues.sysMsgM.entity.SysOUser;
 
 public class InfEmail extends DataEntity<InfEmail> {
 	
-    private String text;
+	private String title;//邮件的标题
+	
+    private String text;//邮件内容
 
-    private String staut;
+    private String staut;//邮件状态
 
-    private Date sendtime;
+    private Date sendTime;//发送时间
 
-    private String getUserId;
+    private SysOUser getUser;//接收的人
 
-    private String sendUserId;
+    private SysOUser sendUser;//发送人
 
-    public String getId() {
-        return id;
-    }
+    public String getTitle() {
+		return title;
+	}
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public String getText() {
+	public String getText() {
         return text;
     }
 
@@ -40,27 +43,28 @@ public class InfEmail extends DataEntity<InfEmail> {
         this.staut = staut == null ? null : staut.trim();
     }
 
-    public Date getSendtime() {
-        return sendtime;
+    public Date getSendTime() {
+        return sendTime;
     }
 
-    public void setSendtime(Date sendtime) {
-        this.sendtime = sendtime;
+    public void setSendTime(Date sendTime) {
+        this.sendTime = sendTime;
     }
 
-    public String getGetUserId() {
-        return getUserId;
-    }
+	public SysOUser getGetUser() {
+		return getUser;
+	}
 
-    public void setGetUserId(String getUserId) {
-        this.getUserId = getUserId == null ? null : getUserId.trim();
-    }
+	public void setGetUser(SysOUser getUser) {
+		this.getUser = getUser;
+	}
 
-    public String getSendUserId() {
-        return sendUserId;
-    }
+	public SysOUser getSendUser() {
+		return sendUser;
+	}
 
-    public void setSendUserId(String sendUserId) {
-        this.sendUserId = sendUserId == null ? null : sendUserId.trim();
-    }
+	public void setSendUser(SysOUser sendUser) {
+		this.sendUser = sendUser;
+	}
+    
 }

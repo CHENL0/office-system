@@ -83,8 +83,8 @@
 				<ul>
                 <!--
 					<li><a data-href="article-list.html" data-title="资讯管理" href="javascript:void(0)">资讯管理</a></li>-->
-                    <li><a data-href="article-list.html" data-title="公告信息管理" href="javascript:void(0)">公告信息管理</a></li>
-                    <li><a data-href="article-list.html" data-title="邮件信息管理" href="javascript:void(0)">邮件信息管理</a></li>
+                    <li><a data-href="<%=basePath%>/a/infNotice/list.do?" data-title="公告信息管理" href="javascript:void(0)">公告信息管理</a></li>
+                    <li><a data-href="<%=basePath%>/a/infEmail/list.do?createBy.id=${currentUser.id}&current_user_Id=${currentUser.id}" data-title="邮件信息管理" href="javascript:void(0)">邮件信息管理</a></li>
 			</ul>
 		</dd>
 	</dl>
