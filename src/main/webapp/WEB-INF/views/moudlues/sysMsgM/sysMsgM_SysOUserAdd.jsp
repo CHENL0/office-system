@@ -224,7 +224,7 @@ $(function(){
 <script type="text/javascript">
 window.onload=function(){
 	var msg = document.getElementById('msg').value;
-	if(msg != null && msg != '') {layer.msg(msg,{icon: 5,time:2000});}
+	if(msg != null && msg != '') {layer.msg(msg,{icon: 1,time:2000});}
 	
 } 
 </script>

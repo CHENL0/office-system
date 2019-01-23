@@ -28,7 +28,8 @@ public class SysODepartmentController {
 		
 		if (sysODepartment !=null && sysODepartment.getDelFlag().equals("0")) {
 			sysODepartmentService.save(sysODepartment);
-			return "redirect:"+"/a/sysODepartment/list.do";
+			String msg = "添加成功!";
+			model.addAttribute("msg", msg);
 		}
 		return "moudlues/sysMsgM/sysMsgM_SysODepartmentAdd";
 		
@@ -53,7 +54,8 @@ public class SysODepartmentController {
 	public String update(Model model,SysODepartment sysODepartment){
 		if (sysODepartment !=null && sysODepartment.getDelFlag().equals("0")) {
 			sysODepartmentService.update(sysODepartment);
-			return "redirect:"+"/a/sysODepartment/list.do";
+			String msg = "修改成功!";
+			model.addAttribute("msg", msg);
 		}
 		return "moudlues/sysMsgM/sysMsgM_SysODepartmentUpdate";
 		

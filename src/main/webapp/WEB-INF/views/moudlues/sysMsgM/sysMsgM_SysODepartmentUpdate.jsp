@@ -29,7 +29,7 @@
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
 
-<title>添加用户 - H-ui.admin v3.1</title>
+<title>更新部门</title>
 <meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
 <meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
@@ -106,6 +106,14 @@ $(function(){
 		}
 	});
 });
+</script>
+<!-- 消息提示 -->
+<script type="text/javascript">
+window.onload=function(){
+	var msg = document.getElementById('msg').value;
+	if(msg != null && msg != '') {layer.msg(msg,{icon: 1,time:2000});}
+	
+} 
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->
 </body>
