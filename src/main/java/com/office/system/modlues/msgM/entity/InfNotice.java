@@ -6,17 +6,25 @@ import com.office.system.common.baseEntity.DataEntity;
 
 public class InfNotice extends DataEntity<InfNotice>{
 
-    private String text;
+    private String text;//内容	
 
-    private Date pushDate;
+    private Date pushDate;//发布时间
 
     private String writerId;
 
-    private String typeId;
+    private  InfNoticeType type;//公告的类型
+    
+    private String title;//公告的标题
 
+    public String getTitle() {
+		return title;
+	}
 
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public String getText() {
+	public String getText() {
         return text;
     }
 
@@ -40,12 +48,13 @@ public class InfNotice extends DataEntity<InfNotice>{
         this.writerId = writerId == null ? null : writerId.trim();
     }
 
-    public String getTypeId() {
-        return typeId;
-    }
+	public InfNoticeType getType() {
+		return type;
+	}
 
-    public void setTypeId(String typeId) {
-        this.typeId = typeId == null ? null : typeId.trim();
-    }
+	public void setType(InfNoticeType type) {
+		this.type = type;
+	}
+
 
 }

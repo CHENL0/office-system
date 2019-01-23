@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.office.system.modlues.sysMsgM.dao.SysOUserDao" >
-  <resultMap id="BaseResultMap" type="SysOUser" >
+ <!--  <resultMap id="BaseResultMap" type="SysOUser" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="DATE" />
     <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
@@ -10,117 +10,179 @@
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="photo" property="photo" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
-    <result column="no" property="no" jdbcType="DECIMAL" />
+    <result column="no" property="no" jdbcType="VARCHAR" />
     <result column="old_password" property="oldPassword" jdbcType="VARCHAR" />
     <result column="new_password" property="newPassword" jdbcType="VARCHAR" />
     <result column="role" property="role" jdbcType="VARCHAR" />
     <result column="adress" property="adress" jdbcType="VARCHAR" />
-    <result column="email_id" property="emailId" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
+    <result column="email" property="email" jdbcType="VARCHAR" />
+  </resultMap> -->
+
+  <sql id="sysMsgMUserColumns" >
+         a."id" AS id,       
+		 a."name" AS name,   
+		 a."login_name" AS loginName,
+		 a."create_date" AS createDate,
+		 a."del_flag" AS delFlag,
+		 a."create_by" AS createBy,
+		 a."update_by" AS updateBy,
+		 a."update_date" AS updateDate,
+		<!--  a."new_password" AS newPassword,
+		 a."old_password" AS oldPassword, -->
+		 a."password" AS password,
+		 a."no" AS no,
+		 a."adress" AS adress,
+		 a."phone" AS phone,
+		 a."photo" AS photo,
+		 a."email" AS email,
+		 a."adress" AS adress,
+		 a."sex" AS sex,
+		 o."id" AS "sysODepartment.id",
+		  o."name" AS "sysODepartment.name",
+<!-- 		 e."id" AS "email.id",
+ -->		 r."id" AS "sysORole.id",
+		 r."name" AS "sysORole.name"
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    id, create_date, del_flag, name, login_name, phone, photo, email, no, old_password, 
-    new_password, role, adress, email_id
-  </sql>
-  <!-- <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.itheima.mybatis.pojo.SysOUserExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from SYS_O_USER
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select> -->
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <sql id="sysMsgMUserJoins">
+	  LEFT JOIN SYS_O_DEPARTMENT o ON o."id" = a."departme_id"
+<!-- 	  LEFT JOIN INF_EMAIL e ON e."id" = a."email_id"
+ -->	  LEFT JOIN SYS_O_ROLE r ON r."id" = a."role_id"
+	</sql>
+	<!-- 根据编号获得用户 -->
+	<select id="get" resultType="SysOUser">
+		SELECT 
+		<include refid="sysMsgMUserColumns"/>
+		FROM  SYS_O_USER a
+		<include refid="sysMsgMUserJoins"/>
+		WHERE a."id" = #{id}
+	</select>
+	<!-- 查询用户信息 -->
+	<select id="findList" resultType="SysOUser">
+		SELECT 
+		<include refid="sysMsgMUserColumns"/>
+		FROM SYS_O_USER a
+		<include refid="sysMsgMUserJoins"/>
+	<where>
+			a."del_flag" = #{delFlag}
+			<if test="name != null and name != ''">
+				AND a."name" LIKE 
+					'%'||#{name}||'%'
+					<!-- <if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
+					<if test="dbName == 'mysql'">CONCAT('%', #{title}, '%')</if> -->
+			</if>
+			<if test="loginName != null and loginName != ''">
+				AND a."login_name" LIKE 
+					'%'||#{loginName}||'%'
+			</if>
+			<if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
+				AND a."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
+			</if>
+			<!-- <if test="sysODepartment.id != null and sysODepartment.id != ''">
+				AND a."departme_id" = #{sysODepartment.id}
+			</if> -->
+			<!-- <if test="image != null and image != ''">
+				AND a.image  = #{image}
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a.create_by  = #{createBy.id}
+			</if>
+			${sqlMap.dsf}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.weight DESC, a.update_date DESC
+			</otherwise>
+		</choose> -->
+		</where>
+	</select>
+	<!-- 插入用户 -->
+	<insert id="insert" parameterType="SysOUser" >
+	<!-- 在插入之前id生成UUID，并赋值到SysOUser对象中 -->
+	 <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            select  lower(sys_guid()) from DUAL
+     </selectKey>
+    insert into SYS_O_USER 
+    ("id", "create_date", "del_flag","create_by","update_date",
+      "name", "login_name","phone",
+      "photo", "no","password", "sex",
+      "role_id", "adress","departme_id")
+    values (#{id,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, #{delFlag,jdbcType=VARCHAR},
+      #{createBy.id,jdbcType=VARCHAR},#{updateDate,jdbcType=DATE},
+      #{name,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{photo,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR},
+      #{sysORole.id,jdbcType=VARCHAR}, #{adress,jdbcType=VARCHAR},#{sysODepartment.id,jdbcType=VARCHAR})
+     </insert>
+     <!-- 更新用户信息  -->
+    <update id="update" >
+    update SYS_O_USER
+    set <!-- "create_date" = #{createDate,jdbcType=DATE}, -->
+      "del_flag" = #{delFlag,jdbcType=VARCHAR},
+      "name" = #{name,jdbcType=VARCHAR},
+      "login_name" = #{loginName,jdbcType=VARCHAR},
+      "phone" = #{phone,jdbcType=VARCHAR},
+       "sex" = #{sex,jdbcType=VARCHAR},
+      <!-- "photo" = #{photo,jdbcType=VARCHAR}, -->
+      "no" = #{no,jdbcType=VARCHAR},
+      "email" = #{email,jdbcType=VARCHAR},
+      <!-- old_password = #{oldPassword,jdbcType=VARCHAR},
+      new_password = #{newPassword,jdbcType=VARCHAR}, -->
+    <!--   "password" = #{password,jdbcType=VARCHAR}, -->
+<!--       "role_id" = #{sysORole.id,jdbcType=VARCHAR}, -->
+      "adress" = #{adress,jdbcType=VARCHAR},
+      "update_by" = #{updateBy.id,jdbcType=VARCHAR},
+      "update_date" = #{updateDate,jdbcType=DATE}
+ <!--      "departme_id" = #{sysODepartment.id,jdbcType=VARCHAR} -->
+<!--       email_id = #{email.id,jdbcType=VARCHAR}
+ -->    where "id" = #{id,jdbcType=VARCHAR}
+  </update>
+  <!-- 逻辑删除用户 -->
+  <update id="delete">
+		UPDATE SYS_O_USER SET 
+			"del_flag" = 1
+		WHERE "id" = #{id}
+ </update>
+ <!-- 逻辑级联删除用户的邮件 -->
+  <update id="deleteGetSysOUserEmail">
+		UPDATE INF_EMAIL SET 
+			"get_user_id" = ''
+		WHERE "get_user_id" = #{id}
+  </update>
+  <update id="deleteSendSysOUserEmail">
+		UPDATE INF_EMAIL SET 
+			"send_user_id" = ''
+		WHERE "send_user_id" = #{id}
+  </update>
+ 	<!-- 更新用户密码 -->
+	<update id="updatePasswordById">
+		UPDATE SYS_O_USER SET 
+			"password" = #{password} 
+		WHERE "id" = #{id}
+	</update>
+	<!-- 更新部门 和角色-->
+	<update id="updateDepartment">
+	  UPDATE SYS_O_USER SET 
+			"departme_id" = #{sysODepartment.id},"role_id" = #{sysORole.id}
+		WHERE "id" = #{id}
+	</update>
+</mapper> 
+	
+	
+	<!--   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from SYS_O_USER
     where id = #{id,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  </select> -->
+  <!-- <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from SYS_O_USER
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <!-- <delete id="deleteByExample" parameterType="com.itheima.mybatis.pojo.SysOUserExample" >
-    delete from SYS_O_USER
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete> -->
-  <insert id="insert" parameterType="SysOUser" >
-    insert into SYS_O_USER (id, create_date, del_flag, 
-      name, login_name, phone, 
-      photo, email, no, old_password, 
-      new_password, role, adress, 
-      email_id)
-    values (#{id,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, #{delFlag,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{photo,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{no,jdbcType=DECIMAL}, #{oldPassword,jdbcType=VARCHAR}, 
-      #{newPassword,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, #{adress,jdbcType=VARCHAR}, 
-      #{emailId,jdbcType=VARCHAR})
-  </insert>
+
+
+  
   <insert id="insertSelective" parameterType="SysOUser" >
     insert into SYS_O_USER
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -145,9 +207,7 @@
       <if test="photo != null" >
         photo,
       </if>
-      <if test="email != null" >
-        email,
-      </if>
+     
       <if test="no != null" >
         no,
       </if>
@@ -163,9 +223,7 @@
       <if test="adress != null" >
         adress,
       </if>
-      <if test="emailId != null" >
-        email_id,
-      </if>
+     
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -189,9 +247,7 @@
       <if test="photo != null" >
         #{photo,jdbcType=VARCHAR},
       </if>
-      <if test="email != null" >
-        #{email,jdbcType=VARCHAR},
-      </if>
+     
       <if test="no != null" >
         #{no,jdbcType=DECIMAL},
       </if>
@@ -207,87 +263,10 @@
       <if test="adress != null" >
         #{adress,jdbcType=VARCHAR},
       </if>
-      <if test="emailId != null" >
-        #{emailId,jdbcType=VARCHAR},
-      </if>
+    
     </trim>
   </insert>
-  <!-- <select id="countByExample" parameterType="com.itheima.mybatis.pojo.SysOUserExample" resultType="java.lang.Integer" >
-    select count(*) from SYS_O_USER
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select> -->
-  <update id="updateByExampleSelective" parameterType="map" >
-    update SYS_O_USER
-    <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createDate != null" >
-        create_date = #{record.createDate,jdbcType=DATE},
-      </if>
-      <if test="record.delFlag != null" >
-        del_flag = #{record.delFlag,jdbcType=VARCHAR},
-      </if>
-      <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.loginName != null" >
-        login_name = #{record.loginName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.phone != null" >
-        phone = #{record.phone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.photo != null" >
-        photo = #{record.photo,jdbcType=VARCHAR},
-      </if>
-      <if test="record.email != null" >
-        email = #{record.email,jdbcType=VARCHAR},
-      </if>
-      <if test="record.no != null" >
-        no = #{record.no,jdbcType=DECIMAL},
-      </if>
-      <if test="record.oldPassword != null" >
-        old_password = #{record.oldPassword,jdbcType=VARCHAR},
-      </if>
-      <if test="record.newPassword != null" >
-        new_password = #{record.newPassword,jdbcType=VARCHAR},
-      </if>
-      <if test="record.role != null" >
-        role = #{record.role,jdbcType=VARCHAR},
-      </if>
-      <if test="record.adress != null" >
-        adress = #{record.adress,jdbcType=VARCHAR},
-      </if>
-      <if test="record.emailId != null" >
-        email_id = #{record.emailId,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update SYS_O_USER
-    set id = #{record.id,jdbcType=VARCHAR},
-      create_date = #{record.createDate,jdbcType=DATE},
-      del_flag = #{record.delFlag,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR},
-      login_name = #{record.loginName,jdbcType=VARCHAR},
-      phone = #{record.phone,jdbcType=VARCHAR},
-      photo = #{record.photo,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR},
-      no = #{record.no,jdbcType=DECIMAL},
-      old_password = #{record.oldPassword,jdbcType=VARCHAR},
-      new_password = #{record.newPassword,jdbcType=VARCHAR},
-      role = #{record.role,jdbcType=VARCHAR},
-      adress = #{record.adress,jdbcType=VARCHAR},
-      email_id = #{record.emailId,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
+  
   <update id="updateByPrimaryKeySelective" parameterType="SysOUser" >
     update SYS_O_USER
     <set >
@@ -309,9 +288,7 @@
       <if test="photo != null" >
         photo = #{photo,jdbcType=VARCHAR},
       </if>
-      <if test="email != null" >
-        email = #{email,jdbcType=VARCHAR},
-      </if>
+      
       <if test="no != null" >
         no = #{no,jdbcType=DECIMAL},
       </if>
@@ -327,9 +304,7 @@
       <if test="adress != null" >
         adress = #{adress,jdbcType=VARCHAR},
       </if>
-      <if test="emailId != null" >
-        email_id = #{emailId,jdbcType=VARCHAR},
-      </if>
+      
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -341,13 +316,10 @@
       login_name = #{loginName,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       photo = #{photo,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
       no = #{no,jdbcType=DECIMAL},
       old_password = #{oldPassword,jdbcType=VARCHAR},
       new_password = #{newPassword,jdbcType=VARCHAR},
       role = #{role,jdbcType=VARCHAR},
-      adress = #{adress,jdbcType=VARCHAR},
-      email_id = #{emailId,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-</mapper>
+      adress = #{adress,jdbcType=VARCHAR}
+      where id = #{id,jdbcType=VARCHAR}
+  </update> -->

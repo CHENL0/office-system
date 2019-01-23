@@ -49,12 +49,12 @@
         -->
 		<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 			<ul class="cl">
-				<li>用户角色</li>
+				<li>${currentUser.sysORole.name}</li>
 				<li class="dropDown dropDown_hover">
 					<a href="#" class="dropDown_A">${currentUser.loginName}<i class="Hui-iconfont">&#xe6d5;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
 						<!--<li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>-->
-						<li><a href="#">切换账户</a></li>
+						<!-- <li><a href="#">切换账户</a></li> -->
 						<li><a href="<%=basePath%>/a/logout.do">退出</a></li>
 				</ul>
 			</li>
@@ -83,8 +83,11 @@
 				<ul>
                 <!--
 					<li><a data-href="article-list.html" data-title="资讯管理" href="javascript:void(0)">资讯管理</a></li>-->
-                    <li><a data-href="article-list.html" data-title="公告信息管理" href="javascript:void(0)">公告信息管理</a></li>
-                    <li><a data-href="article-list.html" data-title="邮件信息管理" href="javascript:void(0)">邮件信息管理</a></li>
+					<c:if test="${currentUser.sysORole.name == '经理'}">
+                    <li><a data-href="<%=basePath%>/a/infNotice/list.do?current_user_Id=${currentUser.id}"" data-title="公告信息管理" href="javascript:void(0)">公告信息管理</a></li>
+                    </c:if>
+                    <li><a data-href="<%=basePath%>/a/infNotice/listShow.do?" data-title="公告查看" href="javascript:void(0)">公告查看</a></li>
+                    <li><a data-href="<%=basePath%>/a/infEmail/list.do?getUser.id=${currentUser.id}&createBy.id=${currentUser.id}&current_user_Id=${currentUser.id}" data-title="邮件信息管理" href="javascript:void(0)">邮件信息管理</a></li>
 			</ul>
 		</dd>
 	</dl>
@@ -138,10 +141,16 @@
 					<li><a data-href="member-record-download.html" data-title="下载记录" href="javascript:void(0)">下载记录</a></li>
 					<li><a data-href="member-record-share.html" data-title="分享记录" href="javascript:void(0)">分享记录</a></li>
                     -->
-                    <li><a data-href="member-list.html" data-title="修改密码" href="javascript:;">修改密码</a></li>
-                    <li><a data-href="member-list.html" data-title="修改个人信息" href="javascript:;">修改个人信息</a></li>
-                    <li><a data-href="member-list.html" data-title="部门调度信息" href="javascript:;">部门调度信息</a></li>
-                    <li><a data-href="member-list.html" data-title="员工信息" href="javascript:;">员工信息</a></li>
+                    <li><a data-href="<%=basePath%>a/sysUser/updatePassword.do?id=${currentUser.id}" data-title="修改密码" href="javascript:;">修改密码</a></li>
+                    <li><a data-href="<%=basePath%>a/sysUser/update.do?id=${currentUser.id}&current_user_Id=${currentUser.id}" data-title="修改个人信息" href="javascript:;">修改个人信息</a></li>
+                    <li><a data-href="<%=basePath%>a/sysODepartmentDispatch/list.do?currentUserId=${currentUser.id}" data-title="部门调度信息" href="javascript:;">部门调度信息</a></li>
+                     <c:if test="${currentUser.sysORole.name == '经理'}">
+                    <li><a data-href="<%=basePath%>a/sysODepartment/list.do?currentUserId=${currentUser.id}" data-title="部门管理" href="javascript:;">部门管理</a></li>
+<%--                     <li><a data-href="<%=basePath%>a/sysORole/list.do?currentUserId=${currentUser.id}" data-title="角色管理" href="javascript:;">角色管理</a></li>
+ --%>                    </c:if>
+                    <c:if test="${currentUser.sysORole.name != '普通员工'}">
+                    <li><a data-href="<%=basePath%>a/sysUser/list.do?currentUserId=${currentUser.id}" data-title="员工信息" href="javascript:;">员工信息</a></li>
+                    </c:if>
 			</ul>
 		</dd>
 	</dl>

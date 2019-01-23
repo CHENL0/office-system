@@ -14,17 +14,18 @@ import com.office.system.modlues.sysMsgM.entity.User;
  * @author lzc
  * 
  */
-public abstract class DataEntity<T> {
+public abstract class DataEntity<T> extends QuickDataEntity<T>{
 
 	protected String id;
 	protected Date createDate;	// 创建日期
 	protected String delFlag; 	// 删除标记（0：正常；1：删除；2：审核）
-	protected String createBy;//创建人
-	protected String updateBy;//更新人
+	protected SysOUser createBy;//创建人
+	protected SysOUser updateBy;//更新人
 	protected Date updateDate;//更新日期
 	
 	public DataEntity() {
 		super();
+		this.delFlag = "0";
 	}
 	
 	public DataEntity(String id) {
@@ -54,20 +55,20 @@ public abstract class DataEntity<T> {
 	public void setDelFlag(String delFlag) {
 		this.delFlag = delFlag;
 	}
-	
-	public String getCreateBy() {
+
+	public SysOUser getCreateBy() {
 		return createBy;
 	}
 
-	public void setCreatBy(String creatBy) {
-		this.createBy = creatBy;
+	public void setCreateBy(SysOUser createBy) {
+		this.createBy = createBy;
 	}
 
-	public String getUpdateBy() {
+	public SysOUser getUpdateBy() {
 		return updateBy;
 	}
 
-	public void setUpdateBy(String updateBy) {
+	public void setUpdateBy(SysOUser updateBy) {
 		this.updateBy = updateBy;
 	}
 

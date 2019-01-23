@@ -6,10 +6,12 @@
 		 a."id" AS id,       
 		 a."name" AS name,   
 		 a."login_name" AS loginName,
-		 a."old_password" AS oldPassword
+		 a."old_password" AS oldPassword,
+		 o."id" AS "sysODepartment.id"
 	</sql>
 	
 	<sql id="sysMsgMUserJoins">
+	  LEFT JOIN SYS_O_DEPARTMENT o ON o."id" = a."departme_id"
 	</sql>
     
 	<select id="get" resultType="User">
