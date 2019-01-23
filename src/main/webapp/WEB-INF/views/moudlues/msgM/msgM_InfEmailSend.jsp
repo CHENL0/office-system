@@ -39,6 +39,7 @@
 	     <input type="hidden" value="${param.current_user_Id}" name="createBy.id" id="createBy.id" >
 	     <input type="hidden" value="${param.current_user_Id}" name="sendUser.id" id="sendUser.id" >
 	     <input type="hidden" value="${nowDate}" name="createDate" id="createDate">
+	     <input type="hidden" value="${nowDate}" name="sendDate" id="sendDate">
 	     <!-- <input  type="hidden" value="已发送" name="staut" id="staut"> -->
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>标题：</label>
@@ -120,7 +121,7 @@ $(function(){
 <script type="text/javascript">
 window.onload=function(){
 	var msg = document.getElementById('msg').value;
-	if(msg != null && msg != '') {layer.msg(msg,{icon: 5,time:2000});}
+	if(msg != null && msg != '') {layer.msg(msg,{icon: 1,time:2000});}
 	
 } 
 </script>

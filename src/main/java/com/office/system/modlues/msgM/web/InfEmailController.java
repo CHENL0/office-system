@@ -65,8 +65,8 @@ public class InfEmailController {
 	
 	@RequestMapping("/show.do")
 	public String get(InfEmail infEmail,Model model){
-		infEmailSeivice.get(infEmail);
-		model.addAttribute("infEmail", infEmail);
+		InfEmail infEmail2 = infEmailSeivice.get(infEmail);
+		model.addAttribute("infEmail", infEmail2);
 		return "moudlues/msgM/msgM_InfEmailShow";
 	}
 	

@@ -38,6 +38,7 @@
 	<form action="<%=basePath%>/a/infNotice/save.do" method="post" class="form form-horizontal"  enctype="multipart/form-data" id="form-notice-add">
 	     <input type="hidden" value="${param.current_user_Id}" name="createBy.id" id="createBy.id" >
 	     <input type="hidden" value="${nowDate}" name="createDate" id="createDate">
+	     <input type="hidden" value="${nowDate}" name="pushDate" id="pushDate">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>标题：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -123,7 +124,7 @@ $(function(){
 <script type="text/javascript">
 window.onload=function(){
 	var msg = document.getElementById('msg').value;
-	if(msg != null && msg != '') {layer.msg(msg,{icon: 5,time:2000});}
+	if(msg != null && msg != '') {layer.msg(msg,{icon: 1,time:2000});}
 	
 } 
 </script> 
