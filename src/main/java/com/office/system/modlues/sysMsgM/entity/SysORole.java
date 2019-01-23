@@ -8,8 +8,13 @@ public class SysORole extends DataEntity<SysORole>{
 
     private String name;
 
+    public SysORole(){
+    	
+    }
+    public SysORole(String id) {
+	}
 
-    public String getName() {
+	public String getName() {
         return name;
     }
 

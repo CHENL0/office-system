@@ -9,6 +9,7 @@ import com.office.system.modlues.sysMsgM.dao.SysODepartmentDispatchDao;
 import com.office.system.modlues.sysMsgM.dao.SysOUserDao;
 import com.office.system.modlues.sysMsgM.entity.SysODepartment;
 import com.office.system.modlues.sysMsgM.entity.SysODepartmentDispatch;
+import com.office.system.modlues.sysMsgM.entity.SysORole;
 import com.office.system.modlues.sysMsgM.entity.SysOUser;
 
 @Service
@@ -21,6 +22,7 @@ public class SysODepartmentDispatchService extends CrudService<SysODepartmentDis
 	public void save(SysODepartmentDispatch sysODepartmentDispatch){
 		SysOUser sysOUser = new SysOUser(sysODepartmentDispatch.getDispatchUser().getId());
 		sysOUser.setSysODepartment(new SysODepartment(sysODepartmentDispatch.getNewDeparment().getId()));
+		sysOUser.setSysORole(new SysORole(sysODepartmentDispatch.getNewRole().getId()));
 		sysOUserDao.updateDepartment(sysOUser);
 		super.save(sysODepartmentDispatch);
 	}

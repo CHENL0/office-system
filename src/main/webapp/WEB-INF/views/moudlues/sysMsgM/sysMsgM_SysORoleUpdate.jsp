@@ -42,7 +42,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${sysORole.name }" placeholder="" id="name" name="name">
+				<input type="text" class="input-text" value="${sysORole.name }" placeholder="" id="name" name="name" required="required">
 			</div>
 		</div>
 		

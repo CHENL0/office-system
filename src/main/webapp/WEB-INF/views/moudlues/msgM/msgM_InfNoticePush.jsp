@@ -35,7 +35,7 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="<%=basePath%>/a/infNotice/save.do" method="post" class="form form-horizontal"  enctype="multipart/form-data">
+	<form action="<%=basePath%>/a/infNotice/save.do" method="post" class="form form-horizontal"  enctype="multipart/form-data" id="form-notice-add">
 	     <input type="hidden" value="${param.current_user_Id}" name="createBy.id" id="createBy.id" >
 	     <input type="hidden" value="${nowDate}" name="createDate" id="createDate">
 		<div class="row cl">
@@ -54,7 +54,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>类型：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select class="select" size="1" name="type.id" id="type.id">
+				<select class="select" size="1" name="type.id" id="type.id" required="required">
 					<option value="" selected>请选择公告的类型</option>
 					<c:forEach items="${infNoticeTypes}" var="infNoticeType">
 					<option value="${infNoticeType.id }">${infNoticeType.name }</option>
@@ -71,7 +71,7 @@
 		</div>
 	</form>
 </article>
-
+ <input type="hidden" value="${msg }" name="msg" id="msg">
 <!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="<%=basePath%>static/lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="<%=basePath%>static/lib/layer/2.4/layer.js"></script>
@@ -91,40 +91,41 @@ $(function(){
 		increaseArea: '20%'
 	});
 	
-	$("#form-member-add").validate({
+	$("#form-notice-add").validate({
 		rules:{
-			username:{
+			title:{
 				required:true,
 				minlength:2,
 				maxlength:16
 			},
-			sex:{
+			text:{
 				required:true,
+				minlength:2,
+				maxlength:100
 			},
-			mobile:{
-				required:true,
-				isMobile:true,
-			},
-			email:{
-				required:true,
-				email:true,
-			},
-			uploadfile:{
-				required:true,
-			},
+			
 			
 		},
 		onkeyup:false,
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
-			//$(form).ajaxSubmit();
+			 form.submit();
+/* 			//$(form).ajaxSubmit();
 			var index = parent.layer.getFrameIndex(window.name);
 			//parent.$('.btn-refresh').click();
-			parent.layer.close(index);
+			parent.layer.close(index); */
 		}
 	});
 });
+</script>
+<!-- 消息提示 -->
+<script type="text/javascript">
+window.onload=function(){
+	var msg = document.getElementById('msg').value;
+	if(msg != null && msg != '') {layer.msg(msg,{icon: 5,time:2000});}
+	
+} 
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->
 </body>

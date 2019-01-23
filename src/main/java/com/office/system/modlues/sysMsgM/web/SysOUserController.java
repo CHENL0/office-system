@@ -50,8 +50,10 @@ public class SysOUserController {
 		
 		if (sysOUser !=null && sysOUser.getDelFlag().equals("0")) {
 			sysOUserService.save(sysOUser,Mphoto,session);
+			String msg = "添加成功!";
+			model.addAttribute("msg", msg);
 		}
-		return "redirect:"+"/a/sysUser/list.do";
+		return "moudlues/sysMsgM/sysMsgM_SysOUserAdd";
 	}
 	@RequestMapping(value="/save.do",method=RequestMethod.GET)
 	public String save2(Model model,SysOUser sysOUser){
@@ -61,29 +63,44 @@ public class SysOUserController {
 		model.addAttribute("sysORoles", sysORoles);
 		return "moudlues/sysMsgM/sysMsgM_SysOUserAdd";
 	}
-	//post请求的更新，要做更新
+	//列表上用户的信息，post请求的更新，要做更新
 	@RequestMapping(value="/update.do",method=RequestMethod.POST)
 	public String updateForPost(Model model,SysOUser sysOUser){
 		sysOUserService.update(sysOUser);
-		model.addAttribute("sysOUser", sysOUser);
+		SysOUser sysOUser2 = sysOUserService.get(sysOUser);
+		model.addAttribute("sysOUser", sysOUser2);
+		String msg = "修改成功!";
+		model.addAttribute("msg", msg);
 		return "moudlues/sysMsgM/sysMsgM_SysOUserUpdate";
 	}
 	//get请求的更新，不做更新，只负责跳转页面
 	@RequestMapping(value="/update.do",method=RequestMethod.GET)
-	public String updateForGet(Model model,SysOUser sysOUser){
+	public String updateForGet(Model model,SysOUser sysOUser,String current_user_Id){
 		SysOUser sysOUser2 = sysOUserService.get(sysOUser);
+		SysOUser currentUser = sysOUserService.get(current_user_Id);
 		model.addAttribute("sysOUser", sysOUser2);
+		model.addAttribute("currentUser", currentUser);
 		List<SysODepartment> sysODepartments = sysODepartmentService.findList(new SysODepartment());
 		model.addAttribute("sysODepartments", sysODepartments);
 		List<SysORole> sysORoles = sysORoleService.findList(new SysORole());
 		model.addAttribute("sysORoles", sysORoles);
 		return "moudlues/sysMsgM/sysMsgM_SysOUserUpdate";
 	}
+/*	//修改当前用户信息
+	@RequestMapping(value="/updateCurrentUser.do",method=RequestMethod.POST)
+	public String updateForPostCurrentUser(Model model,SysOUser sysOUser){
+		sysOUserService.update(sysOUser);
+		model.addAttribute("sysOUser", sysOUser);
+		String msg = "修改成功!";
+		model.addAttribute("msg", msg);
+		return "moudlues/sysMsgM/sysMsgM_SysOUserUpdate";
+	}*/
 	//post更新密码
 	@RequestMapping(value="/updatePassword.do",method=RequestMethod.POST)
 	public String updatePasswordForPost(Model model,SysOUser sysOUser){
 		sysOUserService.updatePasswordById(sysOUser);
-		model.addAttribute("sysOUser", sysOUser);
+		String msg = "修改密码成功!";
+		model.addAttribute("msg", msg);
 		return "moudlues/sysMsgM/sysMsgM_SysOUserUpdatePassword";
 	}
 	//get更新密码

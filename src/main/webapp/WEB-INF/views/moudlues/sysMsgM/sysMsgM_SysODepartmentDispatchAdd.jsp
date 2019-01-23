@@ -39,21 +39,28 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>调转人姓名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${sysOUser.name }" placeholder="">
+				<input type="text" class="input-text" value="${sysOUser.name }" placeholder="" disabled="disabled">
 				<input type="hidden" value="${sysOUser.id}" name="dispatchUser.id" id="dispatchUser.id">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>调转人原角色：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="${sysOUser.sysORole.name }" placeholder="" disabled="disabled">
+				<input type="hidden" value="${sysOUser.sysORole.id}" name="oldRole.id" id="oldRole.id">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>调转人的原部门：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${sysOUser.sysODepartment.name }" placeholder="oldDepartment">
+				<input type="text" class="input-text" value="${sysOUser.sysODepartment.name }" placeholder="oldDepartment" disabled="disabled">
 				<input type="hidden" value="${sysOUser.sysODepartment.id }" name="oldDepartment.id" id="oldDepartment.id">
 			</div>
 		</div>		
 		 <div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">调转的新部门：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select class="select" size="1" name="newDeparment.id" id="newDeparment.id">
+				<select class="select" size="1" name="newDeparment.id" id="newDeparment.id" required="required">
 					<option value="" selected>请选择部门</option>
 					<c:forEach items="${sysODepartments}" var="sysODepartment">
 					<option value="${sysODepartment.id }">${sysODepartment.name }</option>
@@ -63,9 +70,21 @@
 			</div>
 		</div>
 		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色：</label>
+			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
+				<select class="select" size="1" name="newRole.id" id="newRole.id" required="required">
+					<option value="" selected>请分配新角色</option>
+					<c:forEach items="${sysORoles }" var="sysORole">
+					<option value="${sysORole.id }">${sysORole.name }</option>
+					</c:forEach>
+				</select>
+				</span> 
+				</div>
+		</div>
+		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">调转的原因：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="reason" id="reason" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"></textarea>
+				<textarea name="reason" id="reason" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)" required="required"></textarea>
 				<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
 			</div>
 		</div>
@@ -103,7 +122,7 @@ $(function(){
 				minlength:2,
 				maxlength:16
 			},
-			sex:{
+			reason:{
 				required:true,
 			},
 			mobile:{

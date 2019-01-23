@@ -117,16 +117,16 @@
       <if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
         "update_by" = #{updateBy.id,jdbcType=VARCHAR},
       </if>
-      <if test="createDate != null" >
+      <if test="createDate != null and createDate != ''" >
         "create_date" = #{createDate,jdbcType=DATE},
       </if>
-       <if test="updateDate != null" >
+       <if test="updateDate != null and updateDate != ''" >
         "udate_date" = #{createDate,jdbcType=DATE},
       </if>
-      <if test="delFlag != null" >
+      <if test="delFlag != null and delFlag != ''" >
         "del_flag" = #{delFlag,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
+      <if test="name != null and name != ''" >
         "name" = #{name,jdbcType=VARCHAR},
       </if>
     </set>

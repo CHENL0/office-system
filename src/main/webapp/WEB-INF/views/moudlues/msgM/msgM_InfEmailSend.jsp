@@ -35,26 +35,28 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="<%=basePath%>/a/infEmail/save.do" method="post" class="form form-horizontal"  enctype="multipart/form-data">
+	<form action="<%=basePath%>/a/infEmail/save.do" method="post" class="form form-horizontal"  enctype="multipart/form-data" id="form-email-add">
 	     <input type="hidden" value="${param.current_user_Id}" name="createBy.id" id="createBy.id" >
+	     <input type="hidden" value="${param.current_user_Id}" name="sendUser.id" id="sendUser.id" >
 	     <input type="hidden" value="${nowDate}" name="createDate" id="createDate">
+	     <!-- <input  type="hidden" value="已发送" name="staut" id="staut"> -->
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>标题：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="title" name="title">
+				<input type="text" class="input-text" value="" placeholder="" id="title" name="title" >
 			</div>
 		</div>
 			<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">内容：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="beizhu" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"id="text" name="text"></textarea>
+				<textarea name="beizhu" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"id="text" name="text" ></textarea>
 				<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>接收的人：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select class="select" size="1" name="getUser.id" id="getUser.id">
+				<select class="select" size="1" name="getUser.id" id="getUser.id" required="required">
 					<option value="" selected>请选择接收的人</option>
 					<c:forEach items="${sysOUsers}" var="sysOUser">
 					<option value="${sysOUser.id }">${sysOUser.name }</option>
@@ -71,7 +73,7 @@
 		</div>
 	</form>
 </article>
-
+ <input type="hidden" value="${msg }" name="msg" id="msg">
 <!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="<%=basePath%>static/lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="<%=basePath%>static/lib/layer/2.4/layer.js"></script>
@@ -91,26 +93,17 @@ $(function(){
 		increaseArea: '20%'
 	});
 	
-	$("#form-member-add").validate({
+	$("#form-email-add").validate({
 		rules:{
-			username:{
+			title:{
 				required:true,
 				minlength:2,
 				maxlength:16
 			},
-			sex:{
+			text:{
 				required:true,
-			},
-			mobile:{
-				required:true,
-				isMobile:true,
-			},
-			email:{
-				required:true,
-				email:true,
-			},
-			uploadfile:{
-				required:true,
+				minlength:2,
+				maxlength:100
 			},
 			
 		},
@@ -118,14 +111,19 @@ $(function(){
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
-			//$(form).ajaxSubmit();
-			var index = parent.layer.getFrameIndex(window.name);
-			//parent.$('.btn-refresh').click();
-			parent.layer.close(index);
+			 form.submit();
 		}
 	});
 });
-</script> 
+</script>
+<!-- 消息提示 -->
+<script type="text/javascript">
+window.onload=function(){
+	var msg = document.getElementById('msg').value;
+	if(msg != null && msg != '') {layer.msg(msg,{icon: 5,time:2000});}
+	
+} 
+</script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>
 </html>

@@ -31,14 +31,15 @@
 <div class="page-container">
 	<div class="text-c">
 	  <form action="<%=basePath%>a/infNotice/list.do" method="post">
-		 日期范围：<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" class="input-text Wdate" style="width:120px;">
+		 日期范围：<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" name="datemin" class="input-text Wdate" style="width:120px;">
 		-
-		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" class="input-text Wdate" style="width:120px;">
-		<input type="text" class="input-text" style="width:250px" placeholder="输入公告标题" id="name" name="name">
-		<button type="submit" class="btn btn-success radius" id="title" name="title"><i class="Hui-iconfont">&#xe665;</i> 搜标题</button>
+		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" name="datemax" class="input-text Wdate" style="width:120px;">
+		<input type="text" class="input-text" style="width:250px" placeholder="输入公告标题" id="title" name="title">
+		<button type="submit" class="btn btn-success radius" ><i class="Hui-iconfont">&#xe665;</i> 搜标题</button>
 	   </form>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><!-- <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --> <a href="javascript:;" onclick="member_add('发布公告','<%=basePath%>a/infNotice/save.do?delFlag=1&current_user_Id=${param.currentUserId }','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 发布公告</a></span> <span class="r">共有数据：<strong>88</strong> 条</span> </div>
+	
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><!-- <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --> <a href="javascript:;" onclick="member_add('发布公告','<%=basePath%>a/infNotice/save.do?delFlag=1&current_user_Id=${param.current_user_Id }','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 发布公告</a></span> <span class="r">共有数据：<strong>88</strong> 条</span> </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -61,7 +62,7 @@
 				<td>${infNotice.createBy.name}</td>
 				<td>${infNotice.type.name}</td>
 				<td>${infNotice.pushDate}</td>
-				<td class="td-manage"><a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="member_edit('编辑','<%=basePath%>a/infNotice/update.do?id=${sysOUser.id}&current_user_Id=${param.currentUserId }','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> <a title="删除" href="<%=basePath%>a/sysUser/del.do?id=${sysOUser.id}" onclick="" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				<td class="td-manage"></a> <a title="编辑" href="javascript:;" onclick="member_edit('编辑','<%=basePath%>a/infNotice/update.do?id=${infNotice.id}&current_user_Id=${param.currentUserId }&del_flag=1','4','','510')" class="ml-5" style="text-decoration:none"> <i class="Hui-iconfont">&#xe631;</i><a title="删除" href="javascript:;" onClick="member_del(this,'${infNotice.id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
 			</c:forEach>
 		</tbody>
@@ -150,8 +151,9 @@ function member_del(obj,id){
 	var id = id;
 	layer.confirm('确认要删除吗？',function(index){
 		$.ajax({
+			data:{id:id},
 			type: 'POST',
-			url: '<%=basePath%>a/sysUser/del.do?id=124',
+			url: '<%=basePath%>a/infNotice/del.do',
 			dataType: 'json',
 			success: function(data){
 				$(obj).parents("tr").remove();

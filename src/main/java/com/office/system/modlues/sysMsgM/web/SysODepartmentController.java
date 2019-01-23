@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.office.system.modlues.msgM.entity.InfNotice;
 import com.office.system.modlues.msgM.entity.InfNoticeType;
@@ -34,8 +35,10 @@ public class SysODepartmentController {
 	}
 	
 	@RequestMapping("/del.do")
+	@ResponseBody
 	public String del(Model model,SysODepartment sysODepartment){
-		return null;
+		sysODepartmentService.delete(sysODepartment);
+		return "删除成功";
 		
 	}
 	
@@ -48,10 +51,14 @@ public class SysODepartmentController {
 	
 	@RequestMapping("/update.do")
 	public String update(Model model,SysODepartment sysODepartment){
-		return null;
+		if (sysODepartment !=null && sysODepartment.getDelFlag().equals("0")) {
+			sysODepartmentService.update(sysODepartment);
+			return "redirect:"+"/a/sysODepartment/list.do";
+		}
+		return "moudlues/sysMsgM/sysMsgM_SysODepartmentUpdate";
 		
 	}
-	
+	//信息太少，暂时没有需求
 	@RequestMapping("/show.do")
 	public String show(Model model,SysODepartment sysODepartment){
 	

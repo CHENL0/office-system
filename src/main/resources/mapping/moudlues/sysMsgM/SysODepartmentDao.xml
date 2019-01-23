@@ -37,6 +37,9 @@
 					<!-- <if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
 					<if test="dbName == 'mysql'">CONCAT('%', #{title}, '%')</if> -->
 			</if>
+			<if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
+				AND a."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
+			</if>
 		</where>
   </select>
   <!-- 根据编号获得部门 -->
@@ -77,41 +80,43 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select> -->
-  <update id="update" >
+<!--   <update id="update" >
     update SYS_O_DEPARTMENT
     <set >
       <if test="createBy != null and createBy.id != null and createBy.id != ''">
         "create_by" = #{createBy.id,jdbcType=VARCHAR},
       </if>
-      <if test="createDate != null" >
+      <if test="createDate != null and createDate != ''" >
         "create_date" = #{createDate,jdbcType=DATE},
       </if>
-      <if test="delFlag != null" >
+      <if test="delFlag != null and delFlag != ''" >
         "del_flag" = #{delFlag,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
+      <if test="name != null and name != ''" >
        " name" = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="text != null" >
+      <if test="text != null and text != ''" >
         "text" = #{text,jdbcType=VARCHAR},
       </if>
       <if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
         "update_by" = #{updateBy.id,jdbcType=VARCHAR},
       </if>
-       <if test="updateDate != null" >
-        "udate_date" = #{createDate,jdbcType=DATE},
+       <if test="updateDate != null and updateDate != ''" >
+        "update_date" = #{createDate,jdbcType=DATE},
       </if>
     </set>
     where "id" = #{id,jdbcType=VARCHAR}
-  </update>
-  <!-- 全部字段更新 -->
- <!--  <update id="updateByPrimaryKey" parameterType="SysODepartment" >
-    update SYS_O_DEPARTMENT
-    set create_by = #{createBy,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=DATE},
-      del_flag = #{delFlag,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      text = #{text,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
   </update> -->
+  <!-- 更新 -->
+ <update id="update" parameterType="SysODepartment" >
+    update SYS_O_DEPARTMENT
+    set "create_by" = #{createBy.id,jdbcType=VARCHAR},
+      "create_date" = #{createDate,jdbcType=DATE},
+      "del_flag" = #{delFlag,jdbcType=VARCHAR},
+      "name" = #{name,jdbcType=VARCHAR},
+      "update_by" = #{updateBy.id,jdbcType=VARCHAR},
+      "update_date" = #{updateDate,jdbcType=VARCHAR}
+<!--       text = #{text,jdbcType=VARCHAR}
+ -->    where "id" = #{id,jdbcType=VARCHAR}
+  </update>
 </mapper>

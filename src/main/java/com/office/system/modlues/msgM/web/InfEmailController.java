@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.office.system.modlues.msgM.entity.InfEmail;
 import com.office.system.modlues.msgM.service.InfEmailSeivice;
@@ -33,17 +34,19 @@ public class InfEmailController {
 		model.addAttribute("infEmails", infEmails);
 		return "moudlues/msgM/msgM_InfEmailList";
 	}
-	
-	@RequestMapping("/update.do")
+	//暂时没需求
+	/*@RequestMapping("/update.do")
 	public String update(InfEmail infEmail,Model model){
 		infEmailSeivice.update(infEmail);
 		return null;
-	}
+	}*/
+	
 	
 	@RequestMapping("/del.do")
+	@ResponseBody
 	public String del(InfEmail infEmail,Model model){
 		infEmailSeivice.delete(infEmail);
-		return null;
+		return "删除成功";
 	}
 	
 	@RequestMapping("/save.do")
@@ -51,7 +54,9 @@ public class InfEmailController {
 		
 		if (infEmail !=null && infEmail.getDelFlag().equals("0")) {
 			infEmailSeivice.save(infEmail);
-			return "redirect:"+"/a/infEmail/list.do";
+			String msg = "添加成功!";
+			model.addAttribute("msg", msg);
+//			return "redirect:"+"/a/infEmail/list.do";
 		}
 		List<SysOUser> sysOUsers = sysOUserService.findList(new SysOUser());
 		model.addAttribute("sysOUsers", sysOUsers);

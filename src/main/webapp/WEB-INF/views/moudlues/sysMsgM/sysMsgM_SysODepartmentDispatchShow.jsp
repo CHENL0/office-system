@@ -56,7 +56,7 @@
 				<td>${sysOUser.adress }</td>
 			</tr>
 			<tr>
-				<th class="text-r">注册时间：</th>
+				<th class="text-r">创建时间：</th>
 				<td>2014.12.20</td>
 			</tr>
 			

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.office.system.modlues.msgM.entity.InfNotice;
 import com.office.system.modlues.msgM.entity.InfNoticeType;
@@ -28,7 +29,9 @@ public class InfNoticeController {
 		
 		if (infNotice !=null && infNotice.getDelFlag().equals("0")) {
 			infNoticeSeivice.save(infNotice);
-			return "redirect:"+"/a/infNotice/list.do";
+			String msg = "添加成功!";
+			model.addAttribute("msg", msg);
+//			return "redirect:"+"/a/infNotice/list.do";
 		}
 		List<InfNoticeType> infNoticeTypes = infNoticeTypeService.findList(new InfNoticeType());
 		model.addAttribute("infNoticeTypes", infNoticeTypes);
@@ -37,8 +40,10 @@ public class InfNoticeController {
 	}
 	
 	@RequestMapping("/del.do")
+	@ResponseBody
 	public String del(Model model,InfNotice infNotice){
-		return null;
+		infNoticeSeivice.delete(infNotice);
+		return "删除成功";
 		
 	}
 	
@@ -49,18 +54,31 @@ public class InfNoticeController {
 		return "moudlues/msgM/msgM_InfNoticeList";
 		
 	}
-	
-	@RequestMapping("/update.do")
-	public String update(Model model,InfNotice infNotice){
-		return null;
+	//公告查看
+	@RequestMapping("/listShow.do")
+	public String listShow(Model model,InfNotice infNotice){
+		List<InfNotice> infNotices = infNoticeSeivice.findList(infNotice);
+		model.addAttribute("infNotices", infNotices);
+		return "moudlues/msgM/msgM_InfNoticeListShow";
 		
 	}
-	
+	@RequestMapping("/update.do")
+	public String update(Model model,InfNotice infNotice){
+		if (infNotice !=null && infNotice.getDelFlag().equals("0")) {
+			infNoticeSeivice.save(infNotice);
+			return "redirect:"+"/a/infNotice/list.do";
+		}
+		List<InfNoticeType> infNoticeTypes = infNoticeTypeService.findList(new InfNoticeType());
+		model.addAttribute("infNoticeTypes", infNoticeTypes);
+		return "moudlues/msgM/msgM_InfNoticePush";
+		
+	}
+	//查看一个公告
 	@RequestMapping("/show.do")
 	public String show(Model model,InfNotice infNotice){
 		InfNotice infNotice1 = infNoticeSeivice.get(infNotice);
 		model.addAttribute("infNotice", infNotice1);
-		return "moudlues/sysMsgM/msgM_InfNoticeShow";
+		return "moudlues/msgM/msgM_InfNoticeShow";
 		
 	}
 

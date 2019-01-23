@@ -34,7 +34,7 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="<%=basePath%>a/sysUser/updatePassword.do" method="post" class="form form-horizontal">
+	<form action="<%=basePath%>a/sysUser/updatePassword.do" method="post" class="form form-horizontal" id="form-change-password">
 	  <input type="hidden" value="${sysOUser.id }"name="id" id="id">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>登录名：</label>
@@ -59,7 +59,7 @@
 		</div>
 	</form>
 </article>
-
+<input type="hidden" value="${msg }" name="msg" id="msg">
 <!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="<%=basePath%>static/lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="<%=basePath%>static/lib/layer/2.4/layer.js"></script>  
@@ -74,29 +74,40 @@
 $(function(){
 	$("#form-change-password").validate({
 		rules:{
-			newpassword:{
+			password:{
 				required:true,
 				minlength:6,
 				maxlength:16
 			},
-			newpassword2:{
+			re_password:{
 				required:true,
 				minlength:6,
 				maxlength:16,
-				equalTo: "#newpassword"
+				equalTo: "#password"
 			},
 		},
 		onkeyup:false,
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
-			$(form).ajaxSubmit();
+			 form.submit();
+			 
+			/* $(form).ajaxSubmit();
 			var index = parent.layer.getFrameIndex(window.name);
+			alert("修改成功!")
 			parent.$('.btn-refresh').click();
-			parent.layer.close(index);
+			parent.layer.close(index); */
 		}
 	});
 });
+</script>
+<!-- 消息提示 -->
+<script type="text/javascript">
+window.onload=function(){
+	var msg = document.getElementById('msg').value;
+	if(msg != null && msg != '') {layer.msg(msg,{icon: 5,time:2000});}
+	
+} 
 </script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>

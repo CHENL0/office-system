@@ -24,21 +24,21 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>用户管理</title>
+<title>部门管理</title>
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 用户管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="text-c">
 	  <form action="<%=basePath%>a/sysODepartment/list.do" method="post">
-		 日期范围：<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" class="input-text Wdate" style="width:120px;">
+		 日期范围：<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" name="datemin" class="input-text Wdate" style="width:120px;" >
 		-
-		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" class="input-text Wdate" style="width:120px;">
-		<input type="text" class="input-text" style="width:250px" placeholder="输入用户姓名" id="name" name="name">
-		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" name="datemax" class="input-text Wdate" style="width:120px;" >
+		<input type="text" class="input-text" style="width:250px" placeholder="输入部门名" id="name" name="name">
+		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜部门名字</button>
 	   </form>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><!-- <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --> <a href="javascript:;" onclick="member_add('添加用户','<%=basePath%>a/sysUser/save.do?delFlag=1&current_user_Id=${param.currentUserId }','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加用户</a></span> <span class="r">共有数据：<strong>88</strong> 条</span> </div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><!-- <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --> <a href="javascript:;" onclick="member_add('添加部门','<%=basePath%>a/sysODepartment/save.do?delFlag=1&current_user_Id=${param.currentUserId }','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加部门</a></span> <span class="r">共有数据：<strong>88</strong> 条</span> </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -59,7 +59,7 @@
 				<td>${sysODepartment.name}</td>
 				<td>${sysODepartment.createDate}</td>
 				<td>${sysODepartment.createBy.name}</td>
-				<td class="td-manage"><a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="member_edit('编辑','<%=basePath%>a/sysUser/sysODepartment.do?id=${sysODepartment.id}&current_user_Id=${param.currentUserId }','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <i class="Hui-iconfont">&#xe63f;</i></a> <a title="删除"  onClick="member_del(this,'${sysODepartment.id}')" href="javascript:;"class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				<td class="td-manage"> <a title="编辑" href="javascript:;" onclick="member_edit('编辑','<%=basePath%>a/sysODepartment/update.do?id=${sysODepartment.id}&current_user_Id=${param.currentUserId }&delFlag=1','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除"  onClick="member_del(this,'${sysODepartment.id}')" href="javascript:;"class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
 			</c:forEach>
 		</tbody>
@@ -149,7 +149,7 @@ function member_del(obj,id){
 		$.ajax({
 			type: 'POST',
 			data:{id:id},
-			url: '<%=basePath%>a/sysUser/del.do',
+			url: '<%=basePath%>a/sysODepartment/del.do',
 			dataType: 'json',
 			success: function(data){
 				$(obj).parents("tr").remove();

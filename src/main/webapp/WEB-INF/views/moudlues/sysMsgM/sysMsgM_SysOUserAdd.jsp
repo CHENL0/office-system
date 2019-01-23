@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <%@ page isELIgnored="false" %>
@@ -35,13 +34,13 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="<%=basePath%>/a/sysUser/save.do" method="post" class="form form-horizontal"  enctype="multipart/form-data">
+	<form action="<%=basePath%>/a/sysUser/save.do" method="post" class="form form-horizontal"  enctype="multipart/form-data" id="form-add">
 	    <input type="hidden" value="${param.current_user_Id}" name="createBy.id" id="createBy.id" >
 	     <input type="hidden" value="${nowDate}" name="createDate" id="createDate">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>姓名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="name" name="name">
+				<input type="text" class="input-text" value="" placeholder="" id="name" name="name" >
 			</div>
 		</div>
 		<div class="row cl">
@@ -53,7 +52,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>密码：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="password" name="password">
+				<input type="password" class="input-text" value="" placeholder="" id="password" name="password">
 			</div>
 		</div>
 		<div class="row cl">
@@ -108,9 +107,9 @@
 				</span> </div>
 		</div>
 		 <div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">所属部门：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属部门：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select class="select" size="1" name="sysODepartment.id" id="sysODepartment.id">
+				<select class="select" size="1" name="sysODepartment.id" id="sysODepartment.id" required="required">
 					<option value="" selected>请部门</option>
 					<c:forEach items="${sysODepartments}" var="sysODepartment">
 					<option value="${sysODepartment.id }">${sysODepartment.name }</option>
@@ -120,9 +119,9 @@
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">角色：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select class="select" size="1" name="sysORole.id" id="sysORole.id">
+				<select class="select" size="1" name="sysORole.id" id="sysORole.id" required="required">
 					<option value="" selected>请分配角色</option>
 					<c:forEach items="${sysORoles }" var="sysORole">
 					<option value="${sysORole.id }">${sysORole.name }</option>
@@ -146,7 +145,7 @@
 		</div>
 	</form>
 </article>
-
+ <input type="hidden" value="${msg }" name="msg" id="msg">
 <!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="<%=basePath%>static/lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="<%=basePath%>static/lib/layer/2.4/layer.js"></script>
@@ -166,17 +165,33 @@ $(function(){
 		increaseArea: '20%'
 	});
 	
-	$("#form-member-add").validate({
+	$("#form-add").validate({
 		rules:{
-			username:{
+			name:{
 				required:true,
 				minlength:2,
 				maxlength:16
 			},
+			loginName:{
+				required:true,
+				minlength:2,
+				maxlength:16
+			},
+			password:{
+				required:true,
+				minlength:2,
+				maxlength:16
+			},
+			no:{
+				required:true,
+			},
 			sex:{
 				required:true,
 			},
-			mobile:{
+			adress:{
+				required:true,
+			},
+			phone:{
 				required:true,
 				isMobile:true,
 			},
@@ -184,7 +199,7 @@ $(function(){
 				required:true,
 				email:true,
 			},
-			uploadfile:{
+			Mphoto:{
 				required:true,
 			},
 			
@@ -193,14 +208,26 @@ $(function(){
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
-			//$(form).ajaxSubmit();
-			var index = parent.layer.getFrameIndex(window.name);
-			//parent.$('.btn-refresh').click();
-			parent.layer.close(index);
+			 form.submit();
+			/* $(form).ajaxSubmit();
+			alert("成功");
+		    var index = parent.layer.getFrameIndex(window.name);
+  			parent.$('.btn-refresh').click();
+			parent.layer.close(index); */
+			
+
 		}
 	});
 });
 </script> 
+<!-- 消息提示 -->
+<script type="text/javascript">
+window.onload=function(){
+	var msg = document.getElementById('msg').value;
+	if(msg != null && msg != '') {layer.msg(msg,{icon: 5,time:2000});}
+	
+} 
+</script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>
 </html>

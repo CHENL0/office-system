@@ -74,6 +74,9 @@
 				AND a."login_name" LIKE 
 					'%'||#{loginName}||'%'
 			</if>
+			<if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
+				AND a."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
+			</if>
 			<!-- <if test="sysODepartment.id != null and sysODepartment.id != ''">
 				AND a."departme_id" = #{sysODepartment.id}
 			</if> -->
@@ -115,22 +118,23 @@
      <!-- 更新用户信息  -->
     <update id="update" >
     update SYS_O_USER
-    set "create_date" = #{createDate,jdbcType=DATE},
+    set <!-- "create_date" = #{createDate,jdbcType=DATE}, -->
       "del_flag" = #{delFlag,jdbcType=VARCHAR},
       "name" = #{name,jdbcType=VARCHAR},
       "login_name" = #{loginName,jdbcType=VARCHAR},
       "phone" = #{phone,jdbcType=VARCHAR},
        "sex" = #{sex,jdbcType=VARCHAR},
-      "photo" = #{photo,jdbcType=VARCHAR},
+      <!-- "photo" = #{photo,jdbcType=VARCHAR}, -->
       "no" = #{no,jdbcType=VARCHAR},
       "email" = #{email,jdbcType=VARCHAR},
       <!-- old_password = #{oldPassword,jdbcType=VARCHAR},
       new_password = #{newPassword,jdbcType=VARCHAR}, -->
-      "password" = #{password,jdbcType=VARCHAR},
-      "role_id" = #{sysORole.id,jdbcType=VARCHAR},
+    <!--   "password" = #{password,jdbcType=VARCHAR}, -->
+<!--       "role_id" = #{sysORole.id,jdbcType=VARCHAR}, -->
       "adress" = #{adress,jdbcType=VARCHAR},
       "update_by" = #{updateBy.id,jdbcType=VARCHAR},
-      "departme_id" = #{sysODepartment.id,jdbcType=VARCHAR}
+      "update_date" = #{updateDate,jdbcType=DATE}
+ <!--      "departme_id" = #{sysODepartment.id,jdbcType=VARCHAR} -->
 <!--       email_id = #{email.id,jdbcType=VARCHAR}
  -->    where "id" = #{id,jdbcType=VARCHAR}
   </update>
@@ -141,21 +145,26 @@
 		WHERE "id" = #{id}
  </update>
  <!-- 逻辑级联删除用户的邮件 -->
-  <update id="deleteSysOUserEmail">
+  <update id="deleteGetSysOUserEmail">
 		UPDATE INF_EMAIL SET 
-			"del_flag" = 1
-		WHERE "create_by" = #{id}
+			"get_user_id" = ''
+		WHERE "get_user_id" = #{id}
+  </update>
+  <update id="deleteSendSysOUserEmail">
+		UPDATE INF_EMAIL SET 
+			"send_user_id" = ''
+		WHERE "send_user_id" = #{id}
   </update>
  	<!-- 更新用户密码 -->
 	<update id="updatePasswordById">
 		UPDATE SYS_O_USER SET 
-			"departme_id" = #{password} 
+			"password" = #{password} 
 		WHERE "id" = #{id}
 	</update>
-	<!-- 更新部门 -->
-	<update id="updateDepartmentByDepartmentName">
+	<!-- 更新部门 和角色-->
+	<update id="updateDepartment">
 	  UPDATE SYS_O_USER SET 
-			"password" = #{sysODepartment.id} 
+			"departme_id" = #{sysODepartment.id},"role_id" = #{sysORole.id}
 		WHERE "id" = #{id}
 	</update>
 </mapper> 

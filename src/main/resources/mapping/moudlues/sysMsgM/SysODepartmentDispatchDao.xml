@@ -32,6 +32,16 @@
                  column="new_department_id"
                  select="findSysODepartmentBase">
     </association>
+     <association property="oldRole"
+                 javaType="SysORole"
+                 column="old_role_id"
+                 select="findSysODepartmentBase">
+    </association>
+     <association property="newRole"
+                 javaType="SysORole"
+                 column="new_role_id"
+                 select="findSysODepartmentBase">
+    </association>
   </resultMap>
   <select id="findSysOUserBase" resultType="SysOUser">
    select * from SYS_O_USER where "id"=#{xxx}
@@ -39,8 +49,12 @@
   <select id="findSysODepartmentBase" resultType="SysODepartment">
    select * from SYS_O_DEPARTMENT where "id"=#{xxx}
   </select>
+   <select id="findSysORoleBase" resultType="SysORole">
+   select * from SYS_O_ROLE where "id"=#{xxx}
+  </select>
   <sql id="Base_Column_List" >
-    "id", "create_by", "create_date", "del_flag", "reason", "dispatch_user_id","new_department_id","old_department_id","update_date","update_by"
+    "id", "create_by", "create_date", "del_flag", "reason", "dispatch_user_id","new_department_id","old_department_id","update_date","update_by",
+    "old_role_id","new_role_id"
   </sql>
   <!-- 查询部门信息 -->
   <select id="findList" resultMap="BaseResultMap" >
@@ -54,6 +68,9 @@
 					'%'||#{reason}||'%'
 					<!-- <if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
 					<if test="dbName == 'mysql'">CONCAT('%', #{title}, '%')</if> -->
+			</if>
+			<if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
+				AND a."create_date" between #{datemin,jdbcType=DATE} and #{datemax,jdbcType=DATE}
 			</if>
 		</where>
   </select>
@@ -76,13 +93,16 @@
             select  lower(sys_guid()) from DUAL
      </selectKey>
     insert into SYS_O_DEPARTMENT_DISPATCH ("id", "create_by", "create_date", 
-      "del_flag", "reason", "dispatch_user_id","old_department_id","new_department_id","update_by","update_date"
+      "del_flag", "reason", "dispatch_user_id","old_department_id","new_department_id","update_by","update_date","old_role_id","new_role_id"
       )
     values (#{id,jdbcType=VARCHAR}, #{createBy.id,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, 
       #{delFlag,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, #{dispatchUser.id,jdbcType=VARCHAR},
       #{oldDepartment.id,jdbcType=VARCHAR},#{newDeparment.id,jdbcType=VARCHAR},
       #{updateBy.id,jdbcType=VARCHAR},
-      #{updateDate,jdbcType=DATE}
+      #{updateDate,jdbcType=DATE},
+      #{oldRole.id,jdbcType=VARCHAR},
+      #{newRole.id,jdbcType=VARCHAR}
+      
       )
   </insert>
    <!-- 逻辑删除部门 -->

@@ -52,6 +52,9 @@
 					<!-- <if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
 					<if test="dbName == 'mysql'">CONCAT('%', #{title}, '%')</if> -->
 			</if>
+			<if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
+				AND a."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
+			</if>
 			<!--  <if test="title != null and title != ''">
 				AND a."title" LIKE 
 					'%'||#{title}||'%'

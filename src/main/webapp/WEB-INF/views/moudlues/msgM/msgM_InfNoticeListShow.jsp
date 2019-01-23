@@ -24,56 +24,39 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>邮件管理</title>
+<title>用户管理</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 用户管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 公告查看 <span class="c-gray en">&gt;</span> 用户管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="text-c">
-	  <form action="<%=basePath%>a/infEmail/list.do" method="post">
+	  <form action="<%=basePath%>a/infNotice/list.do" method="post">
 		 日期范围：<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" name="datemin" class="input-text Wdate" style="width:120px;">
 		-
 		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" name="datemax" class="input-text Wdate" style="width:120px;">
-		<input type="text" class="input-text" style="width:250px" placeholder="输入邮件标题" id="title" name="title">
-		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜邮件</button>
+		<input type="text" class="input-text" style="width:250px" placeholder="输入公告标题" id="title" name="title">
+		<button type="submit" class="btn btn-success radius" id="title" name="title"><i class="Hui-iconfont">&#xe665;</i> 搜标题</button>
 	   </form>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><!-- <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> --> <a href="javascript:;" onclick="member_add('发送邮件','<%=basePath%>a/infEmail/save.do?delFlag=1&current_user_Id=${param.current_user_Id }','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 发送邮件</a></span> <span class="r">共有数据：<strong>88</strong> 条</span> </div>
+	
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
-<!-- 				<th width="25"><input type="checkbox" name="" value=""></th>
- -->		    <th width="80">ID</th>
+
 				<th width="100">标题</th>
-				<th width="100">发送人</th>
-				<th width="40">接收人</th>
-				<th width="130">发送时间</th>
-				<th width="70">状态</th>
-				<th width="100">操作</th>
+				<th width="100">发布人</th>
+				<th width="100">公告的类型</th>
+				<th width="130">发布时间</th>
 			</tr>
 		</thead>
 		<tbody>
-		   <c:forEach items="${infEmails }" var="infEmail">
+		   <c:forEach items="${infNotices }" var="infNotice">
 			<tr class="text-c">
-<!-- 				<td><input type="checkbox" value="1" name=""></td>
- -->				<td>${infEmail.id}</td>
-				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','<%=basePath%>a/infEmail/show.do?id=${infEmail.id}','10001','360','400')">${infEmail.title}</u></td>
-				<td>${infEmail.createBy.name}</td>
-				<td>${infEmail.getUser.name}</td>
-				<td>${infEmail.sendTime}</td>
-				<c:if test="${param.current_user_Id == infEmail.sendUser.id }">
-				   <td class="td-status">
-				     <span class="label label-success radius">已发送</span>
-				   </td>
-				   <td class="td-manage"><a title="删除"  onClick="member_del(this,'${infEmail.id}','','${infEmail.getUser.id }')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-				</c:if>
-				<c:if test="${param.current_user_Id == infEmail.getUser.id }">
-				   <td class="td-status">
-				     <span class="label label-success radius">已接收</span>
-				   </td>
-	                 <td class="td-manage"><a title="删除"  onClick="member_del(this,'${infEmail.id}','${infEmail.sendUser.id }','')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-				</c:if>
+				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','<%=basePath%>a/infNotice/show.do?id=${infNotice.id}','10001','360','400')">${infNotice.title}</u></td>
+				<td>${infNotice.createBy.name}</td>
+				<td>${infNotice.type.name}</td>
+				<td>${infNotice.pushDate}</td>
 			</tr>
 			</c:forEach>
 		</tbody>
@@ -158,13 +141,12 @@ function change_password(title,url,id,w,h){
 	layer_show(title,url,w,h);	
 }
 /*用户-删除*/
-function member_del(obj,id,sendUserId,getUserId){
+function member_del(obj,id){
 	var id = id;
 	layer.confirm('确认要删除吗？',function(index){
 		$.ajax({
 			type: 'POST',
-			data:{id:id,'getUser.id':getUserId,'sendUser.id':sendUserId},
-			url: '<%=basePath%>a/infEmail/del.do',
+			url: '<%=basePath%>a/sysUser/del.do?id=124',
 			dataType: 'json',
 			success: function(data){
 				$(obj).parents("tr").remove();

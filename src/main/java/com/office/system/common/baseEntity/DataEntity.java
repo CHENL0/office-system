@@ -14,7 +14,7 @@ import com.office.system.modlues.sysMsgM.entity.User;
  * @author lzc
  * 
  */
-public abstract class DataEntity<T> {
+public abstract class DataEntity<T> extends QuickDataEntity<T>{
 
 	protected String id;
 	protected Date createDate;	// 创建日期

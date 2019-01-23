@@ -31,7 +31,7 @@
 	<dl style="margin-left:80px; color:#fff">
 		<dt>
 			<span class="f-18">${sysOUser.name }</span>
-			<span class="pl-10 f-12">余额：40</span>
+			<span class="pl-10 f-12">登录名：${sysOUser.loginName }</span>
 		</dt>
 		<dd class="pt-10 f-12" style="margin-left:0">这家伙很懒，什么也没有留下</dd>
 	</dl>
@@ -56,8 +56,16 @@
 				<td>${sysOUser.adress }</td>
 			</tr>
 			<tr>
-				<th class="text-r">注册时间：</th>
-				<td>2014.12.20</td>
+				<th class="text-r">角色：</th>
+				<td>${sysOUser.sysORole.name }</td>
+			</tr>
+			<tr>
+				<th class="text-r">部门：</th>
+				<td>${sysOUser.sysODepartment.name }</td>
+			</tr>
+			<tr>
+				<th class="text-r">创建时间：</th>
+				<td>${sysOUser.createDate }</td>
 			</tr>
 			
 		</tbody>

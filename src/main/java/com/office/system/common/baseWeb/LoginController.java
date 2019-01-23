@@ -40,11 +40,13 @@ public class LoginController {
 		    List<SysOUser> users = sysOUserService.findList(new SysOUser());
 		    String message  = null;
 		    for (SysOUser user2 : users) {
+		      if(user2.getPassword() != null && user2.getPassword() != ""){
 				if(user2.getPassword().equals(sysOUser.getPassword()) && user2.getLoginName().equals(sysOUser.getLoginName())){
 					request.getSession().setAttribute("login_flag", "true");//设置登录标志true为登录成功
 					request.getSession().setAttribute("currentUserId", user2.getId());//为了首页能获取当前用户的
 					return "redirect:" + "/a/index.do";
 				}
+		      }
 			}
 			message = "登录失败，用户名或密码错误";
 			model.addAttribute("message", message);

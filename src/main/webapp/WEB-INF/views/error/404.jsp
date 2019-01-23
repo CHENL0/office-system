@@ -1,4 +1,8 @@
-﻿<!DOCTYPE HTML>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/include/taglib.jsp"%>
+<%@ page isELIgnored="false" %>
+<!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="utf-8">
@@ -10,9 +14,9 @@
 <script type="text/javascript" src="lib/html5shiv.js"></script>
 <script type="text/javascript" src="lib/respond.min.js"></script>
 <![endif]-->
-<link href="lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css" />
-<link href="static/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css" />
-<link href="static/h-ui.admin/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="<%=basePath%>static/lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css" />
+<link href="<%=basePath%>static/static/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="<%=basePath%>static/static/h-ui.admin/css/H-ui.admin.css" rel="stylesheet" type="text/css" />
 <!--[if IE 6]>
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
@@ -28,7 +32,7 @@
 	<p class="error-info">您可以：
 		<a href="javascript:;" onclick="history.go(-1)" class="c-primary">&lt; 返回上一页</a>
 		<span class="ml-20">|</span>
-		<a href="/" class="c-primary ml-20">去首页 &gt;</a>
+		<a href="<%=basePath%>a/index.do" class="c-primary ml-20">去首页 &gt;</a>
 	</p>
 </section>
 </body>

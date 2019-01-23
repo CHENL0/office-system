@@ -43,7 +43,8 @@ public class SysOUserService extends CrudService<SysOUserDao,SysOUser>{
 	//删除
 	public void delete(SysOUser sysOUser){
 		super.delete(sysOUser);
-		sysOUserDao.deleteSysOUserEmail(sysOUser);
+		sysOUserDao.deleteGetSysOUserEmail(sysOUser);
+		sysOUserDao.deleteSendSysOUserEmail(sysOUser);
 	}
 	
 

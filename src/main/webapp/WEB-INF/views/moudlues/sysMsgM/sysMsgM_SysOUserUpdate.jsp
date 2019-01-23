@@ -35,14 +35,14 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="<%=basePath%>/a/sysUser/update.do" method="post" class="form form-horizontal">
+	<form action="<%=basePath%>/a/sysUser/update.do" method="post" class="form form-horizontal" id="form-add">
 	   <input type="hidden" value="${param.current_user_Id }" name="updateBy.id" id="updateBy.id">
 	   <input type="hidden" value="${nowDate}" name="updateDate" id="updateDate">
 	    <input type="hidden" value="${sysOUser.id }" name="id" id="id">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>姓名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${sysOUser.name }" placeholder="" id="name" name="name">
+				<input type="text" class="input-text" value="${sysOUser.name }" placeholder="" id="name" name="name" ${currentUser.sysORole.name =='普通员工' ? 'readonly="readonly" ' : ''}>
 			</div>
 		</div>
 		<div class="row cl">
@@ -54,32 +54,32 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>工号：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${sysOUser.no }" placeholder="" id="no" name="no">
+				<input type="text" class="input-text" value="${sysOUser.no }" placeholder="" id="no" name="no" ${currentUser.sysORole.name =='普通员工' ? 'readonly="readonly" ' : ''}>
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属的部门：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 			    <input type="hidden" name="sysODepartment.id" id="sysODepartment.id" value="${sysOUser.sysODepartment.id }">
-				<input type="text" class="input-text" value="${sysOUser.sysODepartment.name }" placeholder="" id="sysODepartment.name" name="sysODepartment.name">
+				<input type="text" class="input-text" value="${sysOUser.sysODepartment.name }" placeholder="" id="sysODepartment.name" name="sysODepartment.name" readonly="readonly">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 			    <input type="hidden" name="sysORole.id" id="sysORole.id" value="${sysOUser.sysORole.id }">
-				<input type="text" class="input-text" value="${sysOUser.sysORole.name }" placeholder="" id="sysORole.name" name="sysORole.name">
+				<input type="text" class="input-text" value="${sysOUser.sysORole.name }" placeholder="" id="sysORole.name" name="sysORole.name"  readonly="readonly">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
 			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="radio-box">
-					<input name="sex" type="radio" id="sex-1" checked>
+					<input name="sex" type="radio" id="sex-1" checked value="男">
 					<label for="sex-1">男</label>
 				</div>
 				<div class="radio-box">
-					<input type="radio" id="sex-2" name="sex">
+					<input type="radio" id="sex-2" name="sex" value="女">
 					<label for="sex-2">女</label>
 				</div>
 				<div class="radio-box">
@@ -97,10 +97,10 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>邮箱：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" placeholder="@" name="email" id="email">
+				<input type="text" class="input-text" value="${sysOUser.email }"placeholder="@" name="email" id="email">
 			</div>
 		</div>
-		 <div class="row cl">
+		<%--  <div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">所属部门：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
 				<select class="select" size="1" name="sysODepartment.id" id="sysODepartment.id">
@@ -111,7 +111,7 @@
 				</select>
 				</span> 
 				</div>
-		</div>
+		</div> --%>
 		<!-- <div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">附件：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="btn-upload form-group">
@@ -145,7 +145,7 @@
 		</div>
 	</form>
 </article>
-
+<input type="hidden" value="${msg }" name="msg" id="msg">
 <!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="<%=basePath%>static/lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="<%=basePath%>static/lib/layer/2.4/layer.js"></script>
@@ -165,17 +165,28 @@ $(function(){
 		increaseArea: '20%'
 	});
 	
-	$("#form-member-add").validate({
+	$("#form-add").validate({
 		rules:{
-			username:{
+			name:{
 				required:true,
 				minlength:2,
 				maxlength:16
 			},
+			password:{
+				required:true,
+				minlength:2,
+				maxlength:16
+			},
+			no:{
+				required:true,
+			},
 			sex:{
 				required:true,
 			},
-			mobile:{
+			adress:{
+				required:true,
+			},
+			phone:{
 				required:true,
 				isMobile:true,
 			},
@@ -183,23 +194,32 @@ $(function(){
 				required:true,
 				email:true,
 			},
-			uploadfile:{
+			/* uploadfile:{
 				required:true,
-			},
+			}, */
 			
 		},
 		onkeyup:false,
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
-			//$(form).ajaxSubmit();
+			form.submit();
+		/* 	//$(form).ajaxSubmit();
 			var index = parent.layer.getFrameIndex(window.name);
 			//parent.$('.btn-refresh').click();
-			parent.layer.close(index);
+			parent.layer.close(index); */
 		}
 	});
 });
 </script> 
+<!-- 消息提示 -->
+<script type="text/javascript">
+window.onload=function(){
+	var msg = document.getElementById('msg').value;
+	if(msg != null && msg != '') {layer.msg(msg,{icon: 5,time:2000});}
+	
+} 
+</script>
 <!--/请在上方写此页面业务相关的脚本-->
 </body>
 </html>

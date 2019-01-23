@@ -12,6 +12,10 @@ public class SysODepartmentDispatch extends DataEntity<SysODepartmentDispatch>{
 	
 	private SysODepartment newDeparment;
 	
+	private SysORole oldRole;
+	
+	private SysORole newRole;
+	
 	public SysODepartmentDispatch(){}
 	
 	public SysODepartmentDispatch(String id){
@@ -49,6 +53,22 @@ public class SysODepartmentDispatch extends DataEntity<SysODepartmentDispatch>{
 
 	public void setNewDeparment(SysODepartment newDeparment) {
 		this.newDeparment = newDeparment;
+	}
+
+	public SysORole getOldRole() {
+		return oldRole;
+	}
+
+	public void setOldRole(SysORole oldRole) {
+		this.oldRole = oldRole;
+	}
+
+	public SysORole getNewRole() {
+		return newRole;
+	}
+
+	public void setNewRole(SysORole newRole) {
+		this.newRole = newRole;
 	}
 	
 	

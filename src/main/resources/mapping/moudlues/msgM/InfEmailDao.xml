@@ -62,8 +62,20 @@
 				AND a."staut" LIKE 
 					'%'||#{staut}||'%'
 			</if>
-			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+			<if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
+				AND a."create_by"  != #{update.id}
+			</if>
+			<!-- <if test="createBy != null and createBy.id != null and createBy.id != ''">
 				AND a."create_by"  = #{createBy.id}
+			</if> -->
+			<if test="sendUser != null and sendUser.id != null and sendUser.id != ''">
+				AND a."send_user_id"  = #{sendUser.id}
+			</if>
+			<if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
+				AND a."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
+			</if>
+			<if test="getUser != null and getUser.id != null and getUser.id != ''">
+				OR a."get_user_id"  = #{getUser.id}
 			</if>
 		</where>
  </select>
@@ -79,32 +91,32 @@
 	 <selectKey keyProperty="id" resultType="String" order="BEFORE">
             select  lower(sys_guid()) from DUAL
      </selectKey>
-    insert into INF_EMAIL ("id", "text", "staut", 
+    insert into INF_EMAIL ("id", "text", "staut", "title",
       "sendTime", "get_user_id", "send_user_id", 
       "del_flag", "create_by", "create_date", 
       "update_by", "update_date")
-    values (#{id,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, #{staut,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, #{staut,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
       #{sendTime,jdbcType=DATE}, #{getUser.id,jdbcType=VARCHAR}, #{sendUser.id,jdbcType=VARCHAR}, 
       #{delFlag,jdbcType=VARCHAR}, #{createBy.id,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, 
       #{updateBy.id,jdbcType=VARCHAR}, #{updateDate,jdbcType=DATE})
   </insert>
-     <!-- 逻辑删除邮件 -->
+     <!-- 逻辑删除邮件，设置发件人是为了防止两端删除 -->
   <update id="delete">
 		UPDATE INF_EMAIL SET 
-			"del_flag" = 1
+			"get_user_id" = #{getUser.id},"send_user_id" = #{sendUser.id}
 		WHERE "id" = #{id}
  </update>
  
    <update id="update"  >
     update INF_EMAIL
     <set >
-      <if test="text != null" >
+      <if test="text != null and text != ''" >
         "text" = #{text,jdbcType=VARCHAR},
       </if>
-      <if test="staut != null" >
+      <if test="staut != null and staut != ''" >
         "staut" = #{staut,jdbcType=VARCHAR},
       </if>
-      <if test="sendTime != null" >
+      <if test="sendTime != null and sendTime != ''" >
         "sendTime" = #{sendTime,jdbcType=DATE},
       </if>
     <!--   <if test="getUserId != null" >
@@ -113,19 +125,19 @@
       <if test="sendUserId != null" >
         "send_user_id" = #{sendUserId,jdbcType=VARCHAR},
       </if> -->
-      <if test="delFlag != null" >
+      <if test="delFlag != null and delFlag != ''" >
         "del_flag" = #{delFlag,jdbcType=VARCHAR},
       </if>
       <if test="createBy != null and createBy.id != null and createBy.id != ''">
         "create_by" = #{createBy.id,jdbcType=VARCHAR},
       </if>
-      <if test="createDate != null" >
+      <if test="createDate != null and createDate != ''" >
         "create_date" = #{createDate,jdbcType=DATE},
       </if>
       <if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
         "update_by" = #{updateBy.id,jdbcType=VARCHAR},
       </if>
-      <if test="updateDate != null" >
+      <if test="updateDate != null and updateDate != ''" >
         "update_date" = #{updateDate,jdbcType=DATE},
       </if>
     </set>
