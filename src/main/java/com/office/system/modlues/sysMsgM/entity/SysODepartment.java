@@ -13,6 +13,12 @@ public class SysODepartment extends DataEntity<SysODepartment> {
     private String text;
     
     private List<User> users = new ArrayList<>();
+    
+    public SysODepartment(){
+    }
+    public SysODepartment(String id){
+    	this.id = id;
+    }
 
     public String getName() {
         return name;

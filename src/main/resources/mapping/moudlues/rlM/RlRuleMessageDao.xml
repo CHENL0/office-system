@@ -4,11 +4,11 @@
   <resultMap id="BaseResultMap" type="RlRuleMessage" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="text" property="text" jdbcType="VARCHAR" />
-    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
-    <result column="create_date" property="createDate" jdbcType="DATE" />
+<!--     <result column="create_by" property="createBy.id" jdbcType="VARCHAR" />
+ -->    <result column="create_date" property="createDate" jdbcType="DATE" />
     <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
-    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
-    <result column="update_date" property="updateDate" jdbcType="DATE" />
+<!--     <result column="update_by" property="updateBy.id" jdbcType="VARCHAR" />
+ -->    <result column="update_date" property="updateDate" jdbcType="DATE" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -105,8 +105,8 @@
     insert into RL_RULE_MESSAGE (id, text, create_by, 
       create_date, del_flag, update_by, 
       update_date)
-    values (#{id,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
-      #{createDate,jdbcType=DATE}, #{delFlag,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, 
+<!--     values (#{id,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, #{createBy.id,jdbcType=VARCHAR}, 
+ -->      #{createDate,jdbcType=DATE}, #{delFlag,jdbcType=VARCHAR},<!--  #{updateBy.id,jdbcType=VARCHAR},  -->
       #{updateDate,jdbcType=DATE})
   </insert>
   <insert id="insertSelective" parameterType="RlRuleMessage" >
@@ -118,18 +118,18 @@
       <if test="text != null" >
         text,
       </if>
-      <if test="createBy != null" >
+      <!-- <if test="createBy != null" >
         create_by,
-      </if>
+      </if> -->
       <if test="createDate != null" >
         create_date,
       </if>
       <if test="delFlag != null" >
         del_flag,
       </if>
-      <if test="updateBy != null" >
+     <!--  <if test="updateBy != null" >
         update_by,
-      </if>
+      </if> -->
       <if test="updateDate != null" >
         update_date,
       </if>
@@ -141,18 +141,18 @@
       <if test="text != null" >
         #{text,jdbcType=VARCHAR},
       </if>
-      <if test="createBy != null" >
-        #{createBy,jdbcType=VARCHAR},
-      </if>
+      <!-- <if test="createBy != null" >
+        #{createBy.id,jdbcType=VARCHAR},
+      </if> -->
       <if test="createDate != null" >
         #{createDate,jdbcType=DATE},
       </if>
       <if test="delFlag != null" >
         #{delFlag,jdbcType=VARCHAR},
       </if>
-      <if test="updateBy != null" >
-        #{updateBy,jdbcType=VARCHAR},
-      </if>
+    <!--   <if test="updateBy != null" >
+        #{updateBy.id,jdbcType=VARCHAR},
+      </if> -->
       <if test="updateDate != null" >
         #{updateDate,jdbcType=DATE},
       </if>
@@ -173,18 +173,18 @@
       <if test="record.text != null" >
         text = #{record.text,jdbcType=VARCHAR},
       </if>
-      <if test="record.createBy != null" >
-        create_by = #{record.createBy,jdbcType=VARCHAR},
-      </if>
+     <!--  <if test="record.createBy != null" >
+        create_by = #{record.createBy.id,jdbcType=VARCHAR},
+      </if> -->
       <if test="record.createDate != null" >
         create_date = #{record.createDate,jdbcType=DATE},
       </if>
       <if test="record.delFlag != null" >
         del_flag = #{record.delFlag,jdbcType=VARCHAR},
       </if>
-      <if test="record.updateBy != null" >
-        update_by = #{record.updateBy,jdbcType=VARCHAR},
-      </if>
+   <!--    <if test="record.updateBy != null" >
+        update_by = #{record.updateBy.id,jdbcType=VARCHAR},
+      </if> -->
       <if test="record.updateDate != null" >
         update_date = #{record.updateDate,jdbcType=DATE},
       </if>
@@ -197,11 +197,11 @@
     update RL_RULE_MESSAGE
     set id = #{record.id,jdbcType=VARCHAR},
       text = #{record.text,jdbcType=VARCHAR},
-      create_by = #{record.createBy,jdbcType=VARCHAR},
-      create_date = #{record.createDate,jdbcType=DATE},
+<!--       create_by = #{record.createBy.id,jdbcType=VARCHAR},
+ -->      create_date = #{record.createDate,jdbcType=DATE},
       del_flag = #{record.delFlag,jdbcType=VARCHAR},
-      update_by = #{record.updateBy,jdbcType=VARCHAR},
-      update_date = #{record.updateDate,jdbcType=DATE}
+<!--       update_by = #{record.updateBy.id,jdbcType=VARCHAR},
+ -->      update_date = #{record.updateDate,jdbcType=DATE}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -212,18 +212,18 @@
       <if test="text != null" >
         text = #{text,jdbcType=VARCHAR},
       </if>
-      <if test="createBy != null" >
-        create_by = #{createBy,jdbcType=VARCHAR},
-      </if>
+     <!--  <if test="createBy != null" >
+        create_by = #{createBy.id,jdbcType=VARCHAR},
+      </if> -->
       <if test="createDate != null" >
         create_date = #{createDate,jdbcType=DATE},
       </if>
       <if test="delFlag != null" >
         del_flag = #{delFlag,jdbcType=VARCHAR},
       </if>
-      <if test="updateBy != null" >
-        update_by = #{updateBy,jdbcType=VARCHAR},
-      </if>
+     <!--  <if test="updateBy != null" >
+        update_by = #{updateBy.id,jdbcType=VARCHAR},
+      </if> -->
       <if test="updateDate != null" >
         update_date = #{updateDate,jdbcType=DATE},
       </if>
@@ -233,10 +233,10 @@
   <update id="updateByPrimaryKey" parameterType="RlRuleMessage" >
     update RL_RULE_MESSAGE
     set text = #{text,jdbcType=VARCHAR},
-      create_by = #{createBy,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=DATE},
+<!--       create_by = #{createBy.id,jdbcType=VARCHAR},
+ -->      create_date = #{createDate,jdbcType=DATE},
       del_flag = #{delFlag,jdbcType=VARCHAR},
-      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_by = #{updateBy.id,jdbcType=VARCHAR},
       update_date = #{updateDate,jdbcType=DATE}
     where id = #{id,jdbcType=VARCHAR}
   </update>

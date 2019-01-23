@@ -154,11 +154,11 @@
             <version>2.8.0</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-        <dependency>
+      <!--   <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.8.0</version>
-        </dependency>
+        </dependency> -->
 
         <dependency>
             <groupId>commons-fileupload</groupId>
@@ -189,26 +189,13 @@
             <artifactId>jackson-databind</artifactId>
             <version>2.8.0</version>
         </dependency>
+        <!-- 配置 cglib依赖包-->
+        <dependency>
+		    <groupId>cglib</groupId>
+		    <artifactId>cglib-nodep</artifactId>
+		    <version>2.1_3</version>
+        </dependency>
     </dependencies>
-
-    <!--<pluginRepositories>-->
-        <!--<pluginRepository>-->
-            <!--<id>alfresco-public</id>-->
-            <!--<url>https://artifacts.alfresco.com/nexus/content/groups/public</url>-->
-        <!--</pluginRepository>-->
-        <!--<pluginRepository>-->
-            <!--<id>alfresco-public-snapshots</id>-->
-            <!--<url>https://artifacts.alfresco.com/nexus/content/groups/public-snapshots</url>-->
-            <!--<snapshots>-->
-                <!--<enabled>true</enabled>-->
-                <!--<updatePolicy>daily</updatePolicy>-->
-            <!--</snapshots>-->
-        <!--</pluginRepository>-->
-        <!--<pluginRepository>-->
-            <!--<id>beardedgeeks-releases</id>-->
-            <!--<url>http://beardedgeeks.googlecode.com/svn/repository/releases</url>-->
-        <!--</pluginRepository>-->
-    <!--</pluginRepositories>-->
 
     <build>
         <finalName>office-system</finalName>
@@ -243,17 +230,6 @@
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>2.8.2</version>
                 </plugin>
-                <!--<plugin>-->
-                    <!--<groupId>org.apache.tomcat.maven</groupId>-->
-                    <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
-                    <!--<configuration>-->
-                        <!--<url>http://localhost:8080/manager/text</url>-->
-                        <!--<path>/</path>&lt;!&ndash; 此行注释则项目tomcat7:redeploy打包为ROOT.war &ndash;&gt;-->
-                        <!--<server>tomcat</server>-->
-                        <!--<username>tomcat</username>-->
-                        <!--<password>tomcat</password>-->
-                    <!--</configuration>-->
-                <!--</plugin>-->
             </plugins>
         </pluginManagement>
     </build>

@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.office.system.modlues.sysMsgM.entity.SysOUser;
 import com.office.system.modlues.sysMsgM.entity.User;
+import com.office.system.modlues.sysMsgM.service.SysOUserService;
 import com.office.system.modlues.sysMsgM.service.UserService;
 
 
@@ -22,7 +24,7 @@ import com.office.system.modlues.sysMsgM.service.UserService;
 public class IndexController {
 	
 	@Autowired
-	UserService userService;
+	SysOUserService sysOUserService;
 	
 	@RequestMapping(value={"/index.do",""})
 	public String index(HttpServletRequest request,Model model){
@@ -32,7 +34,7 @@ public class IndexController {
 		if (loginFlag !=null && loginFlag != "" && currentUserId != null && currentUserId !=""){
 		  if(loginFlag.equals("true")){
 			//向model添加内容
-			  User currentUser = userService.get(new User(currentUserId));
+			  SysOUser currentUser = sysOUserService.get(new SysOUser(currentUserId));
 			  model.addAttribute("currentUser",currentUser);
 			return "common/index";
 		  }

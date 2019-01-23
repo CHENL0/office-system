@@ -1,120 +1,156 @@
 package com.office.system.modlues.sysMsgM.entity;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 import com.office.system.common.baseEntity.DataEntity;
 
-public class SysOUser extends DataEntity<SysOUser>{
+public class  SysOUser extends DataEntity<SysOUser> {
+	
+	private String loginName;//登录名
+	
+	private String name;//姓名
+	
+	private String no;//工号
+	
+	private String photo;//头像
+	
+/*	private String oldPassword;//旧密码
+	
+	private String newPassword;//新密码
+	
+*/	
+	private String password;
+	
+	private String email;//邮箱
+	
+	private String phone;//电话
+	
+	private String adress;//地址
+	
+	private SysORole sysORole;//角色
+	
+	private String sex;
+	
+	private SysODepartment sysODepartment;//部门
+	
+//	private Email email;
+//	
+//
+//	public Email getEmail() {
+//		return email;
+//	}
+//
+//	public void setEmail(Email email) {
+//		this.email = email;
+//	}
 
-    private String name;
+	public SysOUser(){
+	}
+	public SysOUser(String id){
+		
+		this.id = id;
+	}
 
-    private String loginName;
+	public String getLoginName() {
+		return loginName;
+	}
 
-    private String phone;
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
 
-    private String photo;
+	public String getName() {
+		return name;
+	}
 
-    private String email;
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    private BigDecimal no;
+	public String getNo() {
+		return no;
+	}
 
-    private String oldPassword;
+	public void setNo(String no) {
+		this.no = no;
+	}
 
-    private String newPassword;
+	public String getPhoto() {
+		return photo;
+	}
 
-    private String role;
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 
-    private String adress;
+//	public String getOldPassword() {
+//		return oldPassword;
+//	}
+//
+//	public void setOldPassword(String oldPassword) {
+//		this.oldPassword = oldPassword;
+//	}
+//
+//	public String getNewPassword() {
+//		return newPassword;
+//	}
+//
+//	public void setNewPassword(String newPassword) {
+//		this.newPassword = newPassword;
+//	}
 
-    private String emailId;
+/*	public String getEmail() {
+		return email;
+	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}*/
 
-    public String getName() {
-        return name;
-    }
+	public String getPhone() {
+		return phone;
+	}
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public SysORole getSysORole() {
+		return sysORole;
+	}
+	public void setSysORole(SysORole sysORole) {
+		this.sysORole = sysORole;
+	}
+	public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-    public String getLoginName() {
-        return loginName;
-    }
+	public String getAdress() {
+		return adress;
+	}
 
-    public void setLoginName(String loginName) {
-        this.loginName = loginName == null ? null : loginName.trim();
-    }
+	public void setAdress(String adress) {
+		this.adress = adress;
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public SysODepartment getSysODepartment() {
+		return sysODepartment;
+	}
+	public void setSysODepartment(SysODepartment sysODepartment) {
+		this.sysODepartment = sysODepartment;
+	}
+	
 
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo == null ? null : photo.trim();
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
-
-    public BigDecimal getNo() {
-        return no;
-    }
-
-    public void setNo(BigDecimal no) {
-        this.no = no;
-    }
-
-    public String getOldPassword() {
-        return oldPassword;
-    }
-
-    public void setOldPassword(String oldPassword) {
-        this.oldPassword = oldPassword == null ? null : oldPassword.trim();
-    }
-
-    public String getNewPassword() {
-        return newPassword;
-    }
-
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword == null ? null : newPassword.trim();
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role == null ? null : role.trim();
-    }
-
-    public String getAdress() {
-        return adress;
-    }
-
-    public void setAdress(String adress) {
-        this.adress = adress == null ? null : adress.trim();
-    }
-
-    public String getEmailId() {
-        return emailId;
-    }
-
-    public void setEmailId(String emailId) {
-        this.emailId = emailId == null ? null : emailId.trim();
-    }
 }

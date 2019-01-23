@@ -6,8 +6,8 @@
     <result column="text" property="text" jdbcType="VARCHAR" />
     <result column="start_date" property="startDate" jdbcType="DATE" />
     <result column="end_date" property="endDate" jdbcType="DATE" />
-    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
-    <result column="create_date" property="createDate" jdbcType="DATE" />
+<!--     <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+ -->    <result column="create_date" property="createDate" jdbcType="DATE" />
     <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -106,7 +106,7 @@
       end_date, create_by, create_date, 
       del_flag)
     values (#{id,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, #{startDate,jdbcType=DATE}, 
-      #{endDate,jdbcType=DATE}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, 
+      #{endDate,jdbcType=DATE},<!--  #{createBy.id,jdbcType=VARCHAR}, --> #{createDate,jdbcType=DATE}, 
       #{delFlag,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="WkWorkReport" >
@@ -124,9 +124,9 @@
       <if test="endDate != null" >
         end_date,
       </if>
-      <if test="createBy != null" >
+     <!--  <if test="createBy != null" >
         create_by,
-      </if>
+      </if> -->
       <if test="createDate != null" >
         create_date,
       </if>
@@ -147,9 +147,9 @@
       <if test="endDate != null" >
         #{endDate,jdbcType=DATE},
       </if>
-      <if test="createBy != null" >
-        #{createBy,jdbcType=VARCHAR},
-      </if>
+    <!--   <if test="createBy != null" >
+        #{createBy.id,jdbcType=VARCHAR},
+      </if> -->
       <if test="createDate != null" >
         #{createDate,jdbcType=DATE},
       </if>
@@ -179,9 +179,9 @@
       <if test="record.endDate != null" >
         end_date = #{record.endDate,jdbcType=DATE},
       </if>
-      <if test="record.createBy != null" >
-        create_by = #{record.createBy,jdbcType=VARCHAR},
-      </if>
+     <!--  <if test="record.createBy != null" >
+        create_by = #{record.createBy.id,jdbcType=VARCHAR},
+      </if> -->
       <if test="record.createDate != null" >
         create_date = #{record.createDate,jdbcType=DATE},
       </if>
@@ -199,8 +199,8 @@
       text = #{record.text,jdbcType=VARCHAR},
       start_date = #{record.startDate,jdbcType=DATE},
       end_date = #{record.endDate,jdbcType=DATE},
-      create_by = #{record.createBy,jdbcType=VARCHAR},
-      create_date = #{record.createDate,jdbcType=DATE},
+<!--       create_by = #{record.createBy.id,jdbcType=VARCHAR},
+ -->      create_date = #{record.createDate,jdbcType=DATE},
       del_flag = #{record.delFlag,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -218,9 +218,9 @@
       <if test="endDate != null" >
         end_date = #{endDate,jdbcType=DATE},
       </if>
-      <if test="createBy != null" >
-        create_by = #{createBy,jdbcType=VARCHAR},
-      </if>
+    <!--   <if test="createBy != null" >
+        create_by = #{createBy.id,jdbcType=VARCHAR},
+      </if> -->
       <if test="createDate != null" >
         create_date = #{createDate,jdbcType=DATE},
       </if>
@@ -235,8 +235,8 @@
     set text = #{text,jdbcType=VARCHAR},
       start_date = #{startDate,jdbcType=DATE},
       end_date = #{endDate,jdbcType=DATE},
-      create_by = #{createBy,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=DATE},
+<!--       create_by = #{createBy.id,jdbcType=VARCHAR},
+ -->      create_date = #{createDate,jdbcType=DATE},
       del_flag = #{delFlag,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
