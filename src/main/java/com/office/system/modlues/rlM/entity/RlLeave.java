@@ -14,6 +14,16 @@ public class RlLeave extends DataEntity<RlLeave>{
 
     private String auditUserId;
 
+    private int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public String getReason() {
         return reason;
     }

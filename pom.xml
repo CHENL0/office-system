@@ -191,6 +191,25 @@
         </dependency>
     </dependencies>
 
+    <!--<pluginRepositories>-->
+        <!--<pluginRepository>-->
+            <!--<id>alfresco-public</id>-->
+            <!--<url>https://artifacts.alfresco.com/nexus/content/groups/public</url>-->
+        <!--</pluginRepository>-->
+        <!--<pluginRepository>-->
+            <!--<id>alfresco-public-snapshots</id>-->
+            <!--<url>https://artifacts.alfresco.com/nexus/content/groups/public-snapshots</url>-->
+            <!--<snapshots>-->
+                <!--<enabled>true</enabled>-->
+                <!--<updatePolicy>daily</updatePolicy>-->
+            <!--</snapshots>-->
+        <!--</pluginRepository>-->
+        <!--<pluginRepository>-->
+            <!--<id>beardedgeeks-releases</id>-->
+            <!--<url>http://beardedgeeks.googlecode.com/svn/repository/releases</url>-->
+        <!--</pluginRepository>-->
+    <!--</pluginRepositories>-->
+
     <build>
         <finalName>office-system</finalName>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
@@ -224,6 +243,17 @@
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>2.8.2</version>
                 </plugin>
+                <!--<plugin>-->
+                    <!--<groupId>org.apache.tomcat.maven</groupId>-->
+                    <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
+                    <!--<configuration>-->
+                        <!--<url>http://localhost:8080/manager/text</url>-->
+                        <!--<path>/</path>&lt;!&ndash; 此行注释则项目tomcat7:redeploy打包为ROOT.war &ndash;&gt;-->
+                        <!--<server>tomcat</server>-->
+                        <!--<username>tomcat</username>-->
+                        <!--<password>tomcat</password>-->
+                    <!--</configuration>-->
+                <!--</plugin>-->
             </plugins>
         </pluginManagement>
     </build>
