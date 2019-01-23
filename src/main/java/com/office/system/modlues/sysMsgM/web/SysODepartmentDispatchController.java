@@ -43,8 +43,10 @@ public class SysODepartmentDispatchController {
 	public String saveForPost(Model model,SysOUser sysOUser,SysODepartmentDispatch sysODepartmentDispatch){
 		if(sysODepartmentDispatch != null ){
 			sysODepartmentDispatchService.save(sysODepartmentDispatch);
+			String msg = "添加成功!";
+			model.addAttribute("msg", msg);
 		}
-		return "redirect:"+"/a/sysODepartmentDispatch/list.do";
+		return "moudlues/sysMsgM/sysMsgM_SysODepartmentDispatchAdd";
 	}
 	//post请求的保存，不要执行保存，只负责跳转页面
 	@RequestMapping(value="/save.do",method=RequestMethod.GET)

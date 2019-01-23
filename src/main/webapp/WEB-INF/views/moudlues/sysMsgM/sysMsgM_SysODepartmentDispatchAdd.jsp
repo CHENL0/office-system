@@ -28,7 +28,7 @@
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
-<title>添加用户 </title>
+<title>添加调度信息 </title>
 </head>
 <body>
 <article class="page-container">
@@ -95,7 +95,7 @@
 		</div>
 	</form>
 </article>
-
+<input type="hidden" value="${msg }" name="msg" id="msg">
 <!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="<%=basePath%>static/lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="<%=basePath%>static/lib/layer/2.4/layer.js"></script>
@@ -149,6 +149,14 @@ $(function(){
 		}
 	});
 });
+</script>
+<!-- 消息提示 -->
+<script type="text/javascript">
+window.onload=function(){
+	var msg = document.getElementById('msg').value;
+	if(msg != null && msg != '') {layer.msg(msg,{icon: 1,time:2000});}
+	
+} 
 </script> 
 <!--/请在上方写此页面业务相关的脚本-->
 </body>
