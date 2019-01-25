@@ -9,5 +9,6 @@ import com.office.system.modlues.rlM.entity.RlRuleMessage;
 import java.util.List;
 
 public interface RlRuleMessageDao extends CrudDao<RlRuleMessage> {
-   
+    RlRuleMessage selectByPrimaryKey(String ruleId);
+    void updateDelFlagById (String id);
 }

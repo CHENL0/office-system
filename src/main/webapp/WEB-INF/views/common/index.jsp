@@ -41,7 +41,7 @@
 							<li><a href="javascript:;" onclick="article_add('添加资讯','article-add.html')"><i class="Hui-iconfont">&#xe616;</i> 资讯</a></li>
 							<li><a href="javascript:;" onclick="picture_add('添加资讯','picture-add.html')"><i class="Hui-iconfont">&#xe613;</i> 图片</a></li>
 							<li><a href="javascript:;" onclick="product_add('添加资讯','product-add.html')"><i class="Hui-iconfont">&#xe620;</i> 产品</a></li>
-							<li><a href="javascript:;" onclick="member_add('添加用户','rlLeave_add.jsp','','510')"><i class="Hui-iconfont">&#xe60d;</i> 用户</a></li>
+							<li><a href="javascript:;" onclick="member_add('添加用户','rlLeave_list.jsp','','510')"><i class="Hui-iconfont">&#xe60d;</i> 用户</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -108,10 +108,11 @@
 					<li><a data-href="product-category.html" data-title="分类管理" href="javascript:void(0)">分类管理</a></li>
 					<li><a data-href="product-list.html" data-title="产品管理" href="javascript:void(0)">产品管理</a></li>
                     -->
-                    <li><a data-href="<%=basePath%>/RlLeave/leavePage.do" data-title="请假信息管理" href="<%=basePath%>/RlLeave/leavePage.do">请假信息管理</a></li>
-                     <li><a data-href="<%=basePath%>moudlues/rlM/rlLeave_add.html" data-title="加班信息管理" href="javascript:void(0)">加班信息管理</a></li>
-                      <li><a data-href="product-brand.html" data-title="公司规章制度信息管理" href="javascript:void(0)">公司规章制度信息管理</a></li>
-                    
+					<li><a data-href="<%=basePath%>/RlLeave/leavePage.do?currentUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="请假流程" href="javascript:void(0)">请假流程</a></li>
+					<%--<li><a data-href="<%=basePath%>/RlLeave/leavePage.do" data-title="请假信息管理" href="<%=basePath%>/RlLeave/leavePage.do"></a></li>--%>
+                     <li><a data-href="<%=basePath%>RlOvertime/overtimePage.do?currentUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="加班信息管理" href="javascript:void(0)">加班信息管理</a></li>
+                      <li><a data-href="<%=basePath%>RlRuleMessage/ruleMessagePage.do?currentUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="公司规章制度信息管理" href="javascript:void(0)">公司规章制度信息管理</a></li>
+
 			</ul>
 		</dd>
 	</dl>

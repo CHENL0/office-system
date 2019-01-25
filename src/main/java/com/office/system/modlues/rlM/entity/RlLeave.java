@@ -3,25 +3,47 @@ package com.office.system.modlues.rlM.entity;
 import java.util.Date;
 
 import com.office.system.common.baseEntity.DataEntity;
+import com.office.system.modlues.sysMsgM.entity.SysOUser;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class RlLeave extends DataEntity<RlLeave>{
 
     private String reason;
-
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date startDate;
-
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date endDate;
 
     private String auditUserId;
 
-    private int status;
+    private int leaveStatus;
 
-    public int getStatus() {
-        return status;
+    private String leaveType;
+
+    private SysOUser auditUser;
+
+    public SysOUser getAuditUser() {
+        return auditUser;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setAuditUser(SysOUser auditUser) {
+        this.auditUser = auditUser;
+    }
+
+    public int getLeaveStatus() {
+        return leaveStatus;
+    }
+
+    public void setLeaveStatus(int leaveStatus) {
+        this.leaveStatus = leaveStatus;
+    }
+
+    public String getLeaveType() {
+        return leaveType;
+    }
+
+    public void setLeaveType(String leaveType) {
+        this.leaveType = leaveType;
     }
 
     public String getReason() {
