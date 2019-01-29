@@ -36,15 +36,24 @@ public class RlOvertimeController {
      * @Return
      */
     @RequestMapping(value = "/overtimePage.do")
-    public Object toOvertimePage(Model model, String currentUserId, String currentUserRole) {
-        if(currentUserRole.equals("经理")){
-            List<RlOvertime> rlOvertimeList = rlOvertimeService.findList(new RlOvertime());
-            model.addAttribute("rlOvertimeList", rlOvertimeList);
-        }else {
-            List<RlOvertime> rlOvertimeList = rlOvertimeService.selectAllByCreateBy(currentUserId);
-            model.addAttribute("rlOvertimeList", rlOvertimeList);
-        }
+    public Object toOvertimePage(Model model, RlOvertime rlOvertime) {
+        List<RlOvertime> rlOvertimeList = rlOvertimeService.selectAllByCreateBy(rlOvertime);
+        model.addAttribute("rlOvertimeList", rlOvertimeList);
         return "moudlues/rlM/rlOvertime_list";
+    }
+
+    /**
+     * @Description //TODO get list of one user by  he's id for showing all data;
+     * @Author Chen
+     * @DateTime 2019/1/24
+     * @Param
+     * @Return
+     */
+    @RequestMapping(value = "/auditOvertimePage.do")
+    public Object toAuditOvertimePage(Model model, RlOvertime rlOvertime) {
+        List<RlOvertime> rlOvertimeList = rlOvertimeService.selectAllByAudit(rlOvertime);
+        model.addAttribute("rlOvertimeList", rlOvertimeList);
+        return "moudlues/rlM/rlOvertime_list_audit";
     }
 
     /**
@@ -80,10 +89,18 @@ public class RlOvertimeController {
         return "moudlues/rlM/rlOvertime_commit";
     }
 
-    @RequestMapping(value = "/delOvertime.do")
+    @RequestMapping(value = "/delOvertimeForUser.do")
     @ResponseBody
-    public Object deleteOvertime (String id){
-        rlOvertimeService.updateDelFlagById(id);
+    public Object deleteOvertimeForUser (String id){
+        rlOvertimeService.updateDelFlagByIdForUser(id);
+        Map<String, String> responseDataMap = new HashMap<>();
+        responseDataMap.put("responseData","success");
+        return responseDataMap;
+    }
+    @RequestMapping(value = "/delOvertimeForAudit.do")
+    @ResponseBody
+    public Object deleteOvertimeForAudit (String id){
+        rlOvertimeService.updateDelFlagByIdForAudit(id);
         Map<String, String> responseDataMap = new HashMap<>();
         responseDataMap.put("responseData","success");
         return responseDataMap;

@@ -103,14 +103,13 @@
 			<dt><i class="Hui-iconfont">&#xe620;</i> 制度管理系统<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-                <!--
-					<li><a data-href="product-brand.html" data-title="品牌管理" href="javascript:void(0)">品牌管理</a></li>
-					<li><a data-href="product-category.html" data-title="分类管理" href="javascript:void(0)">分类管理</a></li>
-					<li><a data-href="product-list.html" data-title="产品管理" href="javascript:void(0)">产品管理</a></li>
-                    -->
-					<li><a data-href="<%=basePath%>/RlLeave/leavePage.do?currentUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="请假流程" href="javascript:void(0)">请假流程</a></li>
+					<c:if test="${currentUser.sysORole.name == '经理' ||currentUser.sysORole.name == '系统管理员'}">
+						<li><a data-href="<%=basePath%>/RlLeave/auditLeavePage.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="请假审批管理" href="javascript:void(0)">请假审批管理</a></li>
+					</c:if>
+						<li><a data-href="<%=basePath%>/RlLeave/leavePage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="申请请假" href="javascript:void(0)">申请请假</a></li>
 					<%--<li><a data-href="<%=basePath%>/RlLeave/leavePage.do" data-title="请假信息管理" href="<%=basePath%>/RlLeave/leavePage.do"></a></li>--%>
-                     <li><a data-href="<%=basePath%>RlOvertime/overtimePage.do?currentUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="加班信息管理" href="javascript:void(0)">加班信息管理</a></li>
+					<li><a data-href="<%=basePath%>RlOvertime/auditOvertimePage.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="加班审批管理" href="javascript:void(0)">加班审批管理</a></li>
+					<li><a data-href="<%=basePath%>RlOvertime/overtimePage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="加班信息管理" href="javascript:void(0)">加班信息管理</a></li>
                       <li><a data-href="<%=basePath%>RlRuleMessage/ruleMessagePage.do?currentUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="公司规章制度信息管理" href="javascript:void(0)">公司规章制度信息管理</a></li>
 
 			</ul>
@@ -124,9 +123,13 @@
 					<li><a data-href="http://h-ui.duoshuo.com/admin/" data-title="评论列表" href="javascript:;">评论列表</a></li>
 					<li><a data-href="feedback-list.html" data-title="意见反馈" href="javascript:void(0)">意见反馈</a></li>
                     -->
-                    <li><a data-href="feedback-list.html" data-title="工作目标信息" href="javascript:void(0)">工作目标信息</a></li>
-                    <li><a data-href="feedback-list.html" data-title="工作情况汇报" href="javascript:void(0)">工作情况汇报</a></li>
-			</ul>
+					<li><a data-href="<%=basePath%>WkWorkTarget/wkWorkTargetPage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="工作目标信息" href="javascript:void(0)">工作目标信息</a></li>
+					<c:if test="${currentUser.sysORole.name == '经理' ||currentUser.sysORole.name == '系统管理员'}">
+						<li><a data-href="<%=basePath%>WkWorkReport/auditWkWorkReportPage.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="汇报信息管理" href="javascript:void(0)">汇报信息管理</a></li>
+					</c:if>
+					<li><a data-href="<%=basePath%>WkWorkReport/wkWorkReportPage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="工作情况汇报" href="javascript:void(0)">工作情况汇报</a></li>
+
+				</ul>
 		</dd>
 	</dl>
 		<dl id="menu-member">

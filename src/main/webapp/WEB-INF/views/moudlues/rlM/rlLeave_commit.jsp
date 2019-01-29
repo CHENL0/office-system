@@ -40,20 +40,21 @@
         <input type="hidden" value="${param.current_user_Id}" name="updateBy.id" id="updateBy.id" >
         <input type="hidden" value="${nowDate}" name="createDate" id="createDate">
         <input type="hidden" value="${nowDate}" name="updateDate" id="updateDate">
-        <input type="hidden" value="0" name="delFlag" id="delFlag">
+        <%--<input type="hidden" value="0" name="delFlag" id="delFlag">--%>
+        <%--<input type="hidden" value="0" name="delFlagAudit" id="delFlagAudit">--%>
         <input type="hidden" value="1" name="leaveStatus" id="leaveStatus">
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>请假时间：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'endDate\')||\'%y-%M-%d\'}' })" id="startDate" name="startDate" class="input-text Wdate" style="width:120px;">
+                <input type="text" required="required" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'endDate\')||\'%y-%M-%d\'}' })" id="startDate" name="startDate" class="input-text Wdate" style="width:120px;">
                 -
-                <input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'startDate\')}',maxDate:'#{%y+1}-%M-%d' })" id="endDate" name="endDate" class="input-text Wdate" style="width:120px;">
+                <input type="text" required="required" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'startDate\')}',maxDate:'#{%y+1}-%M-%d' })" id="endDate" name="endDate" class="input-text Wdate" style="width:120px;">
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>请假理由：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <textarea  cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"id="reason" name="reason"></textarea>
+                <textarea  cols="" rows="" required="required" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"id="reason" name="reason"></textarea>
                 <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
             </div>
         </div>
@@ -61,7 +62,6 @@
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>类型：</label>
             <div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
 				<select class="select" size="1" name="leaveType" id="leaveType" required="required">
-					<option value="" selected>请选择请假的类型</option>
                     <option value="病假">病假</option>
                     <option value="事假">事假</option>
                     <option value="产假">产假</option>
@@ -76,7 +76,6 @@
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>审核：</label>
             <div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
 				<select class="select" size="1" name="auditUserId" id="auditUserId" required="required">
-					<option value="" selected>请选择审核人</option>
                     <c:forEach items="${sysOUserList}" var="sysOUserList">
                         <c:if test="${sysOUserList.sysORole.id == '002'|| sysOUserList.sysORole.id == '003'}">
                             <c:if test="${sysOUserList.id != param.current_user_Id}">

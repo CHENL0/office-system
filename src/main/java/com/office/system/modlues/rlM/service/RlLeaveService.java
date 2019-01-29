@@ -18,16 +18,24 @@ import java.util.List;
 public class RlLeaveService extends CrudService<RlLeaveDao, RlLeave> {
     @Resource
     private RlLeaveDao rlLeaveDao;
-    public List<RlLeave> selectAllByCreateBy(String createBy){
-        return rlLeaveDao.selectAllByCreateBy(createBy);
+    public List<RlLeave> selectAllByCreateBy(RlLeave rlLeave){
+        return rlLeaveDao.selectAllByCreateBy(rlLeave);
+    }
+
+    public List<RlLeave> selectAllByAuditUserId (RlLeave rlLeave){
+        return rlLeaveDao.selectAllByAuditUserId(rlLeave);
     }
     public RlLeave selectByPrimaryKey(String id){
         return rlLeaveDao.selectByPrimaryKey(id);
     }
 
-    public void updateDelFlagById(String id){
-        rlLeaveDao.updateDelFlagById(id);
+    public void updateDelFlagByIdForUser(String id){
+        rlLeaveDao.updateDelFlagByIdForUser(id);
     }
+    public void updateDelFlagByIdForAudit(String id){
+        rlLeaveDao.updateDelFlagByIdForAudit(id);
+    }
+
 
     public void updateStatusById(String leaveId,int leaveStatus){
         rlLeaveDao.updateStatusById(leaveId,leaveStatus);

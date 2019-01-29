@@ -10,6 +10,7 @@
     <result column="audit_user_id" property="auditUserId" jdbcType="VARCHAR" />
     <result column="reason" property="reason" jdbcType="VARCHAR" />
     <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
+    <result column="del_flag_audit" property="delFlagAudit" jdbcType="VARCHAR" />
 <!--     <result column="update_by" property="updateBy.id" jdbcType="VARCHAR" />
  -->    <result column="update_date" property="updateDate" jdbcType="DATE" />
     <result column="overtime_status" property="overtimeStatus" jdbcType="INTEGER" />
@@ -107,9 +108,31 @@
      r."id", r."reason", r."start_date", r."end_date", r."create_date", r."audit_user_id",
      r."update_date", r."overtime_status",r."del_flag",s."id",s."name"
     from RL_OVERTIME r ,SYS_O_USER s
-    where r."create_by" = #{createBy,jdbcType=VARCHAR} and r."audit_user_id" = s."id" and r."del_flag" = 0
+    where
+    r."del_flag" = 0
+    <if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
+      AND r."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
+    </if>
+    <if test="createBy != null and createBy.id != null and createBy.id != ''">
+      AND r."create_by"  = #{createBy.id}
+    </if>
+    and r."audit_user_id" = s."id"
   </select>
-
+  <select id="selectAllByAudit" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+     r."id", r."reason", r."start_date", r."end_date", r."create_date", r."audit_user_id",
+     r."update_date", r."overtime_status",r."del_flag",s."id",s."name"
+    from RL_OVERTIME r ,SYS_O_USER s
+    where
+    r."del_flag_audit" = 0
+    <if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
+      AND r."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
+    </if>
+    <if test="createBy != null and createBy.id != null and createBy.id != ''">
+      AND r."create_by"  = s."id"
+    </if>
+    AND r."audit_user_id" = #{auditUserId}
+  </select>
 
   <select id="findList" resultMap="BaseResultMap">
     select
@@ -145,12 +168,12 @@
     </selectKey>
     insert into RL_OVERTIME ("id","start_date" ,"end_date",
      "create_by","create_date" ,"audit_user_id",
-    "reason" ,"del_flag", "update_by" ,
+    "reason" ,"del_flag","del_flag_audit", "update_by" ,
     "update_date","overtime_status")
     values (#{id,jdbcType=VARCHAR}, #{startDate,jdbcType=DATE}, #{endDate,jdbcType=DATE}, 
        #{createBy.id,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, #{auditUserId,jdbcType=VARCHAR},
-      #{reason,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR}, #{updateBy.id,jdbcType=VARCHAR},
-      #{updateDate,jdbcType=DATE},#{overtimeStatus,jdbcType=INTEGER})
+      #{reason,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR}, #{delFlagAudit,jdbcType=VARCHAR},
+    #{updateBy.id,jdbcType=VARCHAR}, #{updateDate,jdbcType=DATE},#{overtimeStatus,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="RlOvertime" >
     insert into RL_OVERTIME
@@ -329,10 +352,16 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
 
-  <update id="updateDelFlagById">
+  <update id="updateDelFlagByIdForUser">
     update RL_OVERTIME
     set
     "del_flag" = 1
+    where "id" = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateDelFlagByIdForAudit">
+    update RL_OVERTIME
+    set
+    "del_flag_audit" = 1
     where "id" = #{id,jdbcType=VARCHAR}
   </update>
 

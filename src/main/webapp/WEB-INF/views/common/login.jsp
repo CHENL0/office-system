@@ -47,7 +47,7 @@
       <div class="row cl">
         <div class="formControls col-xs-8 col-xs-offset-3">
           <input class="input-text size-L" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
-          <img src=""> <a id="kanbuq" href="javascript:;">看不清，换一张</a> </div>
+          <img src="/SessionTest/VerificodeServlet" id="image"> <a id="kanbuq" href="javascript:change();">看不清，换一张</a> </div>
       </div>
       <div class="row cl">
         <div class="formControls col-xs-8 col-xs-offset-3">
@@ -85,7 +85,14 @@ window.onload=function(){
 	var msg = document.getElementById('msg').value;
 	if(msg != null && msg != '') {layer.msg(msg,{icon: 5,time:2000});}
 	
-} 
+}
+function change()
+{
+    var img=document.getElementById("image");
+    //切换验证码的原理是点击就重新将src设置一下，但是浏览器有缓存，所以我们需要在后面添加                     一个参数来让浏览器不断发送请求，后面加的参数为时间，因为时间是不断变化的
+    img.src="/SessionTest/VerificodeServlet?a="new Date().getTime();
+}
+
 </script>
 <!--/此乃百度统计代码，请自行删除-->
 </body>

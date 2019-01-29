@@ -30,7 +30,7 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 用户管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
     <div class="text-c">
-    <form action="<%=basePath%>RlOvertime/auditOvertimePage.do" method="post">
+    <form action="<%=basePath%>RlOvertime/auditOvertimePage.do?auditUserId=${param.currentUserId}" method="post">
     日期范围：<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" name="datemin" class="input-text Wdate" style="width:120px;">
     -
     <input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" name="datemax" class="input-text Wdate" style="width:120px;">
@@ -38,13 +38,19 @@
     </form>
     </div>
 
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a href="javascript:;" onclick="member_add('申请加班','<%=basePath%>RlOvertime/submitOvertime.do?delFlag=1&current_user_Id=${param.currentUserId }','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>申请加班</a></span> <span class="r">共有数据：<strong>88</strong> 条</span> </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <%--<span class="l">
+        <a href="javascript:;" onclick="member_add('申请加班','<%=basePath%>RlOvertime/submitOvertime.do?delFlag=1&current_user_Id=${param.currentUserId }','','510')" class="btn btn-primary radius">--%>
+            <%--<i class="Hui-iconfont">&#xe600;</i>申请加班--%>
+        <%--</a></span>--%>
+        <span class="r">共有数据：<strong>88</strong> 条</span> </div>
     <div class="mt-20">
         <table class="table table-border table-bordered table-hover table-bg table-sort">
             <thead>
             <tr class="text-c">
                 <!-- 				<th width="25"><input type="checkbox" name="" value=""></th>
                  -->		    <th width="80">状态</th>
+                <th width="100">创建时间</th>
                 <th width="100">开始时间</th>
                 <th width="100">结束时间</th>
                 <th width="100">受理人</th>
@@ -66,6 +72,7 @@
                         <c:if test="${rlOvertimeList.overtimeStatus == 3}">
                             <td><span style="color: #A60000">审核被拒</span></td>
                         </c:if>
+                       <td><fmt:formatDate value="${rlOvertimeList.createDate}" pattern="yyyy-MM-dd HH:mm"/></td>
                         <td><fmt:formatDate value="${rlOvertimeList.startDate}" pattern="yyyy-MM-dd HH:mm"/></td>
                         <td><fmt:formatDate value="${rlOvertimeList.endDate}" pattern="yyyy-MM-dd HH:mm"/></td>
                         <td>${rlOvertimeList.auditUser.name}</td>
@@ -73,12 +80,12 @@
                             <a title="编辑" href="javascript:;" onclick="member_show('加班详细','<%=basePath%>RlOvertime/showLeave.do?overtimeId=${rlOvertimeList.id}','10001','360','400')" class="ml-5" style="text-decoration:none">
                                 <i class="Hui-iconfont">&#xe631;</i>
                             </a>
-                            <c:if test="${sessionScope.currentRoleName == '经理' || sessionScope.currentRoleName == '系统管理员'}">
+                            <%--<c:if test="${sessionScope.currentRoleName == '经理' || sessionScope.currentRoleName == '系统管理员'}">--%>
                             <%--<c:if test="${param.currentUserRole == '经理' || param.currentUserRole == '系统管理员'}">--%>
                                 <a title="审核" href="javascript:;" onclick="member_edit('审核加班','<%=basePath%>RlOvertime/updateOvertimeStatus.do?overtimeId=${rlOvertimeList.id}&overtimeStatus=0','10001','360','400')" class="ml-5" style="text-decoration:none">
                                     <i class="Hui-iconfont">&#xe631;</i>
                                 </a>
-                            </c:if>
+                            <%--</c:if>--%>
                             <a title="删除" href="javascript:;" onClick="member_del(this,'${rlOvertimeList.id}')" class="ml-5" style="text-decoration:none">
                                 <i class="Hui-iconfont">&#xe6e2;</i>
                             </a>
@@ -175,7 +182,7 @@
             $.ajax({
                 data:{id:id},
                 type: 'POST',
-                url: '<%=basePath%>/RlOvertime/delOvertimeForUser.do',
+                url: '<%=basePath%>/RlOvertime/delOvertimeForAudit.do',
                 dataType: 'json',
                 success: function(data){
                     $(obj).parents("tr").remove();

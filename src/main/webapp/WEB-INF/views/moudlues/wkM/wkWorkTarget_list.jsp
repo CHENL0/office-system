@@ -30,7 +30,7 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 用户管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="text-c">
-		<form action="<%=basePath%>/RlRuleMessage/ruleMessagePage.do" method="post">
+		<form action="<%=basePath%>/WkWorkTarget/wkWorkTargetPage.do" method="post">
 			日期范围：<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" name="datemin" class="input-text Wdate" style="width:120px;">
 			-
 			<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" name="datemax" class="input-text Wdate" style="width:120px;">
@@ -43,9 +43,9 @@
 		<c:if test="${sessionScope.currentRoleName == '经理' || sessionScope.currentRoleName == '系统管理员'}">
 		<%--<c:if test="${param.currentUserRole == '经理' || param.currentUserRole == '系统管理员'}">--%>
 			<span class="l">
-				<a href="javascript:;" onclick="member_add('添加制度','<%=basePath%>RlRuleMessage/submitRule.do?delFlag=1&current_user_Id=${param.currentUserId }','','510')" class="btn btn-primary radius">
+				<a href="javascript:;" onclick="member_add('添加工作目标','<%=basePath%>WkWorkTarget/submitWkWorkTarget.do?delFlag=1&current_user_Id=${param.currentUserId }','','510')" class="btn btn-primary radius">
 					<i class="Hui-iconfont">&#xe600;</i>
-					发布制度
+					添加工作目标
 				</a>
 			</span>
 		</c:if>
@@ -58,26 +58,28 @@
 			<tr class="text-c">
 				<!-- 				<th width="25"><input type="checkbox" name="" value=""></th>
                  -->
-				<th width="100">标题</th>
-				<th width="100">创建时间</th>
+				<th width="100">部门</th>
+				<th width="100">开始时间</th>
+				<th width="100">结束时间</th>
 				<th width="100">提出者</th>
 				<th width="100">操作</th>
 			</tr>
 			</thead>
 			<tbody>
-			<c:forEach items="${rlRuleMessageList }" var="rlRuleMessageList">
+			<c:forEach items="${wkWorkTargetList }" var="wkWorkTargetList">
 					<tr class="text-c" >
-						<td>${rlRuleMessageList.ruleTitle}</td>
-						<td><fmt:formatDate value="${rlRuleMessageList.createDate}" pattern="yyyy-MM-dd HH:mm"/></td>
-						<td>${rlRuleMessageList.createBy.name}</td>
+						<td>${wkWorkTargetList.sysODepartment.name}</td>
+						<td><fmt:formatDate value="${wkWorkTargetList.startDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+						<td><fmt:formatDate value="${wkWorkTargetList.endDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+						<td>${wkWorkTargetList.createBy.name}</td>
 						<td class="td-manage">
 
-							<a title="查看" href="javascript:;" onclick="member_show('请假条详细','<%=basePath%>RlRuleMessage/showRuleMessage.do?ruleId=${rlRuleMessageList.id}','10001','360','400')" class="ml-5" style="text-decoration:none">
+							<a title="查看" href="javascript:;" onclick="member_show('工作目标详细','<%=basePath%>WkWorkTarget/showWkWorkTarget.do?wkWorkTargetId=${wkWorkTargetList.id}','10001','360','400')" class="ml-5" style="text-decoration:none">
 								<i class="Hui-iconfont">&#xe631;</i>
 							</a>
-							<c:if test="${sessionScope.currentUserId == rlRuleMessageList.createBy.id}">
+							<c:if test="${sessionScope.currentUserId == wkWorkTargetList.createBy.id}">
 							<%--<c:if test="${param.currentUserRole == '经理' || param.currentUserRole == '系统管理员'}">--%>
-								<a title="删除" href="javascript:;" onClick="member_del(this,'${rlRuleMessageList.id}')" class="ml-5" style="text-decoration:none">
+								<a title="删除" href="javascript:;" onClick="member_del(this,'${wkWorkTargetList.id}')" class="ml-5" style="text-decoration:none">
 									<i class="Hui-iconfont">&#xe6e2;</i>
 								</a>
 							</c:if>
@@ -173,7 +175,7 @@
             $.ajax({
                 data:{id:id},
                 type: 'POST',
-                url: '<%=basePath%>/RlRuleMessage/delRuleMessage.do',
+                url: '<%=basePath%>/WkWorkTarget/deleteWkWorkTarget.do',
                 dataType: 'json',
                 success: function(data){
                     $(obj).parents("tr").remove();

@@ -19,6 +19,7 @@ public abstract class DataEntity<T> extends QuickDataEntity<T>{
 	protected String id;
 	protected Date createDate;	// 创建日期
 	protected String delFlag; 	// 删除标记（0：正常；1：删除；2：审核）
+	protected String delFlagAudit;
 	protected SysOUser createBy;//创建人
 	protected SysOUser updateBy;//更新人
 	protected Date updateDate;//更新日期
@@ -26,8 +27,17 @@ public abstract class DataEntity<T> extends QuickDataEntity<T>{
 	public DataEntity() {
 		super();
 		this.delFlag = "0";
+		this.delFlagAudit = "0";
 	}
-	
+
+	public String getDelFlagAudit() {
+		return delFlagAudit;
+	}
+
+	public void setDelFlagAudit(String delFlagAudit) {
+		this.delFlagAudit = delFlagAudit;
+	}
+
 	public DataEntity(String id) {
 		this.id = id;
 	}

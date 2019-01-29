@@ -26,9 +26,9 @@ public class RlOvertimeService extends CrudService<RlOvertimeDao, RlOvertime> {
      * @Param
      * @Return
      */
-    public List<RlOvertime> rlOvertimeList(String createBy) {
-        return rlOvertimeDao.selectAllByCreateBy(createBy);
-    }
+//    public List<RlOvertime> rlOvertimeList(String createBy) {
+//        return rlOvertimeDao.selectAllByCreateBy(createBy);
+//    }
 
     /**
      * @Description //TODO get one data by overtimeId(id)
@@ -41,14 +41,21 @@ public class RlOvertimeService extends CrudService<RlOvertimeDao, RlOvertime> {
         return rlOvertimeDao.selectByPrimaryKey(overtimeId);
     }
 
-    public void updateDelFlagById (String id){
-        rlOvertimeDao.updateDelFlagById(id);
+    public void updateDelFlagByIdForUser (String id){
+        rlOvertimeDao.updateDelFlagByIdForUser(id);
+    }
+
+    public void updateDelFlagByIdForAudit (String id){
+        rlOvertimeDao.updateDelFlagByIdForAudit(id);
     }
 
     public void updateStatusById (String overtimeId,int overtimeStatus){
         rlOvertimeDao.updateStatusById(overtimeId,overtimeStatus);
     }
-    public List<RlOvertime> selectAllByCreateBy (String createBy){
-        return rlOvertimeDao.selectAllByCreateBy(createBy);
+    public List<RlOvertime> selectAllByCreateBy (RlOvertime rlOvertime){
+        return rlOvertimeDao.selectAllByCreateBy(rlOvertime);
+    }
+    public List<RlOvertime> selectAllByAudit (RlOvertime rlOvertime){
+        return rlOvertimeDao.selectAllByAudit(rlOvertime);
     }
 }

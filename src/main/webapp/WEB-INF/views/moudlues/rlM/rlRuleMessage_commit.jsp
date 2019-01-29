@@ -40,17 +40,17 @@
         <input type="hidden" value="${param.current_user_Id}" name="updateBy.id" id="updateBy.id" >
         <input type="hidden" value="${nowDate}" name="createDate" id="createDate">
         <input type="hidden" value="${nowDate}" name="updateDate" id="updateDate">
-        <input type="hidden" value="0" name="delFlag" id="delFlag">
+        <%--<input type="hidden" value="0" name="delFlag" id="delFlag">--%>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>标题：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text"  name="ruleTitle" id="ruleTitle" >
+                <input type="text" required="required"  name="ruleTitle" id="ruleTitle" >
             </div>
         </div>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>制度内容：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <textarea  cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"id="text" name="text"></textarea>
+                <textarea  cols="" rows="" required="required" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"id="text" name="text"></textarea>
                 <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
             </div>
         </div>

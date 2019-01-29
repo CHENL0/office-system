@@ -35,16 +35,15 @@
 </head>
 <body>
 <article class="page-container">
-    <form action="<%=basePath%>RlOvertime/submitOvertime.do?" method="post" class="form form-horizontal"   id="form-notice-add">
+    <form action="<%=basePath%>WkWorkReport/submitWkWorkReport.do" method="post" class="form form-horizontal"   id="form-notice-add">
         <input type="hidden" value="${param.current_user_Id}" name="createBy.id" id="createBy.id" >
         <input type="hidden" value="${param.current_user_Id}" name="updateBy.id" id="updateBy.id" >
         <input type="hidden" value="${nowDate}" name="createDate" id="createDate">
         <input type="hidden" value="${nowDate}" name="updateDate" id="updateDate">
-        <%--<input type="hidden" value="0" name="delFlag" id="delFlag">--%>
         <%--<input type="hidden" value="0" name="delFlagAudit" id="delFlagAudit">--%>
-        <input type="hidden" value="1" name="overtimeStatus" id="overtimeStatus">
+        <%--<input type="hidden" value="0" name="delFlag" id="delFlag">--%>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>加班时间：</label>
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>工作目标时间：</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <input type="text" required="required" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'endDate\')||\'%y-%M-%d\'}' })" id="startDate" name="startDate" class="input-text Wdate" style="width:120px;">
                 -
@@ -52,21 +51,33 @@
             </div>
         </div>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>加班理由：</label>
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>汇报内容：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <textarea  cols="" rows="" required="required" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"id="reason" name="reason"></textarea>
+                <textarea  cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"id="text" name="text"></textarea>
                 <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
             </div>
         </div>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>审核：</label>
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>部门：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
+				<select class="select" size="1" name="departmentId" id="departmentId" required="required">
+                    <c:forEach items="${sysODepartmentList}" var="sysODepartmentList">
+                        <c:if test="${sysODepartmentList.id != '001'}">
+                            <option value="${sysODepartmentList.id }" >${sysODepartmentList.name }</option>
+                        </c:if>
+                    </c:forEach>
+				</select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>查阅者：</label>
             <div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
 				<select class="select" size="1" name="auditUserId" id="auditUserId" required="required">
                     <c:forEach items="${sysOUserList}" var="sysOUserList">
-                        <c:if test="${sysOUserList.sysORole.id == '002' || sysOUserList.sysORole.id == '003'}">
+                        <c:if test="${sysOUserList.sysORole.id == '002'|| sysOUserList.sysORole.id == '003'}">
                             <c:if test="${sysOUserList.id != param.current_user_Id}">
                                 <option value="${sysOUserList.id }" >${sysOUserList.name }</option>
-
                             </c:if>
                         </c:if>
                     </c:forEach>
@@ -74,7 +85,6 @@
 				</span>
             </div>
         </div>
-
         <div class="row cl">
             <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
                 <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">

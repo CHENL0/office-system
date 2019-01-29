@@ -35,15 +35,24 @@ public class RlLeaveController {
      * @Return
      */
     @RequestMapping(value = "/leavePage.do")
-    public Object toLeavePage(Model model, String currentUserId,String currentUserRole) {
-        if(currentUserRole.equals("经理")){
-            List<RlLeave> rlLeaveList = rlLeaveService.findList(new RlLeave());
-            model.addAttribute("rlLeaveList", rlLeaveList);
-        }else {
-            List<RlLeave> rlLeaveList = rlLeaveService.selectAllByCreateBy(currentUserId);
-            model.addAttribute("rlLeaveList", rlLeaveList);
-        }
+    public Object toLeavePage(Model model, RlLeave rlLeave) {
+        List<RlLeave> rlLeaveList = rlLeaveService.selectAllByCreateBy(rlLeave);
+        model.addAttribute("rlLeaveList", rlLeaveList);
         return "moudlues/rlM/rlLeave_list";
+    }
+
+    /**
+     * @Description //TODO to RlLeave.html
+     * @Author Chen
+     * @DateTime 2019/1/17
+     * @Param
+     * @Return
+     */
+    @RequestMapping(value = "/auditLeavePage.do")
+    public Object toAuditLeavePage(Model model, RlLeave rlLeave) {
+        List<RlLeave> rlLeaveList = rlLeaveService.selectAllByAuditUserId(rlLeave);
+        model.addAttribute("rlLeaveList", rlLeaveList);
+        return "moudlues/rlM/rlLeave_list_audit";
     }
 
     /**
@@ -80,10 +89,18 @@ public class RlLeaveController {
     }
 
 
-    @RequestMapping(value = "/delLeave.do")
+    @RequestMapping(value = "/delLeaveForUser.do")
     public @ResponseBody
-    Object delLeave (String id){
-        rlLeaveService.updateDelFlagById(id);
+    Object delLeaveForUser (String id){
+        rlLeaveService.updateDelFlagByIdForUser(id);
+        Map<String, String> responseDataMap = new HashMap<>();
+        responseDataMap.put("responseData","success");
+        return responseDataMap;
+    }
+    @RequestMapping(value = "/delLeaveForAudit.do")
+    public @ResponseBody
+    Object delLeaveForAudit (String id){
+        rlLeaveService.updateDelFlagByIdForAudit(id);
         Map<String, String> responseDataMap = new HashMap<>();
         responseDataMap.put("responseData","success");
         return responseDataMap;

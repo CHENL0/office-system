@@ -9,8 +9,10 @@ import com.office.system.modlues.rlM.entity.RlLeave;
 import java.util.List;
 
 public interface RlLeaveDao extends CrudDao<RlLeave>{
-    List<RlLeave> selectAllByCreateBy (String createBy);
+    List<RlLeave> selectAllByCreateBy (RlLeave rlLeave);
+    List<RlLeave> selectAllByAuditUserId (RlLeave rlLeave);
     RlLeave selectByPrimaryKey (String id);
-    void updateDelFlagById (String id);
+    void updateDelFlagByIdForUser (String id);
+    void updateDelFlagByIdForAudit (String id);
     void  updateStatusById (@Param("leaveId") String leaveId,@Param("leaveStatus")int leaveStatus);
 }
