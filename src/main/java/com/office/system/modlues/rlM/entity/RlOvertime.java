@@ -2,29 +2,38 @@ package com.office.system.modlues.rlM.entity;
 
 import java.util.Date;
 
-public class RlOvertime {
-    private String id;
+import com.office.system.common.baseEntity.DataEntity;
+import com.office.system.modlues.sysMsgM.entity.SysOUser;
+import org.springframework.format.annotation.DateTimeFormat;
 
+public class RlOvertime extends DataEntity<RlOvertime>{
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date startDate;
-
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date endDate;
-
-    private String createBy;
-
-    private Date createDate;
 
     private String auditUserId;
 
     private String reason;
 
-    private String delFlag;
+    private int overtimeStatus;
 
-    public String getId() {
-        return id;
+    private SysOUser auditUser;
+
+    public SysOUser getAuditUser() {
+        return auditUser;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setAuditUser(SysOUser auditUser) {
+        this.auditUser = auditUser;
+    }
+
+    public int getOvertimeStatus() {
+        return overtimeStatus;
+    }
+
+    public void setOvertimeStatus(int overtimeStatus) {
+        this.overtimeStatus = overtimeStatus;
     }
 
     public Date getStartDate() {
@@ -43,22 +52,6 @@ public class RlOvertime {
         this.endDate = endDate;
     }
 
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy == null ? null : createBy.trim();
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
     public String getAuditUserId() {
         return auditUserId;
     }
@@ -75,11 +68,4 @@ public class RlOvertime {
         this.reason = reason == null ? null : reason.trim();
     }
 
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag == null ? null : delFlag.trim();
-    }
 }

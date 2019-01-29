@@ -1,15 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.itheima.mybatis.mapper.WkWorkReportMapper" >
-  <resultMap id="BaseResultMap" type="com.itheima.mybatis.pojo.WkWorkReport" >
+<mapper namespace="com.office.system.modlues.wkM.dao.WkWorkReportDao" >
+  <resultMap id="BaseResultMap" type="WkWorkReport" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="text" property="text" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="VARCHAR" />
     <result column="start_date" property="startDate" jdbcType="DATE" />
     <result column="end_date" property="endDate" jdbcType="DATE" />
-    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
-    <result column="create_date" property="createDate" jdbcType="DATE" />
+<!--     <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+ -->    <result column="create_date" property="createDate" jdbcType="DATE" />
     <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
+    <result column="del_flag_audit" property="delFlagAudit" jdbcType="VARCHAR" />
+    <result column="audit_user_id" property="auditUserId" jdbcType="VARCHAR" />
+    <association property="sysODepartment" javaType="com.office.system.modlues.sysMsgM.entity.SysODepartment">
+      <id column="did" property="id" jdbcType="VARCHAR" />
+      <result column="dname" property="name" jdbcType="VARCHAR" />
+      <result column="dtext" property="text" jdbcType="VARCHAR" />
+    </association>
+    <association property="auditUser" javaType="com.office.system.modlues.sysMsgM.entity.SysOUser">
+      <id column="sid" property="id"/>
+      <result column="sname" property="name"/>
+    </association>
+    <association property="createBy" javaType="com.office.system.modlues.sysMsgM.entity.SysOUser">
+      <id column="cid" property="id"/>
+      <result column="cname" property="name"/>
+    </association>
+    <!--<association property="auditUser"-->
+                 <!--javaType="SysOUser"-->
+                 <!--column="audit_user_id"-->
+                 <!--select="findSysOUserBase">-->
+    <!--</association>-->
+    <association property="updateBy"
+                 javaType="SysOUser"
+                 column="update_by"
+                 select="findSysOUserBase">
+    </association>
+    <association property="createBy"
+                 javaType="SysOUser"
+                 column="create_by"
+                 select="findSysOUserBase"
+    >
+
+    </association>
   </resultMap>
+  <select id="findSysOUserBase" resultType="SysOUser">
+   select * from SYS_O_USER where "id"=#{xxx}
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -69,47 +105,87 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, text, start_date, end_date, create_by, create_date, del_flag
+    w."id", w."text", w."start_date", w."end_date", w."create_by", w."create_date", w."del_flag", w."department_id", w."audit_user_id"
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.itheima.mybatis.pojo.WkWorkReportExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from WK_WORK_REPORT
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from WK_WORK_REPORT
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from WK_WORK_REPORT
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.itheima.mybatis.pojo.WkWorkReportExample" >
-    delete from WK_WORK_REPORT
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
+
+  <select id="findList" resultMap="BaseResultMap">
+    select
+    w."id", w."text", w."start_date", w."end_date", w."create_by",
+    w."create_date", w."del_flag", w."department_id", w."audit_user_id"
+    ,d."name" as dname,d."id" as did
+    ,s."id" as sid,s."name" as sname
+    from WK_WORK_REPORT w,SYS_O_DEPARTMENT d ,
+    SYS_O_USER s
+    <where>
+      w."del_flag" = 0
+      <if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
+        AND w."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
+      </if>
+      <if test="createBy != null and createBy.id != null and createBy.id != ''">
+        AND w."create_by"  = #{createBy.id}
+      </if>
+--       And w."audit_user_id" =
+      And  w."department_id" = d."id"
+      AND w."audit_user_id" = s."id"
+    </where>
+  </select>
+
+  <select id="selectAllByAuditUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+     w."id", w."text", w."start_date", w."end_date", w."create_date", w."audit_user_id",w."department_id",
+     w."update_date",w."del_flag"
+     ,s."id" as cid,s."name" as cname
+     ,d."id" as did,d."name" as dname,d."text" as dtext
+    from WK_WORK_REPORT w ,SYS_O_DEPARTMENT d
+    ,SYS_O_USER s
+    where w."audit_user_id" = #{auditUserId,jdbcType=VARCHAR}
+    <if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
+      AND w."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
     </if>
-  </delete>
-  <insert id="insert" parameterType="com.itheima.mybatis.pojo.WkWorkReport" >
-    insert into WK_WORK_REPORT (id, text, start_date, 
-      end_date, create_by, create_date, 
-      del_flag)
+    and w."create_by" = s."id"
+    and w."del_flag_audit" = 0
+    and  w."department_id"=d."id"
+  </select>
+  <select id="selectAllByCreateBy" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+     w."id", w."text", w."start_date", w."end_date", w."create_date", w."audit_user_id",w."department_id",
+     w."update_date",w."del_flag"
+     ,s."id" as sid,s."name" as sname
+     ,d."id" as did,d."name" as dname,d."text" as dtext
+    from WK_WORK_REPORT w ,SYS_O_DEPARTMENT d
+    ,SYS_O_USER s
+    where
+    <if test="createBy != null and createBy.id != null and createBy.id != ''">
+     w."create_by"  = #{createBy.id, jdbcType=VARCHAR}
+    </if>
+    <if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
+      AND w."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
+    </if>
+    and w."audit_user_id" = s."id"
+    and  w."department_id"=d."id"
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from WK_WORK_REPORT w
+    where w."id" = #{wkWorkTargetId,jdbcType=VARCHAR}
+  </select>
+  <insert id="insert" parameterType="WkWorkReport" >
+    <selectKey keyProperty="id" resultType="String" order="BEFORE">
+      select  lower(sys_guid()) from DUAL
+    </selectKey>
+    insert into WK_WORK_REPORT ("id", "text", "start_date",
+    "end_date", "create_by","update_by", "create_date","del_flag","del_flag_audit"
+    "department_id","audit_user_id")
     values (#{id,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, #{startDate,jdbcType=DATE}, 
-      #{endDate,jdbcType=DATE}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, 
-      #{delFlag,jdbcType=VARCHAR})
+      #{endDate,jdbcType=DATE},#{createBy.id,jdbcType=VARCHAR},#{updateBy.id,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE},
+      #{delFlag,jdbcType=VARCHAR},#{delFlagAudit,jdbcType=VARCHAR},#{departmentId,jdbcType=VARCHAR},#{auditUserId,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.itheima.mybatis.pojo.WkWorkReport" >
+  <insert id="insertSelective" parameterType="WkWorkReport" >
     insert into WK_WORK_REPORT
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -124,9 +200,9 @@
       <if test="endDate != null" >
         end_date,
       </if>
-      <if test="createBy != null" >
+     <!--  <if test="createBy != null" >
         create_by,
-      </if>
+      </if> -->
       <if test="createDate != null" >
         create_date,
       </if>
@@ -147,9 +223,9 @@
       <if test="endDate != null" >
         #{endDate,jdbcType=DATE},
       </if>
-      <if test="createBy != null" >
-        #{createBy,jdbcType=VARCHAR},
-      </if>
+    <!--   <if test="createBy != null" >
+        #{createBy.id,jdbcType=VARCHAR},
+      </if> -->
       <if test="createDate != null" >
         #{createDate,jdbcType=DATE},
       </if>
@@ -158,12 +234,12 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.itheima.mybatis.pojo.WkWorkReportExample" resultType="java.lang.Integer" >
+  <!-- <select id="countByExample" parameterType="com.itheima.mybatis.pojo.WkWorkReportExample" resultType="java.lang.Integer" >
     select count(*) from WK_WORK_REPORT
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-  </select>
+  </select> -->
   <update id="updateByExampleSelective" parameterType="map" >
     update WK_WORK_REPORT
     <set >
@@ -179,9 +255,9 @@
       <if test="record.endDate != null" >
         end_date = #{record.endDate,jdbcType=DATE},
       </if>
-      <if test="record.createBy != null" >
-        create_by = #{record.createBy,jdbcType=VARCHAR},
-      </if>
+     <!--  <if test="record.createBy != null" >
+        create_by = #{record.createBy.id,jdbcType=VARCHAR},
+      </if> -->
       <if test="record.createDate != null" >
         create_date = #{record.createDate,jdbcType=DATE},
       </if>
@@ -199,14 +275,14 @@
       text = #{record.text,jdbcType=VARCHAR},
       start_date = #{record.startDate,jdbcType=DATE},
       end_date = #{record.endDate,jdbcType=DATE},
-      create_by = #{record.createBy,jdbcType=VARCHAR},
-      create_date = #{record.createDate,jdbcType=DATE},
+<!--       create_by = #{record.createBy.id,jdbcType=VARCHAR},
+ -->      create_date = #{record.createDate,jdbcType=DATE},
       del_flag = #{record.delFlag,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.itheima.mybatis.pojo.WkWorkReport" >
+  <update id="updateByPrimaryKeySelective" parameterType="WkWorkReport" >
     update WK_WORK_REPORT
     <set >
       <if test="text != null" >
@@ -218,9 +294,9 @@
       <if test="endDate != null" >
         end_date = #{endDate,jdbcType=DATE},
       </if>
-      <if test="createBy != null" >
-        create_by = #{createBy,jdbcType=VARCHAR},
-      </if>
+    <!--   <if test="createBy != null" >
+        create_by = #{createBy.id,jdbcType=VARCHAR},
+      </if> -->
       <if test="createDate != null" >
         create_date = #{createDate,jdbcType=DATE},
       </if>
@@ -230,14 +306,28 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.itheima.mybatis.pojo.WkWorkReport" >
+  <update id="updateByPrimaryKey" parameterType="WkWorkReport" >
     update WK_WORK_REPORT
     set text = #{text,jdbcType=VARCHAR},
       start_date = #{startDate,jdbcType=DATE},
       end_date = #{endDate,jdbcType=DATE},
-      create_by = #{createBy,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=DATE},
+<!--       create_by = #{createBy.id,jdbcType=VARCHAR},
+ -->      create_date = #{createDate,jdbcType=DATE},
       del_flag = #{delFlag,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateDelFlagByIdForUser">
+    update WK_WORK_REPORT
+    set
+    "del_flag" = 1
+    where "id" = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateDelFlagByIdForAudit">
+    update WK_WORK_REPORT
+    set
+    "del_flag_audit" = 1
+    where "id" = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

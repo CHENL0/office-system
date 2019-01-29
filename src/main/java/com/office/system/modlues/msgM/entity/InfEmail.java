@@ -2,34 +2,32 @@ package com.office.system.modlues.msgM.entity;
 
 import java.util.Date;
 
-public class InfEmail {
-    private String id;
+import com.office.system.common.baseEntity.DataEntity;
+import com.office.system.modlues.sysMsgM.entity.SysOUser;
 
-    private String text;
+public class InfEmail extends DataEntity<InfEmail> {
+	
+	private String title;//邮件的标题
+	
+    private String text;//邮件内容
 
-    private String staut;
+    private String staut;//邮件状态
 
-    private Date sendtime;
+    private Date sendTime;//发送时间
 
-    private String getUserId;
+    private SysOUser getUser;//接收的人
 
-    private String sendUserId;
+    private SysOUser sendUser;//发送人
 
-    private String delFlag;
+    public String getTitle() {
+		return title;
+	}
 
-    private String creatBy;
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    private Date createDate;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
-
-    public String getText() {
+	public String getText() {
         return text;
     }
 
@@ -45,51 +43,28 @@ public class InfEmail {
         this.staut = staut == null ? null : staut.trim();
     }
 
-    public Date getSendtime() {
-        return sendtime;
+    public Date getSendTime() {
+        return sendTime;
     }
 
-    public void setSendtime(Date sendtime) {
-        this.sendtime = sendtime;
+    public void setSendTime(Date sendTime) {
+        this.sendTime = sendTime;
     }
 
-    public String getGetUserId() {
-        return getUserId;
-    }
+	public SysOUser getGetUser() {
+		return getUser;
+	}
 
-    public void setGetUserId(String getUserId) {
-        this.getUserId = getUserId == null ? null : getUserId.trim();
-    }
+	public void setGetUser(SysOUser getUser) {
+		this.getUser = getUser;
+	}
 
-    public String getSendUserId() {
-        return sendUserId;
-    }
+	public SysOUser getSendUser() {
+		return sendUser;
+	}
 
-    public void setSendUserId(String sendUserId) {
-        this.sendUserId = sendUserId == null ? null : sendUserId.trim();
-    }
-
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag == null ? null : delFlag.trim();
-    }
-
-    public String getCreatBy() {
-        return creatBy;
-    }
-
-    public void setCreatBy(String creatBy) {
-        this.creatBy = creatBy == null ? null : creatBy.trim();
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
+	public void setSendUser(SysOUser sendUser) {
+		this.sendUser = sendUser;
+	}
+    
 }

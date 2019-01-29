@@ -1,15 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.itheima.mybatis.mapper.WkWorkTargetMapper" >
-  <resultMap id="BaseResultMap" type="com.itheima.mybatis.pojo.WkWorkTarget" >
+<mapper namespace="com.office.system.modlues.wkM.dao.WkWorkTargetDao" >
+  <resultMap id="BaseResultMap" type="WkWorkTarget" >
     <id column="id" property="id" jdbcType="DECIMAL" />
     <result column="text" property="text" jdbcType="VARCHAR" />
     <result column="start_date" property="startDate" jdbcType="DATE" />
     <result column="end_date" property="endDate" jdbcType="DATE" />
-    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <!--<result column="create_by" property="createBy" jdbcType="VARCHAR" />-->
     <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="DATE" />
+    <result column="department_id" property="departmentId" jdbcType="VARCHAR" />
+    <association property="sysODepartment" javaType="com.office.system.modlues.sysMsgM.entity.SysODepartment">
+      <id column="id" property="id" jdbcType="VARCHAR" />
+      <result column="name" property="name" jdbcType="VARCHAR" />
+      <result column="text" property="text" jdbcType="VARCHAR" />
+    </association>
+    <association property="updateBy"
+                 javaType="SysOUser"
+                 column="update_by"
+                 select="findSysOUserBase">
+    </association>
+    <association property="createBy"
+                 javaType="SysOUser"
+                 column="create_by"
+                 select="findSysOUserBase"
+    >
+    </association>
   </resultMap>
+  <select id="findSysOUserBase" resultType="SysOUser">
+   select * from SYS_O_USER where "id"=#{xxx}
+  </select>
+  <select id="findInfNoticeTypeBase" resultType="InfNoticeType">
+   select * from INF_NOTICE_TYPE where "id"=#{xxx}
+ </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -69,47 +92,45 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, text, start_date, end_date, create_by, del_flag, create_date
+    w."id", w."text", w."start_date", w."end_date", w."create_by", w."del_flag", w."create_date",w."department_id"
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.itheima.mybatis.pojo.WkWorkTargetExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from WK_WORK_TARGET
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.math.BigDecimal" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from WK_WORK_TARGET
-    where id = #{id,jdbcType=DECIMAL}
+    from WK_WORK_TARGET w
+    where w."id" = #{wkWorkTargetId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal" >
-    delete from WK_WORK_TARGET
-    where id = #{id,jdbcType=DECIMAL}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.itheima.mybatis.pojo.WkWorkTargetExample" >
-    delete from WK_WORK_TARGET
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.itheima.mybatis.pojo.WkWorkTarget" >
-    insert into WK_WORK_TARGET (id, text, start_date, 
-      end_date, create_by, del_flag, 
-      create_date)
-    values (#{id,jdbcType=DECIMAL}, #{text,jdbcType=VARCHAR}, #{startDate,jdbcType=DATE}, 
-      #{endDate,jdbcType=DATE}, #{createBy,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR}, 
-      #{createDate,jdbcType=DATE})
+  <insert id="insert" parameterType="WkWorkTarget" >
+    <selectKey keyProperty="id" resultType="String" order="BEFORE">
+      select  lower(sys_guid()) from DUAL
+    </selectKey>
+    insert into WK_WORK_TARGET ("id", "text", "start_date",
+      "end_date", "create_by", "del_flag",
+      "create_date","department_id")
+    values (#{id,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, #{startDate,jdbcType=DATE},
+      #{endDate,jdbcType=DATE}, #{createBy.id,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR},
+      #{createDate,jdbcType=DATE}, #{departmentId,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.itheima.mybatis.pojo.WkWorkTarget" >
+  <select id="findList" resultMap="BaseResultMap">
+    select
+      w."id", w."text", w."start_date", w."end_date", w."create_by", w."del_flag", w."create_date",
+      w."department_id",d."name",d."id"
+      ,s."id",s."name"
+    from WK_WORK_TARGET w,SYS_O_DEPARTMENT d ,
+      SYS_O_USER s
+    <where>
+      w."del_flag" = 0
+      <if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
+        AND w."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
+      </if>
+      <if test="createBy != null and createBy.id != null and createBy.id != ''">
+        AND w."create_by"  = #{createBy.id}
+      </if>
+      AND s."id" = w."create_by"
+      And  w."department_id" = d."id"
+    </where>
+  </select>
+  <insert id="insertSelective" parameterType="WkWorkTarget" >
     insert into WK_WORK_TARGET
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -124,9 +145,9 @@
       <if test="endDate != null" >
         end_date,
       </if>
-      <if test="createBy != null" >
+      <!-- <if test="createBy != null" >
         create_by,
-      </if>
+      </if> -->
       <if test="delFlag != null" >
         del_flag,
       </if>
@@ -135,9 +156,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+      <!-- <if test="id != null" >
         #{id,jdbcType=DECIMAL},
-      </if>
+      </if> -->
       <if test="text != null" >
         #{text,jdbcType=VARCHAR},
       </if>
@@ -147,9 +168,9 @@
       <if test="endDate != null" >
         #{endDate,jdbcType=DATE},
       </if>
-      <if test="createBy != null" >
-        #{createBy,jdbcType=VARCHAR},
-      </if>
+    <!--   <if test="createBy != null" >
+        #{createBy.id,jdbcType=VARCHAR},
+      </if> -->
       <if test="delFlag != null" >
         #{delFlag,jdbcType=VARCHAR},
       </if>
@@ -158,18 +179,18 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.itheima.mybatis.pojo.WkWorkTargetExample" resultType="java.lang.Integer" >
+ <!--  <select id="countByExample" parameterType="com.itheima.mybatis.pojo.WkWorkTargetExample" resultType="java.lang.Integer" >
     select count(*) from WK_WORK_TARGET
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-  </select>
+  </select> -->
   <update id="updateByExampleSelective" parameterType="map" >
     update WK_WORK_TARGET
     <set >
-      <if test="record.id != null" >
+     <!--  <if test="record.id != null" >
         id = #{record.id,jdbcType=DECIMAL},
-      </if>
+      </if> -->
       <if test="record.text != null" >
         text = #{record.text,jdbcType=VARCHAR},
       </if>
@@ -179,9 +200,9 @@
       <if test="record.endDate != null" >
         end_date = #{record.endDate,jdbcType=DATE},
       </if>
-      <if test="record.createBy != null" >
-        create_by = #{record.createBy,jdbcType=VARCHAR},
-      </if>
+     <!--  <if test="record.createBy != null" >
+        create_by = #{record.createBy.id,jdbcType=VARCHAR},
+      </if> -->
       <if test="record.delFlag != null" >
         del_flag = #{record.delFlag,jdbcType=VARCHAR},
       </if>
@@ -195,18 +216,18 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update WK_WORK_TARGET
-    set id = #{record.id,jdbcType=DECIMAL},
+    set <!-- id = #{record.id,jdbcType=DECIMAL}, -->
       text = #{record.text,jdbcType=VARCHAR},
       start_date = #{record.startDate,jdbcType=DATE},
       end_date = #{record.endDate,jdbcType=DATE},
-      create_by = #{record.createBy,jdbcType=VARCHAR},
-      del_flag = #{record.delFlag,jdbcType=VARCHAR},
+<!--       create_by = #{record.createBy.id.id,jdbcType=VARCHAR},
+ -->      del_flag = #{record.delFlag,jdbcType=VARCHAR},
       create_date = #{record.createDate,jdbcType=DATE}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.itheima.mybatis.pojo.WkWorkTarget" >
+  <update id="updateByPrimaryKeySelective" parameterType="WkWorkTarget" >
     update WK_WORK_TARGET
     <set >
       <if test="text != null" >
@@ -218,9 +239,9 @@
       <if test="endDate != null" >
         end_date = #{endDate,jdbcType=DATE},
       </if>
-      <if test="createBy != null" >
-        create_by = #{createBy,jdbcType=VARCHAR},
-      </if>
+      <!-- <if test="createBy != null" >
+        create_by = #{createBy.id,jdbcType=VARCHAR},
+      </if> -->
       <if test="delFlag != null" >
         del_flag = #{delFlag,jdbcType=VARCHAR},
       </if>
@@ -228,16 +249,23 @@
         create_date = #{createDate,jdbcType=DATE},
       </if>
     </set>
-    where id = #{id,jdbcType=DECIMAL}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.itheima.mybatis.pojo.WkWorkTarget" >
+<!--     where id = #{id,jdbcType=DECIMAL}
+ -->  </update>
+  <update id="updateByPrimaryKey" parameterType="WkWorkTarget" >
     update WK_WORK_TARGET
     set text = #{text,jdbcType=VARCHAR},
       start_date = #{startDate,jdbcType=DATE},
       end_date = #{endDate,jdbcType=DATE},
-      create_by = #{createBy,jdbcType=VARCHAR},
-      del_flag = #{delFlag,jdbcType=VARCHAR},
+<!--       create_by = #{createBy.id,jdbcType=VARCHAR},
+ -->      del_flag = #{delFlag,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=DATE}
-    where id = #{id,jdbcType=DECIMAL}
+<!--     where id = #{id,jdbcType=DECIMAL}
+ -->  </update>
+
+    <update id="updateDelFlagById">
+    update RL_OVERTIME
+    set
+    "del_flag" = 1
+    where "id" = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

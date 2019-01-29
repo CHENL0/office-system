@@ -1,228 +1,122 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.itheima.mybatis.mapper.SysODepartmentMapper" >
-  <resultMap id="BaseResultMap" type="com.itheima.mybatis.pojo.SysODepartment" >
+<mapper namespace="com.office.system.modlues.sysMsgM.dao.SysODepartmentDao" >
+  <resultMap id="BaseResultMap" type="SysODepartment" >
     <id column="id" property="id" jdbcType="VARCHAR" />
-    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="DATE" />
     <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="text" property="text" jdbcType="VARCHAR" />
+    <association property="updateBy"
+                 javaType="SysOUser"
+                 column="update_by"
+                 select="findSysOUserBase">
+    </association>
+    <association property="createBy"
+                 javaType="SysOUser"
+                 column="create_by"
+                 select="findSysOUserBase">
+    </association>
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    id, create_by, create_date, del_flag, name, text
-  </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.itheima.mybatis.pojo.SysODepartmentExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from SYS_O_DEPARTMENT
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
+  <select id="findSysOUserBase" resultType="SysOUser">
+   select * from SYS_O_USER where "id"=#{xxx}
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <sql id="Base_Column_List" >
+    "id", "create_by", "create_date", "del_flag", "name", "text","update_date","update_by"
+  </sql>
+  <!-- 查询部门信息 -->
+  <select id="findList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from SYS_O_DEPARTMENT a
+        <where>
+			a."del_flag" = #{delFlag}
+			<if test="name != null and name != ''">
+				AND a."name" LIKE 
+					'%'||#{name}||'%'
+					<!-- <if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
+					<if test="dbName == 'mysql'">CONCAT('%', #{title}, '%')</if> -->
+			</if>
+			<if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
+				AND a."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
+			</if>
+		</where>
+  </select>
+  <!-- 根据编号获得部门 -->
+  <select id="get" resultMap="BaseResultMap" >
     select 
     <include refid="Base_Column_List" />
     from SYS_O_DEPARTMENT
-    where id = #{id,jdbcType=VARCHAR}
+    where "id" = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <!--删除部门 -->
+ <!--  <delete id="delete">
     delete from SYS_O_DEPARTMENT
     where id = #{id,jdbcType=VARCHAR}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.itheima.mybatis.pojo.SysODepartmentExample" >
-    delete from SYS_O_DEPARTMENT
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.itheima.mybatis.pojo.SysODepartment" >
-    insert into SYS_O_DEPARTMENT (id, create_by, create_date, 
-      del_flag, name, text
+  </delete> -->
+  <!-- 插入部门 -->
+  <insert id="insert">
+  <!-- 在插入之前id生成UUID，并赋值到SysOUser对象中 -->
+	 <selectKey keyProperty="id" resultType="String" order="BEFORE">
+            select  lower(sys_guid()) from DUAL
+     </selectKey>
+    insert into SYS_O_DEPARTMENT ("id", "create_by", "create_date", 
+      "del_flag", "name", "text","update_by","update_date"
       )
-    values (#{id,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, 
-      #{delFlag,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}
+    values (#{id,jdbcType=VARCHAR}, #{createBy.id,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, 
+      #{delFlag,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR},#{updateBy.id,jdbcType=VARCHAR},
+      #{updateDate,jdbcType=DATE}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.itheima.mybatis.pojo.SysODepartment" >
-    insert into SYS_O_DEPARTMENT
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="createBy != null" >
-        create_by,
-      </if>
-      <if test="createDate != null" >
-        create_date,
-      </if>
-      <if test="delFlag != null" >
-        del_flag,
-      </if>
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="text != null" >
-        text,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="createBy != null" >
-        #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createDate != null" >
-        #{createDate,jdbcType=DATE},
-      </if>
-      <if test="delFlag != null" >
-        #{delFlag,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="text != null" >
-        #{text,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.itheima.mybatis.pojo.SysODepartmentExample" resultType="java.lang.Integer" >
+   <!-- 逻辑删除部门 -->
+  <update id="delete">
+		UPDATE SYS_O_DEPARTMENT SET 
+			"del_flag" = 1
+		WHERE "id" = #{id}
+ </update>
+ <!--  <select id="countByExample" resultType="java.lang.Integer" >
     select count(*) from SYS_O_DEPARTMENT
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  </select> -->
+<!--   <update id="update" >
     update SYS_O_DEPARTMENT
     <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=VARCHAR},
+      <if test="createBy != null and createBy.id != null and createBy.id != ''">
+        "create_by" = #{createBy.id,jdbcType=VARCHAR},
       </if>
-      <if test="record.createBy != null" >
-        create_by = #{record.createBy,jdbcType=VARCHAR},
+      <if test="createDate != null and createDate != ''" >
+        "create_date" = #{createDate,jdbcType=DATE},
       </if>
-      <if test="record.createDate != null" >
-        create_date = #{record.createDate,jdbcType=DATE},
+      <if test="delFlag != null and delFlag != ''" >
+        "del_flag" = #{delFlag,jdbcType=VARCHAR},
       </if>
-      <if test="record.delFlag != null" >
-        del_flag = #{record.delFlag,jdbcType=VARCHAR},
+      <if test="name != null and name != ''" >
+       " name" = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="text != null and text != ''" >
+        "text" = #{text,jdbcType=VARCHAR},
       </if>
-      <if test="record.text != null" >
-        text = #{record.text,jdbcType=VARCHAR},
+      <if test="updateBy != null and updateBy.id != null and updateBy.id != ''">
+        "update_by" = #{updateBy.id,jdbcType=VARCHAR},
       </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update SYS_O_DEPARTMENT
-    set id = #{record.id,jdbcType=VARCHAR},
-      create_by = #{record.createBy,jdbcType=VARCHAR},
-      create_date = #{record.createDate,jdbcType=DATE},
-      del_flag = #{record.delFlag,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR},
-      text = #{record.text,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.itheima.mybatis.pojo.SysODepartment" >
-    update SYS_O_DEPARTMENT
-    <set >
-      <if test="createBy != null" >
-        create_by = #{createBy,jdbcType=VARCHAR},
-      </if>
-      <if test="createDate != null" >
-        create_date = #{createDate,jdbcType=DATE},
-      </if>
-      <if test="delFlag != null" >
-        del_flag = #{delFlag,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="text != null" >
-        text = #{text,jdbcType=VARCHAR},
+       <if test="updateDate != null and updateDate != ''" >
+        "update_date" = #{createDate,jdbcType=DATE},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.itheima.mybatis.pojo.SysODepartment" >
+    where "id" = #{id,jdbcType=VARCHAR}
+  </update> -->
+  <!-- 更新 -->
+ <update id="update" parameterType="SysODepartment" >
     update SYS_O_DEPARTMENT
-    set create_by = #{createBy,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=DATE},
-      del_flag = #{delFlag,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      text = #{text,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
+    set "create_by" = #{createBy.id,jdbcType=VARCHAR},
+      "create_date" = #{createDate,jdbcType=DATE},
+      "del_flag" = #{delFlag,jdbcType=VARCHAR},
+      "name" = #{name,jdbcType=VARCHAR},
+      "update_by" = #{updateBy.id,jdbcType=VARCHAR},
+      "update_date" = #{updateDate,jdbcType=VARCHAR}
+<!--       text = #{text,jdbcType=VARCHAR}
+ -->    where "id" = #{id,jdbcType=VARCHAR}
   </update>
 </mapper>

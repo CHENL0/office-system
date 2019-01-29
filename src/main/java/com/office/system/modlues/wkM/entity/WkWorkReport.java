@@ -2,27 +2,57 @@ package com.office.system.modlues.wkM.entity;
 
 import java.util.Date;
 
-public class WkWorkReport {
-    private String id;
+import com.office.system.common.baseEntity.DataEntity;
+import com.office.system.modlues.sysMsgM.entity.SysODepartment;
+import com.office.system.modlues.sysMsgM.entity.SysOUser;
+import org.springframework.format.annotation.DateTimeFormat;
+
+public class WkWorkReport extends DataEntity<WkWorkReport>  {
 
     private String text;
-
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date startDate;
-
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date endDate;
 
-    private String createBy;
+    private String departmentId;
 
-    private Date createDate;
+    private String auditUserId;
 
-    private String delFlag;
+    private SysODepartment sysODepartment;
 
-    public String getId() {
-        return id;
+    private SysOUser auditUser;
+
+    public SysOUser getAuditUser() {
+        return auditUser;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setAuditUser(SysOUser auditUser) {
+        this.auditUser = auditUser;
+    }
+
+    public String getAuditUserId() {
+        return auditUserId;
+    }
+
+    public void setAuditUserId(String auditUserId) {
+        this.auditUserId = auditUserId;
+    }
+
+    public String getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public SysODepartment getSysODepartment() {
+        return sysODepartment;
+    }
+
+    public void setSysODepartment(SysODepartment sysODepartment) {
+        this.sysODepartment = sysODepartment;
     }
 
     public String getText() {
@@ -49,27 +79,4 @@ public class WkWorkReport {
         this.endDate = endDate;
     }
 
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy == null ? null : createBy.trim();
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag == null ? null : delFlag.trim();
-    }
 }

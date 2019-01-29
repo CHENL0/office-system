@@ -1,50 +1,23 @@
 package com.office.system.modlues.sysMsgM.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class SysODepartment {
-    private String id;
+import com.office.system.common.baseEntity.DataEntity;
 
-    private String createBy;
-
-    private Date createDate;
-
-    private String delFlag;
+public class SysODepartment extends DataEntity<SysODepartment> {
 
     private String name;
 
     private String text;
-
-    public String getId() {
-        return id;
+    
+    private List<User> users = new ArrayList<>();
+    
+    public SysODepartment(){
     }
-
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy == null ? null : createBy.trim();
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag == null ? null : delFlag.trim();
+    public SysODepartment(String id){
+    	this.id = id;
     }
 
     public String getName() {
@@ -62,4 +35,13 @@ public class SysODepartment {
     public void setText(String text) {
         this.text = text == null ? null : text.trim();
     }
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+    
 }

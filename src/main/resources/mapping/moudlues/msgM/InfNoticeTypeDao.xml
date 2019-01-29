@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.office.system.modlues.msgM.dao.InfNoticeTypeDao" >
+  <resultMap id="BaseResultMap" type="InfNoticeType" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="DATE" />
+    <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="DATE" />
+    <association property="updateBy"
+                 javaType="SysOUser"
+                 column="update_by"
+                 select="findSysOUserBase">
+    </association>
+    <association property="createBy"
+                 javaType="SysOUser"
+                 column="create_by"
+                 select="findSysOUserBase"
+                 >
+    </association>
+  </resultMap>
+   <select id="findSysOUserBase" resultType="SysOUser">
+   select * from SYS_O_USER where "id"=#{xxx}
+  </select>
+  <sql id="Base_Column_List" >
+    "id", "create_by", "create_date", "del_flag", "name", "update_by", "update_date"
+  </sql>
+  
+   <select id="findList" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from INF_NOTICE_TYPE a
+     <where>
+			a."del_flag" = #{delFlag}
+			<if test="name != null and name != ''">
+				AND a."text" LIKE 
+					'%'||#{text}||'%'
+					<!-- <if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
+					<if test="dbName == 'mysql'">CONCAT('%', #{title}, '%')</if> -->
+			</if>
+			<if test="createBy != null and createBy.id != null and createBy.id != ''">
+				AND a."create_by"  = #{createBy.id}
+			</if>
+		</where>
+  </select>
+  
+  <select id="get" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from INF_NOTICE_TYPE
+    where "id" = #{id,jdbcType=VARCHAR}
+  </select>
+ <!--  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from INF_NOTICE_TYPE
+    where id = #{id,jdbcType=VARCHAR}
+  </delete> -->
+  <insert id="insert"  >
+    insert into INF_NOTICE_TYPE ("id", "create_by", "create_date", 
+      "del_flag", "name", "update_by", 
+      "update_date")
+    values (#{id,jdbcType=VARCHAR}, #{createBy.id,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, 
+      #{delFlag,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},<!--  #{updateBy,jdbcType=VARCHAR}, --> 
+      #{updateDate,jdbcType=DATE})
+  </insert>
+    <update id="update"  >
+    update INF_NOTICE_TYPE
+    set "create_by" = #{createBy.id,jdbcType=VARCHAR},
+      "create_date" = #{createDate,jdbcType=DATE},
+      "del_flag" = #{delFlag,jdbcType=VARCHAR},
+      "name" = #{name,jdbcType=VARCHAR},
+      "update_by" = #{updateBy.id,jdbcType=VARCHAR},
+      "update_date" = #{updateDate,jdbcType=DATE}
+    where "id" = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 逻辑删除公告类型 -->
+  <update id="delete">
+		UPDATE INF_NOTICE_TYPE SET 
+			"del_flag" = 1
+		WHERE "id" = #{id}
+ </update>
+</mapper>

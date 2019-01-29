@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.office.system.modlues.rlM.dao.RlLeaveDao" >
+  <resultMap id="BaseResultMap" type="RlLeave" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
+    <result column="start_date" property="startDate" jdbcType="DATE" />
+    <result column="end_date" property="endDate" jdbcType="DATE" />
+<!--     <result column="create_by" property="createBy.id" jdbcType="VARCHAR" />
+ -->    <result column="create_date" property="createDate" jdbcType="DATE" />
+    <result column="del_flag_audit" property="delFlagAudit" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
+    <result column="audit_user_id" property="auditUserId" jdbcType="VARCHAR" />
+<!--     <result column="update_by" property="updateBy.id" jdbcType="VARCHAR" />
+ -->    <result column="update_date" property="updateDate" jdbcType="DATE" />
+    <result column="leave_status" property="leaveStatus" jdbcType="INTEGER" />
+    <result column="leave_type" property="leaveType" jdbcType="VARCHAR" />
+    <association property="auditUser" javaType="com.office.system.modlues.sysMsgM.entity.SysOUser">
+      <id column="id" property="id"/>
+      <result column="name" property="name"/>
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    r."id", r."reason", r."start_date", r."end_date", r."create_by", r."create_date", r."del_flag", r."audit_user_id",
+    r."update_by", r."update_date",r."leave_status",r."leave_type"
+  </sql>
+  <!-- <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.itheima.mybatis.pojo.RlLeaveExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from RL_LEAVE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select> -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from RL_LEAVE r
+    where r."id" = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectAllByCreateBy" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,s."id",s."name"
+    from RL_LEAVE r，SYS_O_USER s
+    <where>
+      r."del_flag" = 0
+      <if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
+        AND r."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
+      </if>
+      <if test="createBy != null and createBy.id != null and createBy.id != ''">
+        AND r."create_by"  = #{createBy.id}
+      </if>
+      AND r."audit_user_id" = s."id"
+    </where>
+  </select>
+
+  <select id="selectAllByAuditUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,s."id",s."name"
+    from RL_LEAVE r，SYS_O_USER s
+    <where>
+      r."del_flag_audit" = 0
+      <if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
+        AND r."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
+      </if>
+      <if test="createBy != null and createBy.id != null and createBy.id != ''">
+        AND r."create_by"  = s."id"
+      </if>
+      AND r."audit_user_id" = #{auditUserId}
+    </where>
+  </select>
+
+  <select id="findList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    ,s."id",s."name"
+    from RL_LEAVE r，SYS_O_USER s
+    <where>
+      r."del_flag" = 0
+      <if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
+        AND r."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
+      </if>
+      <if test="createBy != null and createBy.id != null and createBy.id != ''">
+        AND r."create_by"  = #{createBy.id}
+      </if>
+      AND r."audit_user_id" = s."id"
+    </where>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from RL_LEAVE
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+ <!--  <delete id="deleteByExample" parameterType="com.itheima.mybatis.pojo.RlLeaveExample" >
+    delete from RL_LEAVE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete> -->
+  <insert id="insert" parameterType="RlLeave" >
+    <selectKey keyProperty="id" resultType="String" order="BEFORE">
+      select  lower(sys_guid()) from DUAL
+    </selectKey>
+    insert into RL_LEAVE ("id","reason" ,"start_date" ,
+      "end_date", "create_by","create_date" ,
+      "del_flag", "del_flag_audit","audit_user_id","update_by" ,
+      "update_date","leave_status","leave_type")
+    values (#{id,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, #{startDate,jdbcType=DATE}, 
+       #{endDate,jdbcType=DATE}, #{createBy.id,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE},
+      #{delFlag,jdbcType=VARCHAR}, #{delFlagAudit,jdbcType=VARCHAR}, #{auditUserId,jdbcType=VARCHAR}, #{updateBy.id,jdbcType=VARCHAR},
+      #{updateDate,jdbcType=DATE}, #{leaveStatus,jdbcType=INTEGER}, #{leaveType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="RlLeave" >
+    insert into RL_LEAVE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="reason != null" >
+        reason,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+    <!--   <if test="createBy != null" >
+        create_by,
+      </if -->
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="auditUserId != null" >
+        audit_user_id,
+      </if>
+      <!-- <if test="updateBy != null" >
+        update_by,
+      </if> -->
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=DATE},
+      </if>
+     <!--  <if test="createBy != null" >
+        #{createBy.id,jdbcType=VARCHAR},
+      </if> -->
+      <if test="createDate != null" >
+        #{createDate,jdbcType=DATE},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="auditUserId != null" >
+        #{auditUserId,jdbcType=VARCHAR},
+      </if>
+     <!--  <if test="updateBy != null" >
+        #{updateBy.id,jdbcType=VARCHAR},
+      </if> -->
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+ <!--  <select id="countByExample" parameterType="com.itheima.mybatis.pojo.RlLeaveExample" resultType="java.lang.Integer" >
+    select count(*) from RL_LEAVE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select> -->
+  <update id="updateByExampleSelective" parameterType="map" >
+    update RL_LEAVE
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reason != null" >
+        reason = #{record.reason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startDate != null" >
+        start_date = #{record.startDate,jdbcType=DATE},
+      </if>
+      <if test="record.endDate != null" >
+        end_date = #{record.endDate,jdbcType=DATE},
+      </if>
+      <!-- <if test="record.createBy != null" >
+        create_by = #{record.createBy.id,jdbcType=VARCHAR},
+      </if> -->
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=DATE},
+      </if>
+      <if test="record.delFlag != null" >
+        del_flag = #{record.delFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditUserId != null" >
+        audit_user_id = #{record.auditUserId,jdbcType=VARCHAR},
+      </if>
+
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update RL_LEAVE
+    set id = #{record.id,jdbcType=VARCHAR},
+      reason = #{record.reason,jdbcType=VARCHAR},
+      start_date = #{record.startDate,jdbcType=DATE},
+      end_date = #{record.endDate,jdbcType=DATE},
+<!--       create_by = #{record.createBy.id,jdbcType=VARCHAR},
+ -->      create_date = #{record.createDate,jdbcType=DATE},
+      del_flag = #{record.delFlag,jdbcType=VARCHAR},
+      audit_user_id = #{record.auditUserId,jdbcType=VARCHAR},
+      <!-- update_by = #{record.updateBy.id,jdbcType=VARCHAR}, -->
+      update_date = #{record.updateDate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="RlLeave" >
+    update RL_LEAVE
+    <set >
+      <!--<if test="reason != null" >-->
+        <!--"reason" = #{reason,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="startDate != null" >-->
+        <!--"start_date" = #{startDate,jdbcType=DATE},-->
+      <!--</if>-->
+      <!--<if test="endDate != null" >-->
+        <!--"end_date" = #{endDate,jdbcType=DATE},-->
+      <!--</if>-->
+      <!--<if test="createBy != null" >-->
+        <!--"create_by" = #{createBy.id,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="createDate != null" >-->
+        <!--"create_date" = #{createDate,jdbcType=DATE},-->
+      <!--</if>-->
+      <if test="delFlag != null" >
+        "del_flag" = #{delFlag,jdbcType=VARCHAR},
+      </if>
+      <!--<if test="auditUserId != null" >-->
+        <!--"audit_user_id" = #{auditUserId,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="updateBy != null" >-->
+        <!--"update_by" = #{updateBy.id,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="updateDate != null" >-->
+        <!--"update_date" = #{updateDate,jdbcType=DATE},-->
+      <!--</if>-->
+      <!--<if test="leaveStatus != 0" >-->
+        <!--"leave_status" = #{leaveStatus,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="leaveType != null" >-->
+        <!--"leave_type" = #{leaveType,jdbcType=VARCHAR},-->
+      <!--</if>-->
+    </set>
+    where "id" = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="RlLeave" >
+    update RL_LEAVE
+    set reason = #{reason,jdbcType=VARCHAR},
+      start_date = #{startDate,jdbcType=DATE},
+      end_date = #{endDate,jdbcType=DATE},
+<!--       create_by = #{createBy.id,jdbcType=VARCHAR},
+ -->      create_date = #{createDate,jdbcType=DATE},
+      del_flag = #{delFlag,jdbcType=VARCHAR},
+      audit_user_id = #{auditUserId,jdbcType=VARCHAR},
+<!--       update_by = #{updateBy.id,jdbcType=VARCHAR},
+ -->      update_date = #{updateDate,jdbcType=DATE}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateDelFlagByIdForUser" >
+    update RL_LEAVE
+    set
+    "del_flag" = 1
+    where "id" = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateDelFlagByIdForAudit" >
+    update RL_LEAVE
+    set
+    "del_flag_audit" = 1
+    where "id" = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateStatusById" >
+    update RL_LEAVE
+    set
+    "leave_status" = #{leaveStatus,jdbcType=INTEGER}
+    where "id" = #{leaveId,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

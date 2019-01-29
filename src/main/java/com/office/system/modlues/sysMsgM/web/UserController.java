@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.office.system.modlues.sysMsgM.entity.SysODepartment;
 import com.office.system.modlues.sysMsgM.entity.User;
+import com.office.system.modlues.sysMsgM.service.SysODepartmentService;
 import com.office.system.modlues.sysMsgM.service.UserService;
 
 
@@ -20,12 +22,16 @@ public class UserController {
     @Autowired
 	UserService userService;
 	
-	@RequestMapping("/test")
+    @Autowired
+    SysODepartmentService sysODepartmentService;
+    
+	@RequestMapping("/test.do")
 	public String test(Model model){
 		User user = new User();
 		user.setId("123");
-		List<User> user2 = userService.findList(user);
-		return "sysMsgM/index";
+		User user2 = userService.get(user);
+		model.addAttribute("user", user2);
+		return "common/NewFile";
 		
 	}
 
