@@ -58,6 +58,12 @@
 			</div>
 		</div>
 		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>地址：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="${sysOUser.adress }" placeholder="" id="adress" name="adress" ${currentUser.sysORole.name =='普通员工' ? 'readonly="readonly" ' : ''}>
+			</div>
+		</div>
+		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属的部门：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 			    <input type="hidden" name="sysODepartment.id" id="sysODepartment.id" value="${sysOUser.sysODepartment.id }">

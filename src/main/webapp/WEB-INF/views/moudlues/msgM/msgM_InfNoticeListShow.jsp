@@ -56,7 +56,7 @@
 				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','<%=basePath%>a/infNotice/show.do?id=${infNotice.id}','10001','360','400')">${infNotice.title}</u></td>
 				<td>${infNotice.createBy.name}</td>
 				<td>${infNotice.type.name}</td>
-				<td>${infNotice.pushDate}</td>
+				<td><fmt:formatDate value="${infNotice.pushDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 			</tr>
 			</c:forEach>
 		</tbody>

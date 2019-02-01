@@ -61,7 +61,7 @@
 				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','<%=basePath%>a/infNotice/show.do?id=${infNotice.id}','10001','360','400')">${infNotice.title}</u></td>
 				<td>${infNotice.createBy.name}</td>
 				<td>${infNotice.type.name}</td>
-				<td>${infNotice.pushDate}</td>
+				<td><fmt:formatDate value="${infNotice.pushDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 				<td class="td-manage"></a> <a title="编辑" href="javascript:;" onclick="member_edit('编辑','<%=basePath%>a/infNotice/update.do?id=${infNotice.id}&current_user_Id=${param.currentUserId }&del_flag=1','4','','510')" class="ml-5" style="text-decoration:none"> <i class="Hui-iconfont">&#xe631;</i><a title="删除" href="javascript:;" onClick="member_del(this,'${infNotice.id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
 			</c:forEach>

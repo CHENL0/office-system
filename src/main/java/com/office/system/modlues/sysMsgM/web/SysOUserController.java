@@ -1,7 +1,9 @@
 package com.office.system.modlues.sysMsgM.web;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -69,8 +71,8 @@ public class SysOUserController {
 	//列表上用户的信息，post请求的更新，要做更新
 	@RequestMapping(value="/update.do",method=RequestMethod.POST)
 	public String updateForPost(Model model,SysOUser sysOUser){
-		String passwordMD5 =DigestUtils.md5Hex(sysOUser.getPassword());
-		sysOUser.setPassword(passwordMD5);
+//		String passwordMD5 =DigestUtils.md5Hex(sysOUser.getPassword());
+//		sysOUser.setPassword(passwordMD5);
 		sysOUserService.update(sysOUser);
 		SysOUser sysOUser2 = sysOUserService.get(sysOUser);
 		model.addAttribute("sysOUser", sysOUser2);
@@ -103,6 +105,8 @@ public class SysOUserController {
 	//post更新密码
 	@RequestMapping(value="/updatePassword.do",method=RequestMethod.POST)
 	public String updatePasswordForPost(Model model,SysOUser sysOUser){
+		String passwordMD5 =DigestUtils.md5Hex(sysOUser.getPassword());
+		sysOUser.setPassword(passwordMD5);
 		sysOUserService.updatePasswordById(sysOUser);
 		String msg = "修改密码成功!";
 		model.addAttribute("msg", msg);
@@ -118,9 +122,11 @@ public class SysOUserController {
 	//逻辑上删除
 	@RequestMapping("/del.do")
 	@ResponseBody
-	public String del(Model model,SysOUser sysOUser){
+	public Object del(Model model,SysOUser sysOUser){
 		sysOUserService.delete(sysOUser);
-		return "删除成功!";
+	    Map<String, String> responseDataMap = new HashMap<>();
+	    responseDataMap.put("responseData","success");
+	    return responseDataMap;
 	}
 	//查询个人信息
 	@RequestMapping("/show.do")

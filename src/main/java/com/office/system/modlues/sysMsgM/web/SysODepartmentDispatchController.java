@@ -1,6 +1,8 @@
 package com.office.system.modlues.sysMsgM.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,9 +64,11 @@ public class SysODepartmentDispatchController {
 	//删除	
 	@RequestMapping("/del.do")
 	@ResponseBody
-	public String del(Model model,SysODepartmentDispatch sysODepartmentDispatch){
+	public Object del(Model model,SysODepartmentDispatch sysODepartmentDispatch){
 		sysODepartmentDispatchService.delete(sysODepartmentDispatch);
-		return "删除成功";
+		  Map<String, String> responseDataMap = new HashMap<>();
+		  responseDataMap.put("responseData","success");
+		  return responseDataMap;
 		
 	}
 	//展示数据（前端已分好页）

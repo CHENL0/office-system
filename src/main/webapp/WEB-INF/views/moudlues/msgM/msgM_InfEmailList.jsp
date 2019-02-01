@@ -61,7 +61,7 @@
 				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','<%=basePath%>a/infEmail/show.do?id=${infEmail.id}','10001','360','400')">${infEmail.title}</u></td>
 				<td>${infEmail.sendUser.name}</td>
 				<td>${infEmail.getUser.name}</td>
-				<td>${infEmail.sendTime}</td>
+				<td><fmt:formatDate value="${infEmail.sendTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 				<c:choose>
 				  <c:when test="${param.current_user_Id == infEmail.sendUser.id }">
 			<%-- 	<c:if test="${param.current_user_Id == infEmail.sendUser.id }"> --%>

@@ -57,7 +57,7 @@
 <!-- 				<td><input type="checkbox" value="1" name=""></td>
  -->				<td>${sysODepartment.id}</td>
 				<td>${sysODepartment.name}</td>
-				<td>${sysODepartment.createDate}</td>
+				<td><fmt:formatDate value="${sysODepartment.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 				<td>${sysODepartment.createBy.name}</td>
 				<td class="td-manage"> <a title="编辑" href="javascript:;" onclick="member_edit('编辑','<%=basePath%>a/sysODepartment/update.do?id=${sysODepartment.id}&current_user_Id=${param.currentUserId }&delFlag=1','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除"  onClick="member_del(this,'${sysODepartment.id}')" href="javascript:;"class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
