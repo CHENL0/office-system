@@ -49,6 +49,7 @@
 				<!-- 				<th width="25"><input type="checkbox" name="" value=""></th>
                  -->
 				<th width="100">部门</th>
+				<th width="100">创建时间</th>
 				<th width="100">开始时间</th>
 				<th width="100">结束时间</th>
 				<th width="100">发布者</th>
@@ -61,6 +62,7 @@
 					<tr class="text-c" >
 						<td>${wkWorkReportList.sysODepartment.name}</td>
 						<td><fmt:formatDate value="${wkWorkReportList.createDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+						<td><fmt:formatDate value="${wkWorkReportList.startDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 						<td><fmt:formatDate value="${wkWorkReportList.endDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 						<td>${wkWorkReportList.createBy.name}</td>
 						<td class="td-manage">

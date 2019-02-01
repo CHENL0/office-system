@@ -108,7 +108,9 @@
 					</c:if>
 						<li><a data-href="<%=basePath%>/RlLeave/leavePage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="申请请假" href="javascript:void(0)">申请请假</a></li>
 					<%--<li><a data-href="<%=basePath%>/RlLeave/leavePage.do" data-title="请假信息管理" href="<%=basePath%>/RlLeave/leavePage.do"></a></li>--%>
-					<li><a data-href="<%=basePath%>RlOvertime/auditOvertimePage.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="加班审批管理" href="javascript:void(0)">加班审批管理</a></li>
+					<c:if test="${currentUser.sysORole.name == '经理' ||currentUser.sysORole.name == '系统管理员'}">
+						<li><a data-href="<%=basePath%>RlOvertime/auditOvertimePage.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="加班审批管理" href="javascript:void(0)">加班审批管理</a></li>
+					</c:if>
 					<li><a data-href="<%=basePath%>RlOvertime/overtimePage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="加班信息管理" href="javascript:void(0)">加班信息管理</a></li>
                       <li><a data-href="<%=basePath%>RlRuleMessage/ruleMessagePage.do?currentUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="公司规章制度信息管理" href="javascript:void(0)">公司规章制度信息管理</a></li>
 

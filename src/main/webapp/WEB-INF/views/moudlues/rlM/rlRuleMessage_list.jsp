@@ -43,7 +43,7 @@
 		<c:if test="${sessionScope.currentRoleName == '经理' || sessionScope.currentRoleName == '系统管理员'}">
 		<%--<c:if test="${param.currentUserRole == '经理' || param.currentUserRole == '系统管理员'}">--%>
 			<span class="l">
-				<a href="javascript:;" onclick="member_add('添加制度','<%=basePath%>RlRuleMessage/submitRule.do?delFlag=1&current_user_Id=${param.currentUserId }','','510')" class="btn btn-primary radius">
+				<a href="javascript:;" onclick="member_add('添加制度','<%=basePath%>RlRuleMessage/submitRule.do?delFlag=1&current_user_Id=${param.currentUserId}','','510')" class="btn btn-primary radius">
 					<i class="Hui-iconfont">&#xe600;</i>
 					发布制度
 				</a>
