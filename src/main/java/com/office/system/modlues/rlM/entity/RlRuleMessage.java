@@ -8,6 +8,16 @@ public class RlRuleMessage extends DataEntity<RlRuleMessage> {
 
     private String text;
 
+    private String ruleTitle;
+
+    public String getRuleTitle() {
+        return ruleTitle;
+    }
+
+    public void setRuleTitle(String ruleTitle) {
+        this.ruleTitle = ruleTitle;
+    }
+
     public String getText() {
         return text;
     }

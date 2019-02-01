@@ -4,12 +4,22 @@
   <resultMap id="BaseResultMap" type="RlRuleMessage" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="text" property="text" jdbcType="VARCHAR" />
-<!--     <result column="create_by" property="createBy.id" jdbcType="VARCHAR" />
- -->    <result column="create_date" property="createDate" jdbcType="DATE" />
+     <result column="create_by" property="createBy.id" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="DATE" />
     <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
-<!--     <result column="update_by" property="updateBy.id" jdbcType="VARCHAR" />
- -->    <result column="update_date" property="updateDate" jdbcType="DATE" />
+     <result column="update_by" property="updateBy.id" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="DATE" />
+    <result column="rule_title" property="ruleTitle" jdbcType="VARCHAR" />
+    <association property="createBy"
+                 javaType="SysOUser"
+                 column="create_by"
+                 select="findSysOUserBase"
+    >
+    </association>
   </resultMap>
+  <select id="findSysOUserBase" resultType="SysOUser">
+   select * from SYS_O_USER where "id"=#{xxx}
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -69,27 +79,35 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, text, create_by, create_date, del_flag, update_by, update_date
+    r."id", r."text", r."create_by", r."create_date", r."del_flag", r."update_by", r."update_date", r."rule_title"
   </sql>
-  <!-- <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.itheima.mybatis.pojo.RlRuleMessageExample" >
+
+  <select id="findList" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
-      distinct
-    </if>
     <include refid="Base_Column_List" />
-    from RL_RULE_MESSAGE
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select> -->
+    from RL_RULE_MESSAGE r
+    <where>
+      r."del_flag" = 0
+      <if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
+        AND r."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
+      </if>
+      <if test="ruleTitle != null and ruleTitle != ''">
+        AND r."rule_title" LIKE
+        '%'||#{ruleTitle}||'%'
+        <!-- <if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
+        <if test="dbName == 'mysql'">CONCAT('%', #{title}, '%')</if> -->
+      </if>
+      <if test="createBy != null and createBy.id != null and createBy.id != ''">
+        AND r."create_by"  = #{createBy.id}
+      </if>
+    </where>
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from RL_RULE_MESSAGE
-    where id = #{id,jdbcType=VARCHAR}
+    from RL_RULE_MESSAGE r
+    where r."id" = #{ruleId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from RL_RULE_MESSAGE
@@ -102,12 +120,15 @@
     </if>
   </delete> -->
   <insert id="insert" parameterType="RlRuleMessage" >
-    insert into RL_RULE_MESSAGE (id, text, create_by, 
-      create_date, del_flag, update_by, 
-      update_date)
-<!--     values (#{id,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, #{createBy.id,jdbcType=VARCHAR}, 
- -->      #{createDate,jdbcType=DATE}, #{delFlag,jdbcType=VARCHAR},<!--  #{updateBy.id,jdbcType=VARCHAR},  -->
-      #{updateDate,jdbcType=DATE})
+    <selectKey keyProperty="id" resultType="String" order="BEFORE">
+      select  lower(sys_guid()) from DUAL
+    </selectKey>
+    insert into RL_RULE_MESSAGE ("id", "text", "create_by",
+    "create_date", "del_flag", "update_by",
+    "update_date","rule_title")
+     values (#{id,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, #{createBy.id,jdbcType=VARCHAR},
+      #{createDate,jdbcType=DATE}, #{delFlag,jdbcType=VARCHAR}, #{updateBy.id,jdbcType=VARCHAR},
+      #{updateDate,jdbcType=DATE},#{ruleTitle,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="RlRuleMessage" >
     insert into RL_RULE_MESSAGE
@@ -230,6 +251,13 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <update id="updateDelFlagById">
+    update RL_OVERTIME
+    set
+    "del_flag" = 1
+    where "id" = #{id,jdbcType=VARCHAR}
+  </update>
+
   <update id="updateByPrimaryKey" parameterType="RlRuleMessage" >
     update RL_RULE_MESSAGE
     set text = #{text,jdbcType=VARCHAR},

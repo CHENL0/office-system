@@ -19,7 +19,12 @@
 <link href="<%=basePath%>static/lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css" />
 <!--[if IE 6]>
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
-<script>DD_belatedPNG.fix('*');</script>
+
+
+<script>
+DD_belatedPNG.fix('*');
+
+</script>
 <![endif]-->
 
 <title>中小企业管理系统后台登录 </title>
@@ -46,8 +51,9 @@
       </div>
       <div class="row cl">
         <div class="formControls col-xs-8 col-xs-offset-3">
-          <input class="input-text size-L" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
-          <img src=""> <a id="kanbuq" href="javascript:;">看不清，换一张</a> </div>
+            <div id="v_container" style="width: 200px;height: 50px;"></div>
+          <input id="code_input" class="input-text size-L" required="required" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
+          <%--<img src="/SessionTest/VerificodeServlet" id="image"> <a id="kanbuq" href="javascript:change();">看不清，换一张</a> </div>--%>
       </div>
       <div class="row cl">
         <div class="formControls col-xs-8 col-xs-offset-3">
@@ -58,7 +64,7 @@
       </div>
       <div class="row cl">
         <div class="formControls col-xs-8 col-xs-offset-3">
-          <input name="" type="submit" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;" >
+          <input name="" id="my_button" type="submit" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;" >
           <input name="" type="reset" class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;" >
         </div>
       </div>
@@ -70,22 +76,27 @@
 <script type="text/javascript" src="<%=basePath%>static/lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="<%=basePath%>static/static/h-ui/js/H-ui.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>static/lib/layer/2.4/layer.js"></script>
-<!--此乃百度统计代码，请自行删除-->
-<!-- <script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?080836300300be57b7f34f4b3e97d911";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script> -->
+<script type="text/javascript" src="<%=basePath%>static/lib/gVerify.js" ></script>
 <script type="text/javascript">
 window.onload=function(){
 	var msg = document.getElementById('msg').value;
 	if(msg != null && msg != '') {layer.msg(msg,{icon: 5,time:2000});}
 	
-} 
+}
+var verifyCode = new GVerify("v_container");
+
+document.getElementById("my_button").onclick = function(){
+    var res = verifyCode.validate(document.getElementById("code_input").value);
+    if(res){
+        return true;
+    }else{
+        alert("验证码错误");
+        return false;
+    }
+}
+
+
+
 </script>
 <!--/此乃百度统计代码，请自行删除-->
 </body>

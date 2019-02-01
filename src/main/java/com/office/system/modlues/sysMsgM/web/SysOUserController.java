@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -49,6 +50,8 @@ public class SysOUserController {
 	public String save(Model model,@RequestParam MultipartFile Mphoto,SysOUser sysOUser,HttpSession session) throws IllegalStateException, IOException{
 		
 		if (sysOUser !=null && sysOUser.getDelFlag().equals("0")) {
+			String passwordMD5 =DigestUtils.md5Hex(sysOUser.getPassword());
+			sysOUser.setPassword(passwordMD5);
 			sysOUserService.save(sysOUser,Mphoto,session);
 			String msg = "添加成功!";
 			model.addAttribute("msg", msg);
@@ -66,6 +69,8 @@ public class SysOUserController {
 	//列表上用户的信息，post请求的更新，要做更新
 	@RequestMapping(value="/update.do",method=RequestMethod.POST)
 	public String updateForPost(Model model,SysOUser sysOUser){
+		String passwordMD5 =DigestUtils.md5Hex(sysOUser.getPassword());
+		sysOUser.setPassword(passwordMD5);
 		sysOUserService.update(sysOUser);
 		SysOUser sysOUser2 = sysOUserService.get(sysOUser);
 		model.addAttribute("sysOUser", sysOUser2);
