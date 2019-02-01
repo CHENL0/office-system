@@ -87,7 +87,7 @@
                     <li><a data-href="<%=basePath%>/a/infNotice/list.do?current_user_Id=${currentUser.id}"" data-title="公告信息管理" href="javascript:void(0)">公告信息管理</a></li>
                     </c:if>
                     <li><a data-href="<%=basePath%>/a/infNotice/listShow.do?" data-title="公告查看" href="javascript:void(0)">公告查看</a></li>
-                    <li><a data-href="<%=basePath%>/a/infEmail/list.do?getUser.id=${currentUser.id}&createBy.id=${currentUser.id}&current_user_Id=${currentUser.id}" data-title="邮件信息管理" href="javascript:void(0)">邮件信息管理</a></li>
+                    <li><a data-href="<%=basePath%>/a/infEmail/list.do?getUser.id=${currentUser.id}&sendUser.id=${currentUser.id}&current_user_Id=${currentUser.id}" data-title="邮件信息管理" href="javascript:void(0)">邮件信息管理</a></li>
 			</ul>
 		</dd>
 	</dl>
