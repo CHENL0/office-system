@@ -98,8 +98,8 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from RL_OVERTIME
-    where "id" = #{overtimeId,jdbcType=VARCHAR}
+    from RL_OVERTIME r
+    where r."id" = #{overtimeId,jdbcType=VARCHAR}
   </select>
 
 

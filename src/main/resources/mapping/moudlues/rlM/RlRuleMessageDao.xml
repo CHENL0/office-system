@@ -252,7 +252,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateDelFlagById">
-    update RL_OVERTIME
+    update RL_RULE_MESSAGE
     set
     "del_flag" = 1
     where "id" = #{id,jdbcType=VARCHAR}

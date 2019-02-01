@@ -59,6 +59,7 @@
 				<!-- 				<th width="25"><input type="checkbox" name="" value=""></th>
                  -->
 				<th width="100">部门</th>
+				<th width="100">创建时间</th>
 				<th width="100">开始时间</th>
 				<th width="100">结束时间</th>
 				<th width="100">提出者</th>
@@ -69,6 +70,7 @@
 			<c:forEach items="${wkWorkTargetList }" var="wkWorkTargetList">
 					<tr class="text-c" >
 						<td>${wkWorkTargetList.sysODepartment.name}</td>
+						<td><fmt:formatDate value="${wkWorkTargetList.createDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 						<td><fmt:formatDate value="${wkWorkTargetList.startDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 						<td><fmt:formatDate value="${wkWorkTargetList.endDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 						<td>${wkWorkTargetList.createBy.name}</td>

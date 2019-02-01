@@ -159,8 +159,9 @@
     from WK_WORK_REPORT w ,SYS_O_DEPARTMENT d
     ,SYS_O_USER s
     where
+    w."del_flag" = 0
     <if test="createBy != null and createBy.id != null and createBy.id != ''">
-     w."create_by"  = #{createBy.id, jdbcType=VARCHAR}
+      AND w."create_by"  = #{createBy.id, jdbcType=VARCHAR}
     </if>
     <if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
       AND w."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
@@ -179,7 +180,7 @@
       select  lower(sys_guid()) from DUAL
     </selectKey>
     insert into WK_WORK_REPORT ("id", "text", "start_date",
-    "end_date", "create_by","update_by", "create_date","del_flag","del_flag_audit"
+    "end_date", "create_by","update_by", "create_date","del_flag","del_flag_audit",
     "department_id","audit_user_id")
     values (#{id,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, #{startDate,jdbcType=DATE}, 
       #{endDate,jdbcType=DATE},#{createBy.id,jdbcType=VARCHAR},#{updateBy.id,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE},
