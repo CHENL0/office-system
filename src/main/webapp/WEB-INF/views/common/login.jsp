@@ -28,8 +28,6 @@ DD_belatedPNG.fix('*');
 <![endif]-->
 
 <title>中小企业管理系统后台登录 </title>
-<meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
-<meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
 <body>
 <input type="hidden" id="TenantId" name="TenantId" value="" />
@@ -55,12 +53,12 @@ DD_belatedPNG.fix('*');
           <input id="code_input" class="input-text size-L" required="required" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
           <%--<img src="/SessionTest/VerificodeServlet" id="image"> <a id="kanbuq" href="javascript:change();">看不清，换一张</a> </div>--%>
       </div>
-      <div class="row cl">
+    <!--   <div class="row cl">
         <div class="formControls col-xs-8 col-xs-offset-3">
           <label for="online">
             <input type="checkbox" name="online" id="online" value="">
             使我保持登录状态</label>
-        </div>
+        </div> -->
       </div>
       <div class="row cl">
         <div class="formControls col-xs-8 col-xs-offset-3">
@@ -98,6 +96,5 @@ document.getElementById("my_button").onclick = function(){
 
 
 </script>
-<!--/此乃百度统计代码，请自行删除-->
 </body>
 </html>

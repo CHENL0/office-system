@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.office.system.modlues.sysMsgM.entity.SysOUser;
-import com.office.system.modlues.sysMsgM.entity.User;
 import com.office.system.modlues.sysMsgM.service.SysOUserService;
-import com.office.system.modlues.sysMsgM.service.UserService;
 
 import oracle.net.aso.s;
 /**

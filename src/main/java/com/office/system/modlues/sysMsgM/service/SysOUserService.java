@@ -13,10 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.office.system.common.baseService.CrudService;
 import com.office.system.modlues.sysMsgM.dao.SysODepartmentDao;
 import com.office.system.modlues.sysMsgM.dao.SysOUserDao;
-import com.office.system.modlues.sysMsgM.dao.UserDao;
 import com.office.system.modlues.sysMsgM.entity.SysODepartment;
 import com.office.system.modlues.sysMsgM.entity.SysOUser;
-import com.office.system.modlues.sysMsgM.entity.User;
 
 @Service
 @Transactional(readOnly = true)

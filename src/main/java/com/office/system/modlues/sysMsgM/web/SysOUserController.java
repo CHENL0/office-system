@@ -22,11 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.office.system.modlues.sysMsgM.entity.SysODepartment;
 import com.office.system.modlues.sysMsgM.entity.SysORole;
 import com.office.system.modlues.sysMsgM.entity.SysOUser;
-import com.office.system.modlues.sysMsgM.entity.User;
 import com.office.system.modlues.sysMsgM.service.SysODepartmentService;
 import com.office.system.modlues.sysMsgM.service.SysORoleService;
 import com.office.system.modlues.sysMsgM.service.SysOUserService;
-import com.office.system.modlues.sysMsgM.service.UserService;
 
 /**
  * 个人信息和用户的所有信息模块
