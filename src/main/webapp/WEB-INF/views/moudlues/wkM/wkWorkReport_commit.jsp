@@ -75,11 +75,11 @@
             <div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
 				<select class="select" size="1" name="auditUserId" id="auditUserId" required="required">
                     <c:forEach items="${sysOUserList}" var="sysOUserList">
-                        <c:if test="${sysOUserList.sysORole.id == '002'|| sysOUserList.sysORole.id == '003'}">
+                        <%--<c:if test="${sysOUserList.sysORole.id == '002'|| sysOUserList.sysORole.id == '003'}">--%>
                             <c:if test="${sysOUserList.id != param.current_user_Id}">
                                 <option value="${sysOUserList.id }" >${sysOUserList.name }</option>
                             </c:if>
-                        </c:if>
+                        <%--</c:if>--%>
                     </c:forEach>
 				</select>
 				</span>
