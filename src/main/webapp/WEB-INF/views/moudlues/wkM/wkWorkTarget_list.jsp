@@ -34,7 +34,7 @@
 			日期范围：<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" name="datemin" class="input-text Wdate" style="width:120px;">
 			-
 			<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" name="datemax" class="input-text Wdate" style="width:120px;">
-			<input type="text" class="input-text" style="width:250px" placeholder="输入制度的标题" id="ruleTitle" name="ruleTitle">
+			<%--<input type="text" class="input-text" style="width:250px" placeholder="输入制度的标题" id="ruleTitle" name="ruleTitle">--%>
 			<button type="submit" class="btn btn-success radius" ><i class="Hui-iconfont">&#xe665;</i> 搜标题</button>
 		</form>
 	</div>
@@ -49,8 +49,8 @@
 				</a>
 			</span>
 		</c:if>
-		<span class="r">共有数据：<strong>88</strong> 条
-		</span>
+		<%--<span class="r">共有数据：<strong>88</strong> 条--%>
+		<%--</span>--%>
 	</div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">

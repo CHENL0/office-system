@@ -42,7 +42,8 @@
 		<a href="javascript:;" onclick="member_add('申请请假','<%=basePath%>RlLeave/submitLeave.do?delFlag=1&current_user_Id=${param.currentUserId}','','510')" class="btn btn-primary radius">
 			<i class="Hui-iconfont">&#xe600;</i>申请请假
 		</a>
-	</span> <span class="r">共有数据：<strong>88</strong> 条</span>
+	</span>
+		<%--<span class="r">共有数据：<strong>88</strong> 条</span>--%>
 	</div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
