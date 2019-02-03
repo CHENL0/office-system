@@ -23,7 +23,7 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>邮件查看</title>
+<title>公告查看</title>
 </head>
 <body>
 
@@ -38,10 +38,10 @@
 				<th class="text-r">内容：</th>
 				<td>${infNotice.text }</td>
 			</tr>
-			<tr>
+			<%-- <tr>
 				<th class="text-r">发送时间：</th>
 				<td>${infNotice.createDate }</td>
-			</tr>
+			</tr> --%>
 			
 		</tbody>
 	</table>

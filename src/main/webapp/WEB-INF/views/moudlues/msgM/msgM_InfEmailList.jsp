@@ -44,7 +44,7 @@
 		<thead>
 			<tr class="text-c">
 <!-- 				<th width="25"><input type="checkbox" name="" value=""></th>
- -->		    <th width="80">ID</th>
+ -->		   
 				<th width="100">标题</th>
 				<th width="100">发送人</th>
 				<th width="40">接收人</th>
@@ -57,7 +57,7 @@
 		   <c:forEach items="${infEmails }" var="infEmail">
 			<tr class="text-c">
 <!-- 				<td><input type="checkbox" value="1" name=""></td>
- -->				<td>${infEmail.id}</td>
+ -->				
 				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','<%=basePath%>a/infEmail/show.do?id=${infEmail.id}','10001','360','400')">${infEmail.title}</u></td>
 				<td>${infEmail.sendUser.name}</td>
 				<td>${infEmail.getUser.name}</td>

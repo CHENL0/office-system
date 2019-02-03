@@ -24,7 +24,7 @@
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>用户管理</title>
+<title>公告管理</title>
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 用户管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
@@ -45,7 +45,7 @@
 		<thead>
 			<tr class="text-c">
 <!-- 				<th width="25"><input type="checkbox" name="" value=""></th>
- -->		    <th width="80">ID</th>
+ -->		    
 				<th width="100">标题</th>
 				<th width="100">发布人</th>
 				<th width="100">公告的类型</th>
@@ -57,12 +57,12 @@
 		   <c:forEach items="${infNotices }" var="infNotice">
 			<tr class="text-c">
 <!-- 				<td><input type="checkbox" value="1" name=""></td>
- -->				<td>${infNotice.id}</td>
+ -->				
 				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','<%=basePath%>a/infNotice/show.do?id=${infNotice.id}','10001','360','400')">${infNotice.title}</u></td>
 				<td>${infNotice.createBy.name}</td>
 				<td>${infNotice.type.name}</td>
 				<td><fmt:formatDate value="${infNotice.pushDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-				<td class="td-manage"></a> <a title="编辑" href="javascript:;" onclick="member_edit('编辑','<%=basePath%>a/infNotice/update.do?id=${infNotice.id}&current_user_Id=${param.currentUserId }&del_flag=1','4','','510')" class="ml-5" style="text-decoration:none"> <i class="Hui-iconfont">&#xe631;</i><a title="删除" href="javascript:;" onClick="member_del(this,'${infNotice.id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				<td class="td-manage"> <a title="删除" href="javascript:;" onClick="member_del(this,'${infNotice.id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
 			</c:forEach>
 		</tbody>
