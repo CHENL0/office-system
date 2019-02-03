@@ -39,8 +39,8 @@
 	</div>
 
 	<div class="cl pd-5 bg-1 bk-gray mt-20">
-		<span class="r">共有数据：<strong>88</strong> 条
-		</span>
+		<%--<span class="r">共有数据：<strong>88</strong> 条--%>
+		<%--</span>--%>
 	</div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">

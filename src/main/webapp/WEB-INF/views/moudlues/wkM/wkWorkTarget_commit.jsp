@@ -61,6 +61,7 @@
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>部门：</label>
             <div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
 				<select class="select" size="1" name="departmentId" id="departmentId" required="required">
+                    <option value="" selected>请选择部门</option>
                     <c:forEach items="${sysODepartmentList}" var="sysODepartmentList">
                         <c:if test="${sysODepartmentList.id != '001'}">
                             <option value="${sysODepartmentList.id }" >${sysODepartmentList.name }</option>
