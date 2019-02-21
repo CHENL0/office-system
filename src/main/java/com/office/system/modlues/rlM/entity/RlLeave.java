@@ -9,10 +9,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class RlLeave extends DataEntity<RlLeave>{
 
     private String reason;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    private Date startDate;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    private Date endDate;
+//    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private String startDate;
+//    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private String endDate;
 
     private String auditUserId;
 
@@ -54,19 +54,19 @@ public class RlLeave extends DataEntity<RlLeave>{
         this.reason = reason == null ? null : reason.trim();
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

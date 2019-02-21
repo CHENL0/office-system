@@ -78,7 +78,7 @@ public class RlLeaveController {
      */
     @RequestMapping(value = "/submitLeave.do")
     public Object submitLeave(Model model,RlLeave rlLeave) {
-        if(rlLeave != null && rlLeave.getDelFlag().equals("0")){
+         if(rlLeave != null && rlLeave.getDelFlag().equals("0")){
              rlLeaveService.save(rlLeave);
             String msg = "提交成功!";
             model.addAttribute("msg", msg);
