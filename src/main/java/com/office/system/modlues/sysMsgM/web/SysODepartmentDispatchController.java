@@ -73,9 +73,11 @@ public class SysODepartmentDispatchController {
 	}
 	//展示数据（前端已分好页）
 	@RequestMapping("/list.do")
-	public String list(Model model,SysODepartmentDispatch sysODepartmentDispatch){
+	public String list(Model model,SysODepartmentDispatch sysODepartmentDispatch,String currentUserId){
+		SysOUser sysOUser = sysOUserService.get(currentUserId);
 	    List<SysODepartmentDispatch> sysODepartmentDispatchs = sysODepartmentDispatchService.findList(sysODepartmentDispatch);
 	    model.addAttribute("sysODepartmentDispatchs", sysODepartmentDispatchs);
+	    model.addAttribute("sysOUser", sysOUser);
 		return "moudlues/sysMsgM/sysMsgM_SysODepartmentDispatchList";
 		
 	}

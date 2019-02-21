@@ -43,7 +43,7 @@
         <%--<input type="hidden" value="0" name="delFlagAudit" id="delFlagAudit">--%>
         <%--<input type="hidden" value="0" name="delFlag" id="delFlag">--%>
         <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>工作目标时间：</label>
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>工作时间段：</label>
             <div class="formControls col-xs-8 col-sm-9">
                 <input type="text" required="required" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'endDate\')||\'%y-%M-%d\'}' })" id="startDate" name="startDate" class="input-text Wdate" style="width:120px;">
                 -

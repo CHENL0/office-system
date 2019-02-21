@@ -37,20 +37,13 @@
     <button type="submit" class="btn btn-success radius" ><i class="Hui-iconfont">&#xe665;</i> 搜标题</button>
     </form>
     </div>
-
     <div class="cl pd-5 bg-1 bk-gray mt-20">
-        <%--<span class="l">
-        <a href="javascript:;" onclick="member_add('申请加班','<%=basePath%>RlOvertime/submitOvertime.do?delFlag=1&current_user_Id=${param.currentUserId }','','510')" class="btn btn-primary radius">--%>
-            <%--<i class="Hui-iconfont">&#xe600;</i>申请加班--%>
-        <%--</a></span>--%>
-        <%--<span class="r">共有数据：<strong>88</strong> 条</span> --%>
     </div>
     <div class="mt-20">
         <table class="table table-border table-bordered table-hover table-bg table-sort">
             <thead>
             <tr class="text-c">
-                <!-- 				<th width="25"><input type="checkbox" name="" value=""></th>
-                 -->		    <th width="80">状态</th>
+                		    <th width="80">状态</th>
                 <th width="100">创建时间</th>
                 <th width="100">开始时间</th>
                 <th width="100">结束时间</th>
@@ -61,9 +54,6 @@
             <tbody>
             <c:forEach items="${rlOvertimeList }" var="rlOvertimeList">
                    <tr class="text-c" >
-                    <!-- 				<td><input type="checkbox" value="1" name=""></td>
-
-                     -->
                         <c:if test="${rlOvertimeList.overtimeStatus == 1}">
                             <td><span style="color: #3b97d7">待审核</span></td>
                         </c:if>
@@ -74,8 +64,8 @@
                             <td><span style="color: #A60000">审核被拒</span></td>
                         </c:if>
                        <td><fmt:formatDate value="${rlOvertimeList.createDate}" pattern="yyyy-MM-dd HH:mm"/></td>
-                        <td><fmt:formatDate value="${rlOvertimeList.startDate}" pattern="yyyy-MM-dd HH:mm"/></td>
-                        <td><fmt:formatDate value="${rlOvertimeList.endDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+                        <td>${rlOvertimeList.startDate}</td>
+                        <td>${rlOvertimeList.endDate}</td>
                         <td>${rlOvertimeList.auditUser.name}</td>
                         <td class="td-manage">
                             <a title="编辑" href="javascript:;" onclick="member_show('加班详细','<%=basePath%>RlOvertime/showLeave.do?overtimeId=${rlOvertimeList.id}','10001','360','400')" class="ml-5" style="text-decoration:none">

@@ -70,8 +70,8 @@
                             <td><span style="color: #A60000">审核被拒</span></td>
                         </c:if>
                        <td><fmt:formatDate value="${rlOvertimeList.createDate}" pattern="yyyy-MM-dd HH:mm"/></td>
-                        <td><fmt:formatDate value="${rlOvertimeList.startDate}" pattern="yyyy-MM-dd HH:mm"/></td>
-                        <td><fmt:formatDate value="${rlOvertimeList.endDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+                        <td>${rlOvertimeList.startDate}</td>
+                        <td>${rlOvertimeList.endDate}</td>
                         <td>${rlOvertimeList.auditUser.name}</td>
                         <td class="td-manage">
                             <a title="编辑" href="javascript:;" onclick="member_show('加班详细','<%=basePath%>RlOvertime/showLeave.do?overtimeId=${rlOvertimeList.id}','10001','360','400')" class="ml-5" style="text-decoration:none">

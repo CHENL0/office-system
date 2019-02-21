@@ -77,8 +77,8 @@
 							<td><span style="color: #A60000">审核被拒</span></td>
 						</c:if>
 						<td><fmt:formatDate value="${rlLeaveList.createDate}" pattern="yyyy-MM-dd HH:mm"/></td>
-						<td><fmt:formatDate value="${rlLeaveList.startDate}" pattern="yyyy-MM-dd HH:mm"/></td>
-						<td><fmt:formatDate value="${rlLeaveList.endDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+						<td>${rlLeaveList.startDate}"</td>
+						<td>${rlLeaveList.endDate}"</td>
 						<td>${rlLeaveList.auditUser.name}</td>
 						<td>${rlLeaveList.leaveType}</td>
 						<td class="td-manage">

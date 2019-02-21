@@ -98,14 +98,14 @@
 				<input type="text" class="input-text" placeholder="@" name="email" id="email">
 			</div>
 		</div>
-		<div class="row cl">
+		<!-- <div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">头像：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="btn-upload form-group">
 				<input class="input-text upload-url" type="text" name="Mphoto" id="Mphoto" readonly nullmsg="请添加图片！" style="width:200px">
 				<a href="javascript:void();" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont">&#xe642;</i> 浏览图片</a>
 				<input type="file" multiple name="Mphoto" class="input-file" name="Mphoto" id="Mphoto">
 				</span> </div>
-		</div>
+		</div> -->
 		 <div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>所属部门：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">

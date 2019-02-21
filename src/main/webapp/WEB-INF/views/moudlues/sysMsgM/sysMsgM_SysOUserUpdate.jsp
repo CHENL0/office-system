@@ -48,7 +48,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>登陆名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${sysOUser.loginName }" placeholder="" id="loginName" name="loginName">
+				<input type="text" class="input-text" value="${sysOUser.loginName }" placeholder="" id="loginName" name="loginName" ${currentUser.sysORole.name =='普通员工' ? 'readonly="readonly" ' : ''}>
 			</div>
 		</div>
 		<div class="row cl">

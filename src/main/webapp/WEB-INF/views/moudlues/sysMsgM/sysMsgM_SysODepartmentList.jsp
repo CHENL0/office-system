@@ -44,7 +44,7 @@
 		<thead>
 			<tr class="text-c">
 <!-- 				<th width="25"><input type="checkbox" name="" value=""></th>
- -->				<th width="80">ID</th>
+ -->				
 				<th width="100">部门名</th>
 				<th width="100">创建时间</th>
 				<th width="40">创建人</th>
@@ -55,7 +55,7 @@
 		   <c:forEach items="${sysODepartments }" var="sysODepartment">
 			<tr class="text-c">
 <!-- 				<td><input type="checkbox" value="1" name=""></td>
- -->				<td>${sysODepartment.id}</td>
+ -->				
 				<td>${sysODepartment.name}</td>
 				<td><fmt:formatDate value="${sysODepartment.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 				<td>${sysODepartment.createBy.name}</td>

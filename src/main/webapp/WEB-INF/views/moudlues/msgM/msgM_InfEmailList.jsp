@@ -43,8 +43,8 @@
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
 			<thead>
 			<tr class="text-c">
-				<!-- 				<th width="25"><input type="checkbox" name="" value=""></th>
-                 -->
+<!-- 				<th width="25"><input type="checkbox" name="" value=""></th>
+ -->
 				<th width="100">标题</th>
 				<th width="100">发送人</th>
 				<th width="40">接收人</th>
@@ -52,39 +52,39 @@
 				<th width="70">状态</th>
 				<th width="100">操作</th>
 			</tr>
-			</thead>
-			<tbody>
-			<c:forEach items="${infEmails }" var="infEmail">
-				<tr class="text-c">
-					<!-- 				<td><input type="checkbox" value="1" name=""></td>
-                     -->
-					<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','<%=basePath%>a/infEmail/show.do?id=${infEmail.id}','10001','360','400')">${infEmail.title}</u></td>
-					<td>${infEmail.sendUser.name}</td>
-					<td>${infEmail.getUser.name}</td>
-					<td><fmt:formatDate value="${infEmail.sendTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-					<c:choose>
-						<c:when test="${param.current_user_Id == infEmail.sendUser.id }">
-							<%-- 	<c:if test="${param.current_user_Id == infEmail.sendUser.id }"> --%>
-							<td class="td-status">
-								<span class="label label-success radius">已发送</span>
-							</td>
-							<td class="td-manage"><a title="删除"  onClick="member_del(this,'${infEmail.id}','','${infEmail.getUser.id }')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-							<%-- </c:if> --%>
-						</c:when>
-						<c:when test="${param.current_user_Id == infEmail.getUser.id }">
-							<%-- <c:if test="${param.current_user_Id == infEmail.getUser.id }"> --%>
-							<td class="td-status">
-								<span class="label label-success radius">已接收</span>
-							</td>
-							<td class="td-manage"><a title="删除"  onClick="member_del(this,'${infEmail.id}','${infEmail.sendUser.id }','')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-							<%-- </c:if> --%>
-						</c:when>
-						<c:otherwise>
-							<td class="td-status"></td>
-							<td class="td-manage"></td>
-						</c:otherwise>
-					</c:choose>
-				</tr>
+		</thead>
+		<tbody>
+		   <c:forEach items="${infEmails }" var="infEmail">
+			<tr class="text-c">
+<!-- 				<td><input type="checkbox" value="1" name=""></td>
+ -->
+				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','<%=basePath%>a/infEmail/show.do?id=${infEmail.id}','10001','360','400')">${infEmail.title}</u></td>
+				<td>${infEmail.sendUser.name}</td>
+				<td>${infEmail.getUser.name}</td>
+				<td><fmt:formatDate value="${infEmail.sendTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+				<c:choose>
+				  <c:when test="${param.current_user_Id == infEmail.sendUser.id }">
+			<%-- 	<c:if test="${param.current_user_Id == infEmail.sendUser.id }"> --%>
+				   <td class="td-status">
+				     <span class="label label-success radius">已发送</span>
+				   </td>
+				   <td class="td-manage"><a title="删除"  onClick="member_del(this,'${infEmail.id}','','${infEmail.getUser.id }')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				<%-- </c:if> --%>
+				</c:when>
+				<c:when test="${param.current_user_Id == infEmail.getUser.id }">
+				<%-- <c:if test="${param.current_user_Id == infEmail.getUser.id }"> --%>
+				   <td class="td-status">
+				     <span class="label label-success radius">已接收</span>
+				   </td>
+	                 <td class="td-manage"><a title="删除"  onClick="member_del(this,'${infEmail.id}','${infEmail.sendUser.id }','')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				<%-- </c:if> --%>
+				</c:when>
+				<c:otherwise>
+				  <td class="td-status"></td>
+	              <td class="td-manage"></td>
+				</c:otherwise>
+			 </c:choose>
+			</tr>
 			</c:forEach>
 			</tbody>
 		</table>

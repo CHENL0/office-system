@@ -47,12 +47,13 @@ public class SysOUserController {
     
     //保存
 	@RequestMapping(value="/save.do",method=RequestMethod.POST)
-	public String save(Model model,@RequestParam MultipartFile Mphoto,SysOUser sysOUser,HttpSession session) throws IllegalStateException, IOException{
+	public String save(Model model,SysOUser sysOUser,HttpSession session) throws IllegalStateException, IOException{
 		
 		if (sysOUser !=null && sysOUser.getDelFlag().equals("0")) {
 			String passwordMD5 =DigestUtils.md5Hex(sysOUser.getPassword());
 			sysOUser.setPassword(passwordMD5);
-			sysOUserService.save(sysOUser,Mphoto,session);
+//			sysOUserService.save(sysOUser,Mphoto,session);
+			sysOUserService.save(sysOUser);
 			String msg = "添加成功!";
 			model.addAttribute("msg", msg);
 		}

@@ -46,9 +46,9 @@
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>加班时间：</label>
             <div class="formControls col-xs-8 col-sm-9">
-                <input type="text" required="required" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'endDate\')||\'%y-%M-%d\'}' })" id="startDate" name="startDate" class="input-text Wdate" style="width:120px;">
+                <input type="text" required="required" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss', minDate:'#F{$dp.$D(\'endDate\')||\'%y-%M-%d\'}' })" id="startDate" name="startDate" class="input-text Wdate" style="width:120px;">
                 -
-                <input type="text" required="required" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'startDate\')}',maxDate:'#{%y+1}-%M-%d' })" id="endDate" name="endDate" class="input-text Wdate" style="width:120px;">
+                <input type="text" required="required" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss', minDate:'#F{$dp.$D(\'startDate\')}',maxDate:'#{%y+1}-%M-%d' })" id="endDate" name="endDate" class="input-text Wdate" style="width:120px;">
             </div>
         </div>
         <div class="row cl">
