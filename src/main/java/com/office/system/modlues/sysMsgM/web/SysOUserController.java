@@ -141,5 +141,12 @@ public class SysOUserController {
 		model.addAttribute("sysOUserList", sysOUsers);
 		return "moudlues/sysMsgM/sysMsgM_SysOUserList";
 	}
+	//展示所有用户和分页查询用户（前台已做好分页） 为了给hr重置密码
+	@RequestMapping("/listForHr.do")
+	public String listForHr(Model model,SysOUser sysOUser){
+		List<SysOUser> sysOUsers = sysOUserService.findList(sysOUser);
+		model.addAttribute("sysOUserList", sysOUsers);
+		return "moudlues/sysMsgM/sysMsgM_SysOUserListForHr";
+	}
 
 }
