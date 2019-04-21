@@ -106,12 +106,14 @@
 				<input type="text" class="input-text" value="${sysOUser.email }"placeholder="@" name="email" id="email">
 			</div>
 		</div>
+		<!-- 
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>个人密码：<input type="button" value="修改密码" click="ableInput()"></label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input  type="text" class="input-text"  disabled="disabled" placeholder="**********" name="newPassword" id="newPassword">
 			</div>
 		</div>
+		 -->
 
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">

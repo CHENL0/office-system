@@ -40,8 +40,8 @@
 					<a href="#" class="dropDown_A">${currentUser.loginName}<i class="Hui-iconfont">&#xe6d5;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
 						<li><a href="<%=basePath%>/a/logout.do">退出</a></li>
-						<li><a data-href="<%=basePath%>a/sysUser/updatePassword.do?id=${currentUser.id}" data-title="修改密码" >修改密码</a></li>
-						<li><a data-href="<%=basePath%>a/sysUser/update.do?id=${currentUser.id}&current_user_Id=${currentUser.id}" data-title="修改个人信息">修改个人信息</a></li>
+						<li class="dropDown-menu-item"><a data-open-type="0" data-href="<%=basePath%>a/sysUser/updatePassword.do?id=${currentUser.id}" data-title="修改密码" >修改密码</a></li>
+						<li class="dropDown-menu-item"><a data-open-type="1" data-href="<%=basePath%>a/sysUser/update.do?id=${currentUser.id}&current_user_Id=${currentUser.id}" data-title="修改个人信息">修改个人信息</a></li>
 				</ul>
 			</li>
 				<li id="Hui-skin" class="dropDown right dropDown_hover"> <a href="javascript:;" class="dropDown_A" title="换肤"><i class="Hui-iconfont" style="font-size:18px">&#xe62a;</i></a>
@@ -215,6 +215,24 @@
 <script type="text/javascript" src="<%=basePath%>static/lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
 <script type="text/javascript">
 $(function(){
+	$('.dropDown-menu-item').off('click').on('click',function(){
+		var type = $(this).children('a').attr('data-open-type');
+		if(type == 0){
+			layer.open({
+				type:2,
+				area:[500,300],
+				content:$(this).children('a').attr('data-href')
+			})
+		}else if(type == 1){
+			layer.open({
+				type:2,
+				area:[700,500],
+				content:$(this).children('a').attr('data-href')
+			})
+		}
+		
+		
+	})
 });
 /*个人信息*/
 function myselfinfo(){
