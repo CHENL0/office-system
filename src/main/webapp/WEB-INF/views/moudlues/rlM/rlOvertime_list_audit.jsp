@@ -34,7 +34,7 @@
     日期范围：<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" name="datemin" class="input-text Wdate" style="width:120px;">
     -
     <input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" name="datemax" class="input-text Wdate" style="width:120px;">
-    <button type="submit" class="btn btn-success radius" ><i class="Hui-iconfont">&#xe665;</i> 搜标题</button>
+    <button type="submit" class="btn btn-success radius" ><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
     </form>
     </div>
     <div class="cl pd-5 bg-1 bk-gray mt-20">

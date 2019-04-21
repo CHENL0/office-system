@@ -23,7 +23,7 @@
 	<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 	<script>DD_belatedPNG.fix('*');</script>
 	<![endif]-->
-	<title>请假条查看</title>
+	<title>工作情况汇报</title>
 </head>
 <body>
 

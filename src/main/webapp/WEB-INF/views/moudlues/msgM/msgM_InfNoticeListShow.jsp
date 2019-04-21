@@ -35,7 +35,7 @@
 		-
 		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" name="datemax" class="input-text Wdate" style="width:120px;">
 		<input type="text" class="input-text" style="width:250px" placeholder="输入公告标题" id="title" name="title">
-		<button type="submit" class="btn btn-success radius" id="title" name="title"><i class="Hui-iconfont">&#xe665;</i> 搜标题</button>
+		<button type="submit" class="btn btn-success radius" id="title" name="title"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
 	   </form>
 	</div>
 	

@@ -35,12 +35,12 @@
 			-
 			<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" name="datemax" class="input-text Wdate" style="width:120px;">
 			<input type="text" class="input-text" style="width:250px" placeholder="输入制度的标题" id="ruleTitle" name="ruleTitle">
-			<button type="submit" class="btn btn-success radius" ><i class="Hui-iconfont">&#xe665;</i> 搜标题</button>
+			<button type="submit" class="btn btn-success radius" ><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
 		</form>
 	</div>
 
 	<div class="cl pd-5 bg-1 bk-gray mt-20">
-		<c:if test="${sessionScope.currentRoleName == '经理' || sessionScope.currentRoleName == '系统管理员'}">
+		<c:if test="${sessionScope.currentRoleName == 'hr'}">
 		<%--<c:if test="${param.currentUserRole == '经理' || param.currentUserRole == '系统管理员'}">--%>
 			<span class="l">
 				<a href="javascript:;" onclick="member_add('添加制度','<%=basePath%>RlRuleMessage/submitRule.do?delFlag=1&current_user_Id=${param.currentUserId}','','510')" class="btn btn-primary radius">

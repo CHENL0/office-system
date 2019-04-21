@@ -40,8 +40,8 @@
 					<a href="#" class="dropDown_A">${currentUser.loginName}<i class="Hui-iconfont">&#xe6d5;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
 						<li><a href="<%=basePath%>/a/logout.do">退出</a></li>
-						<li><a data-href="<%=basePath%>a/sysUser/updatePassword.do?id=${currentUser.id}" data-title="修改密码" href="javascript:;">修改密码</a></li>
-						<li><a data-href="<%=basePath%>a/sysUser/update.do?id=${currentUser.id}&current_user_Id=${currentUser.id}" data-title="修改个人信息" href="javascript:;">修改个人信息</a></li>
+						<li><a data-href="<%=basePath%>a/sysUser/updatePassword.do?id=${currentUser.id}" data-title="修改密码" >修改密码</a></li>
+						<li><a data-href="<%=basePath%>a/sysUser/update.do?id=${currentUser.id}&current_user_Id=${currentUser.id}" data-title="修改个人信息">修改个人信息</a></li>
 				</ul>
 			</li>
 				<li id="Hui-skin" class="dropDown right dropDown_hover"> <a href="javascript:;" class="dropDown_A" title="换肤"><i class="Hui-iconfont" style="font-size:18px">&#xe62a;</i></a>
@@ -65,17 +65,23 @@
 			<dt><i class="Hui-iconfont">&#xe616;</i> 部门管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<c:if test="${currentUser.sysORole.name == '经理' ||currentUser.sysORole.name == 'hr'}">
+					<c:if test="${currentUser.sysORole.name == 'hr'}">
+						<li><a data-href="<%=basePath%>/RlLeave/LeavePageForHr.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="请假信息" href="javascript:void(0)">请假信息查看</a></li>
+					</c:if>
+					<c:if test="${currentUser.sysORole.name == 'hr'}">
+						<li><a data-href="<%=basePath%>/RlOvertime/overtimePageForHr.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="加班信息" href="javascript:void(0)">加班信息查看</a></li>
+					</c:if>
+					<c:if test="${currentUser.sysORole.name == '经理'}">
 						<li><a data-href="<%=basePath%>/RlLeave/auditLeavePage.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="请假管理" href="javascript:void(0)">请假审批管理</a></li>
 					</c:if>
 					<li><a data-href="<%=basePath%>/RlLeave/leavePage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}&departmentName=${currentUser.sysODepartment.name}" data-title="申请请假" href="javascript:void(0)">申请请假</a></li>
-					<c:if test="${currentUser.sysORole.name == '经理' ||currentUser.sysORole.name == 'hr'}">
+					<c:if test="${currentUser.sysORole.name == '经理'}">
 						<li><a data-href="<%=basePath%>RlOvertime/auditOvertimePage.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="加班审批管理" href="javascript:void(0)">加班审批管理</a></li>
 					</c:if>
+					<li><a data-href="<%=basePath%>RlOvertime/overtimePage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}&departmentName=${currentUser.sysODepartment.name}" data-title="申请加班" href="javascript:void(0)">申请加班</a></li>
 					<c:if test="${currentUser.sysORole.name == 'hr'}">
 						<li><a data-href="<%=basePath%>a/sysUser/list.do?currentUserId=${currentUser.id}" data-title="员工信息" href="javascript:;">员工信息</a></li>
 					</c:if>
-					<li><a data-href="<%=basePath%>RlOvertime/overtimePage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="申请加班" href="javascript:void(0)">申请加班</a></li>
 				</ul>
 			</dd>
 		<%--<dl id="menu-article">--%>
@@ -125,11 +131,12 @@
 				<dt><i class="Hui-iconfont">&#xe622;</i> 工作汇报<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 				<dd>
 					<ul>
-						<li><a data-href="<%=basePath%>WkWorkTarget/wkWorkTargetPage.do?currentUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="工作目标信息" href="javascript:void(0)">工作目标信息</a></li>
+						<li><a data-href="<%=basePath%>WkWorkTarget/wkWorkTargetPage.do?currentUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}&departmentId=${currentUser.sysODepartment.id}" data-title="工作目标信息" href="javascript:void(0)">工作目标信息</a></li>
 						<c:if test="${currentUser.sysORole.name == '经理'}">
 							<li><a data-href="<%=basePath%>WkWorkReport/auditWkWorkReportPage.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="汇报信息管理" href="javascript:void(0)">汇报信息管理</a></li>
 						</c:if>
-						<li><a data-href="<%=basePath%>WkWorkReport/wkWorkReportPage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="工作情况汇报" href="javascript:void(0)">工作情况汇报</a></li>
+						<li><a data-href="<%=basePath%>WkWorkReport/wkWorkReportPage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}
+						&departmentName=${currentUser.sysODepartment.name}&departmentId=${currentUser.sysODepartment.id}" data-title="工作情况汇报" href="javascript:void(0)">工作情况汇报</a></li>
 					</ul>
 				</dd>
 			</dl>
