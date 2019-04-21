@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface RlLeaveDao extends CrudDao<RlLeave>{
     List<RlLeave> selectAllByCreateBy (RlLeave rlLeave);
+    List<RlLeave> selectAll ();
     List<RlLeave> selectAllByAuditUserId (RlLeave rlLeave);
     RlLeave selectByPrimaryKey (String id);
     void updateDelFlagByIdForUser (String id);

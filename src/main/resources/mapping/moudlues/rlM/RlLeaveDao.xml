@@ -120,6 +120,22 @@
     </where>
   </select>
 
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,s."id",s."name"
+    from RL_LEAVE r，SYS_O_USER s
+    <where>
+      r."del_flag" = 0
+      <if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
+        AND r."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
+      </if>
+      <if test="createBy != null and createBy.id != null and createBy.id != ''">
+        AND r."create_by"  = #{createBy.id}
+      </if>
+    </where>
+  </select>
+
   <select id="selectAllByAuditUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />

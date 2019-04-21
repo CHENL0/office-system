@@ -69,9 +69,9 @@ public class SysOUserController {
 	}
 	//列表上用户的信息，post请求的更新，要做更新
 	@RequestMapping(value="/update.do",method=RequestMethod.POST)
-	public String updateForPost(Model model,SysOUser sysOUser){
-//		String passwordMD5 =DigestUtils.md5Hex(sysOUser.getPassword());
-//		sysOUser.setPassword(passwordMD5);
+	public String updateForPost(Model model,SysOUser sysOUser,String newPassword){
+		String passwordMD5 =DigestUtils.md5Hex(newPassword);
+		sysOUser.setPassword(passwordMD5);
 		sysOUserService.update(sysOUser);
 		SysOUser sysOUser2 = sysOUserService.get(sysOUser);
 		model.addAttribute("sysOUser", sysOUser2);
@@ -83,6 +83,7 @@ public class SysOUserController {
 	@RequestMapping(value="/update.do",method=RequestMethod.GET)
 	public String updateForGet(Model model,SysOUser sysOUser,String current_user_Id){
 		SysOUser sysOUser2 = sysOUserService.get(sysOUser);
+
 		SysOUser currentUser = sysOUserService.get(current_user_Id);
 		model.addAttribute("sysOUser", sysOUser2);
 		model.addAttribute("currentUser", currentUser);

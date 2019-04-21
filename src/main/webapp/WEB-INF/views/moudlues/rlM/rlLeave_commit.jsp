@@ -78,10 +78,8 @@
 				<select class="select" size="1" name="auditUserId" id="auditUserId" required="required">
                     <option value="" selected>请选择审核人</option>
                     <c:forEach items="${sysOUserList}" var="sysOUserList">
-                        <c:if test="${sysOUserList.sysORole.id == '002'|| sysOUserList.sysORole.id == '003'}">
-                            <c:if test="${sysOUserList.id != param.current_user_Id}">
-                                <option value="${sysOUserList.id }" >${sysOUserList.name }</option>
-                            </c:if>
+                        <c:if test="${sysOUserList.sysORole.id == '002' &&sysOUserList.id != param.current_user_Id &&sysOUserList.sysODepartment.name == param.department_name}">
+                            <option value="${sysOUserList.id }" >${sysOUserList.name }</option>
                         </c:if>
                     </c:forEach>
 				</select>

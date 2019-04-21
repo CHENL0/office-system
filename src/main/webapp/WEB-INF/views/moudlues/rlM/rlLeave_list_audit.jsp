@@ -34,7 +34,7 @@
 			日期范围：<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" name="datemin" class="input-text Wdate" style="width:120px;">
 			-
 			<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" name="datemax" class="input-text Wdate" style="width:120px;">
-			<button type="submit" class="btn btn-success radius" ><i class="Hui-iconfont">&#xe665;</i> 搜标题</button>
+			<button type="submit" class="btn btn-success radius" ><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
 		</form>
 	</div>
 
@@ -88,14 +88,14 @@
 								<i class="Hui-iconfont">&#xe631;</i>
 							</a>
 							<%--<c:if test="${sessionScope.currentRoleName == '经理' || sessionScope.currentRoleName == '系统管理员'}">--%>
-							<%--<c:if test="${param.currentUserRole == '经理' || param.currentUserRole == '系统管理员'}">--%>
+							<c:if test="${param.currentUserRole == '经理'}">
 								<a title="审核" href="javascript:;" onclick="member_edit('审核请假','<%=basePath%>RlLeave/updateLeaveStatus.do?leaveId=${rlLeaveList.id}&leaveStatus=0','10001','360','400')" class="ml-5" style="text-decoration:none">
 									<i class="Hui-iconfont">&#xe631;</i>
 								</a>
-							<%--</c:if>--%>
-							<a title="删除" href="javascript:;" onClick="member_del(this,'${rlLeaveList.id}')" class="ml-5" style="text-decoration:none">
-								<i class="Hui-iconfont">&#xe6e2;</i>
-							</a>
+								<a title="删除" href="javascript:;" onClick="member_del(this,'${rlLeaveList.id}')" class="ml-5" style="text-decoration:none">
+									<i class="Hui-iconfont">&#xe6e2;</i>
+								</a>
+							</c:if>
 						</td>
 					</tr>
 				<%--</c:if>--%>

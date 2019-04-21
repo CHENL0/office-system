@@ -38,12 +38,9 @@
     </form>
     </div>
 
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
-        <a href="javascript:;" onclick="member_add('申请加班',
-                '<%=basePath%>RlOvertime/submitOvertime.do?delFlag=1&current_user_Id=${param.currentUserId }&department_name=${param.departmentName}','','510')"
-           class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>申请加班</a></span>
-        <%--<span class="r">共有数据：<strong>88</strong> 条</span> --%>
-    </div>
+    <%--<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a href="javascript:;" onclick="member_add('申请加班','<%=basePath%>RlOvertime/submitOvertime.do?delFlag=1&current_user_Id=${param.currentUserId }','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>申请加班</a></span>--%>
+        <%--&lt;%&ndash;<span class="r">共有数据：<strong>88</strong> 条</span> &ndash;%&gt;--%>
+    <%--</div>--%>
     <div class="mt-20">
         <table class="table table-border table-bordered table-hover table-bg table-sort">
             <thead>
@@ -86,9 +83,9 @@
                                     <i class="Hui-iconfont">&#xe631;</i>
                                 </a>
                             </c:if>
-                            <a title="删除" href="javascript:;" onClick="member_del(this,'${rlOvertimeList.id}')" class="ml-5" style="text-decoration:none">
-                                <i class="Hui-iconfont">&#xe6e2;</i>
-                            </a>
+                            <%--<a title="删除" href="javascript:;" onClick="member_del(this,'${rlOvertimeList.id}')" class="ml-5" style="text-decoration:none">--%>
+                                <%--<i class="Hui-iconfont">&#xe6e2;</i>--%>
+                            <%--</a>--%>
                         </td>
 
                     </tr>
@@ -115,7 +112,7 @@
             "bStateSave": true,//状态保存
             "aoColumnDefs": [
                 //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-                {"orderable":false,"aTargets":0}// 制定列不参与排序
+                {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
             ]
         });
 
