@@ -21,6 +21,9 @@ public class RlLeaveService extends CrudService<RlLeaveDao, RlLeave> {
     public List<RlLeave> selectAllByCreateBy(RlLeave rlLeave){
         return rlLeaveDao.selectAllByCreateBy(rlLeave);
     }
+    public List<RlLeave> selectAll(){
+        return rlLeaveDao.selectAll();
+    }
 
     public List<RlLeave> selectAllByAuditUserId (RlLeave rlLeave){
         return rlLeaveDao.selectAllByAuditUserId(rlLeave);

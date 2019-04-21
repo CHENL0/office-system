@@ -55,6 +55,9 @@ public class RlOvertimeService extends CrudService<RlOvertimeDao, RlOvertime> {
     public List<RlOvertime> selectAllByCreateBy (RlOvertime rlOvertime){
         return rlOvertimeDao.selectAllByCreateBy(rlOvertime);
     }
+    public List<RlOvertime> selectAll (){
+        return rlOvertimeDao.selectAll();
+    }
     public List<RlOvertime> selectAllByAudit (RlOvertime rlOvertime){
         return rlOvertimeDao.selectAllByAudit(rlOvertime);
     }

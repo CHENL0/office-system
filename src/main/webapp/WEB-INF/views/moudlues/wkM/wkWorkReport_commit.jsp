@@ -29,7 +29,7 @@
     <![endif]-->
     <!--/meta 作为公共模版分离出去-->
 
-    <title>申请请假 </title>
+    <title> </title>
     <meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
     <meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 </head>
@@ -40,6 +40,7 @@
         <input type="hidden" value="${param.current_user_Id}" name="updateBy.id" id="updateBy.id" >
         <input type="hidden" value="${nowDate}" name="createDate" id="createDate">
         <input type="hidden" value="${nowDate}" name="updateDate" id="updateDate">
+        <input type="hidden" value="${param.department_id}" name="departmentId" id="departmentId">
         <%--<input type="hidden" value="0" name="delFlagAudit" id="delFlagAudit">--%>
         <%--<input type="hidden" value="0" name="delFlag" id="delFlag">--%>
         <div class="row cl">
@@ -57,30 +58,32 @@
                 <p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
             </div>
         </div>
-        <div class="row cl">
-            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>部门：</label>
-            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select class="select" size="1" name="departmentId" id="departmentId" required="required">
-                    <c:forEach items="${sysODepartmentList}" var="sysODepartmentList">
-                        <c:if test="${sysODepartmentList.id != '001'}">
-                            <option value="${sysODepartmentList.id }" >${sysODepartmentList.name }</option>
-                        </c:if>
-                    </c:forEach>
-				</select>
-				</span>
-            </div>
-        </div>
+        <%--<div class="row cl">--%>
+            <%--<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>部门：</label>--%>
+            <%--<div class="formControls col-xs-8 col-sm-9">--%>
+                <%--<div class="formControls col-xs-8 col-sm-9">--%>
+                    <%--<input type="text" name="departmentId" value="${sysOUserList.sysODepartment.id}" placeholder="${param.department_name}" disabled>--%>
+                <%--</div>--%>
+                <%--<span class="select-box">--%>
+				    <%--<select class="select" size="1" name="departmentId" id="departmentId" required="required">--%>
+                    <%--<c:forEach items="${sysODepartmentList}" var="sysODepartmentList">--%>
+                        <%--<c:if test="${sysODepartmentList.id != '001'}">--%>
+                            <%--<option value="${sysODepartmentList.id }" >${sysODepartmentList.name }</option>--%>
+                        <%--</c:if>--%>
+                    <%--</c:forEach>--%>
+				<%--</select>--%>
+				<%--</span>--%>
+            <%--</div>--%>
+        <%--</div>--%>
         <div class="row cl">
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>查阅者：</label>
             <div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
 				<select class="select" size="1" name="auditUserId" id="auditUserId" required="required">
                     <option value="" selected>请选择查阅人</option>
                     <c:forEach items="${sysOUserList}" var="sysOUserList">
-                        <%--<c:if test="${sysOUserList.sysORole.id == '002'|| sysOUserList.sysORole.id == '003'}">--%>
-                            <c:if test="${sysOUserList.id != param.current_user_Id}">
-                                <option value="${sysOUserList.id }" >${sysOUserList.name }</option>
-                            </c:if>
-                        <%--</c:if>--%>
+                        <c:if test="${sysOUserList.sysORole.id == '002' &&sysOUserList.id != param.current_user_Id &&sysOUserList.sysODepartment.name == param.department_name}">
+                            <option value="${sysOUserList.id }" >${sysOUserList.name }</option>
+                        </c:if>
                     </c:forEach>
 				</select>
 				</span>
