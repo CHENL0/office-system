@@ -39,7 +39,7 @@
 	</div>
 
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
-		<a href="javascript:;" onclick="member_add('申请请假','<%=basePath%>RlLeave/submitLeave.do?delFlag=1&current_user_Id=${param.currentUserId}','','510')" class="btn btn-primary radius">
+		<a href="javascript:;" onclick="member_add('申请请假','<%=basePath%>RlLeave/submitLeave.do?delFlag=1&current_user_Id=${param.currentUserId}&department_name=${param.departmentName}','','510')" class="btn btn-primary radius">
 			<i class="Hui-iconfont">&#xe600;</i>申请请假
 		</a>
 	</span>
@@ -122,7 +122,7 @@
             "bStateSave": true,//状态保存
             "aoColumnDefs": [
                 //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-                {"orderable":false,"aTargets":[0,8,8]}// 制定列不参与排序
+                {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
             ]
         });
 
