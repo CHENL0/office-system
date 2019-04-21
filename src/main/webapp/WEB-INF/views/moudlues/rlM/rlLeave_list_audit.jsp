@@ -88,14 +88,14 @@
 								<i class="Hui-iconfont">&#xe631;</i>
 							</a>
 							<%--<c:if test="${sessionScope.currentRoleName == '经理' || sessionScope.currentRoleName == '系统管理员'}">--%>
-							<%--<c:if test="${param.currentUserRole == '经理' || param.currentUserRole == '系统管理员'}">--%>
+							<c:if test="${param.currentUserRole == '经理'}">
 								<a title="审核" href="javascript:;" onclick="member_edit('审核请假','<%=basePath%>RlLeave/updateLeaveStatus.do?leaveId=${rlLeaveList.id}&leaveStatus=0','10001','360','400')" class="ml-5" style="text-decoration:none">
 									<i class="Hui-iconfont">&#xe631;</i>
 								</a>
-							<%--</c:if>--%>
-							<a title="删除" href="javascript:;" onClick="member_del(this,'${rlLeaveList.id}')" class="ml-5" style="text-decoration:none">
-								<i class="Hui-iconfont">&#xe6e2;</i>
-							</a>
+								<a title="删除" href="javascript:;" onClick="member_del(this,'${rlLeaveList.id}')" class="ml-5" style="text-decoration:none">
+									<i class="Hui-iconfont">&#xe6e2;</i>
+								</a>
+							</c:if>
 						</td>
 					</tr>
 				<%--</c:if>--%>
@@ -122,7 +122,7 @@
             "bStateSave": true,//状态保存
             "aoColumnDefs": [
                 //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-                {"orderable":false,"aTargets":[0,8,8]}// 制定列不参与排序
+                {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
             ]
         });
 

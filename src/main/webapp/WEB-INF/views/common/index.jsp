@@ -66,15 +66,16 @@
 			<dd>
 				<ul>
 					<c:if test="${currentUser.sysORole.name == '经理' ||currentUser.sysORole.name == 'hr'}">
-						<li><a data-href="<%=basePath%>/RlLeave/auditLeavePage.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="请假审批管理" href="javascript:void(0)">请假审批管理</a></li>
+						<li><a data-href="<%=basePath%>/RlLeave/auditLeavePage.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="请假管理" href="javascript:void(0)">请假审批管理</a></li>
 					</c:if>
-					<li><a data-href="<%=basePath%>/RlLeave/leavePage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="申请请假" href="javascript:void(0)">申请请假</a></li>
+					<li><a data-href="<%=basePath%>/RlLeave/leavePage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}&departmentName=${currentUser.sysODepartment.name}" data-title="申请请假" href="javascript:void(0)">申请请假</a></li>
 					<c:if test="${currentUser.sysORole.name == '经理' ||currentUser.sysORole.name == 'hr'}">
 						<li><a data-href="<%=basePath%>RlOvertime/auditOvertimePage.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="加班审批管理" href="javascript:void(0)">加班审批管理</a></li>
 					</c:if>
-					<c:if test="${currentUser.sysORole.name != '普通员工'}">
+					<c:if test="${currentUser.sysORole.name == 'hr'}">
 						<li><a data-href="<%=basePath%>a/sysUser/list.do?currentUserId=${currentUser.id}" data-title="员工信息" href="javascript:;">员工信息</a></li>
-					</c:if><li><a data-href="<%=basePath%>RlOvertime/overtimePage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="申请加班" href="javascript:void(0)">申请加班</a></li>
+					</c:if>
+					<li><a data-href="<%=basePath%>RlOvertime/overtimePage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="申请加班" href="javascript:void(0)">申请加班</a></li>
 				</ul>
 			</dd>
 		<%--<dl id="menu-article">--%>
@@ -94,11 +95,13 @@
 				<dd>
 					<ul>
 						<li><a data-href="<%=basePath%>RlRuleMessage/ruleMessagePage.do?currentUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="公司规章制度信息管理" href="javascript:void(0)">公司规章制度信息管理</a></li>
-						<li><a data-href="<%=basePath%>a/sysODepartmentDispatch/list.do?currentUserId=${currentUser.id}" data-title="部门调度信息" href="javascript:;">部门调度信息</a></li>
-						<c:if test="${currentUser.sysORole.name == '经理'}">
+						<c:if test="${currentUser.sysORole.name == 'hr'}">
+							<li><a data-href="<%=basePath%>a/sysODepartmentDispatch/list.do?currentUserId=${currentUser.id}" data-title="部门调度信息" href="javascript:;">部门调度信息</a></li>
+						</c:if>
+						<c:if test="${currentUser.sysORole.name == 'hr'}">
 							<li><a data-href="<%=basePath%>a/sysODepartment/list.do?currentUserId=${currentUser.id}" data-title="部门管理" href="javascript:;">部门管理</a></li>
 						</c:if>
-						<a data-href="<%=basePath%>/a/infEmail/list.do?getUser.id=${currentUser.id}&sendUser.id=${currentUser.id}&current_user_Id=${currentUser.id}" data-title="邮件信息管理" href="javascript:void(0)">邮件信息管理</a></li>
+						<li><a data-href="<%=basePath%>/a/infEmail/list.do?getUser.id=${currentUser.id}&sendUser.id=${currentUser.id}&current_user_Id=${currentUser.id}" data-title="邮件信息管理" href="javascript:void(0)">邮件信息管理</a></li>
 					</ul>
 				</dd>
 			</dl>
@@ -115,7 +118,6 @@
 					<%--</c:if>--%>
 					<%--<li><a data-href="<%=basePath%>RlOvertime/overtimePage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="申请加班" href="javascript:void(0)">申请加班</a></li>--%>
                       <%--<li><a data-href="<%=basePath%>RlRuleMessage/ruleMessagePage.do?currentUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="公司规章制度信息管理" href="javascript:void(0)">公司规章制度信息管理</a></li>--%>
-
 				<%--</ul>--%>
 			<%--</dd>--%>
 		<%--</dl>--%>
@@ -147,13 +149,10 @@
 				<dt><i class="Hui-iconfont">&#xe60d;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 				<dd>
 					<ul>
-						<c:if test="${currentUser.sysORole.name == '经理'}">
-						<li><a data-href="<%=basePath%>/a/infNotice/list.do?current_user_Id=${currentUser.id}" data-title="公告信息管理" href="javascript:void(0)">公告信息管理</a></li>
+						<c:if test="${currentUser.sysORole.name == 'hr'}">
+							<li><a data-href="<%=basePath%>/a/infNotice/list.do?current_user_Id=${currentUser.id}" data-title="公告信息管理" href="javascript:void(0)">公告信息管理</a></li>
 						</c:if>
 						<li><a data-href="<%=basePath%>/a/infNotice/listShow.do?" data-title="公告查看" href="javascript:void(0)">公告查看</a></li>
-						<c:if test="${currentUser.sysORole.name == 'hr'}">
-							<li><a data-href="<%=basePath%>/a/sysUser/listForHr.do?" data-title="账户管理" href="javascript:void(0)">账户管理</a></li>
-						</c:if>
 					</ul>
 				</dd>
 			</dl>

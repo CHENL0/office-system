@@ -76,11 +76,13 @@
             <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>审核：</label>
             <div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
 				<select class="select" size="1" name="auditUserId" id="auditUserId" required="required">
-                    <option value="" selected>请选择审核人</option>
+                    <option value="" selected>请选择审核人1</option>
                     <c:forEach items="${sysOUserList}" var="sysOUserList">
-                        <c:if test="${sysOUserList.sysORole.id == '002'|| sysOUserList.sysORole.id == '003'}">
+                        <c:if test="${sysOUserList.sysORole.id == '002'}">
                             <c:if test="${sysOUserList.id != param.current_user_Id}">
-                                <option value="${sysOUserList.id }" >${sysOUserList.name }</option>
+                                <c:if test="${sysOUserList.sysODepartment.name == param.department_name}">
+                                    <option value="${sysOUserList.id }" >${sysOUserList.name }</option>
+                                </c:if>
                             </c:if>
                         </c:if>
                     </c:forEach>
