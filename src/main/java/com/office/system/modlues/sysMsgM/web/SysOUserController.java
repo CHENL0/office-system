@@ -110,7 +110,7 @@ public class SysOUserController {
 		sysOUserService.updatePasswordById(sysOUser);
 		String msg = "修改密码成功!";
 		model.addAttribute("msg", msg);
-		return "moudlues/sysMsgM/sysMsgM_SysOUserUpdatePassword";
+		return "common/index";
 	}
 	//get更新密码
 	@RequestMapping(value="/updatePassword.do",method=RequestMethod.GET)

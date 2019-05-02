@@ -67,7 +67,12 @@
 				<td>${sysOUser.email}</td>
 				<td class="text-l">${sysOUser.adress}</td>
 				<td><fmt:formatDate value="${sysOUser.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-				<td class="td-manage"><a style="text-decoration:none"  href="<%=basePath%>a/sysODepartmentDispatch/save.do?id=${sysOUser.id}&current_user_Id=${param.currentUserId }" title="调部门"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="member_edit('编辑','<%=basePath%>a/sysUser/update.do?id=${sysOUser.id}&current_user_Id=${param.currentUserId }','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <!-- <a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> --> <a title="删除" <%-- href="<%=basePath%>a/sysUser/del.do?id=${sysOUser.id}" onclick="" --%> onClick="member_del(this,'${sysOUser.id}')" href="javascript:;"class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				<td class="td-manage">
+					<a style="text-decoration:none"  href="<%=basePath%>a/sysODepartmentDispatch/save.do?id=${sysOUser.id}&current_user_Id=${param.currentUserId }" title="调部门"><i class="Hui-iconfont">&#xe631;</i></a>
+					<a title="编辑" href="javascript:;"
+					   onclick="member_edit('编辑','<%=basePath%>a/sysUser/update.do?id=${sysOUser.id}&current_user_Id=${param.currentUserId }','4','','510')" class="ml-5" style="text-decoration:none">
+						<i class="Hui-iconfont">&#xe6df;</i></a>
+					<!-- <a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> --> <a title="删除" <%-- href="<%=basePath%>a/sysUser/del.do?id=${sysOUser.id}" onclick="" --%> onClick="member_del(this,'${sysOUser.id}')" href="javascript:;"class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
 			</c:forEach>
 		</tbody>
@@ -91,11 +96,8 @@ $(function(){
 		"bStateSave": true,//状态保存
 		"aoColumnDefs": [
 		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-<<<<<<< HEAD
 		  {"orderable":false,"aTargets":0}// 制定列不参与排序
-=======
-		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
->>>>>>> coding
+
 		]
 	});
 	
