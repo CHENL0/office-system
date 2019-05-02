@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.office.system.modlues.sysMsgM.entity.SysOUser;
 import com.office.system.modlues.sysMsgM.service.SysOUserService;
 
+import java.util.List;
 
 
 /**
@@ -38,7 +39,12 @@ public class IndexController {
 		  }
 		}
 		return "common/login";
-		
+	}
+	@RequestMapping(value={"/data.do"})
+	public String getData(HttpServletRequest request,Model model){
+		SysOUser hrInfo = sysOUserService.getHrInfo();
+		List<SysOUser> managerInfoList = sysOUserService.getManagerInfoList();
+		return "common/login";
 	}
 
 }

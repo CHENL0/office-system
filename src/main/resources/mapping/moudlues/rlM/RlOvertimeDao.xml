@@ -18,7 +18,20 @@
       <id column="id" property="id"/>
       <result column="name" property="name"/>
     </association>
+      <!--<association property="createBy" javaType="SysOUser">-->
+          <!--<id  column="id" property="id"/>-->
+          <!--<result column="name" property="name"/>-->
+      <!--</association>-->
+      <association property="createBy"
+                   javaType="SysOUser"
+                   column="create_by"
+                   select="findSysOUserBase"
+      >
+      </association>
   </resultMap>
+    <select id="findSysOUserBase" resultType="SysOUser">
+   select * from SYS_O_USER where "id"=#{xxx}
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -153,8 +166,9 @@
   <select id="findList" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    ,s."id",s."name"
-    from RL_OVERTIME r，SYS_O_USER s
+--     ,s."id",s."name",s2."id",s2."name"
+    from RL_OVERTIME r
+--       ，SYS_O_USER s,SYS_O_USER s2
     <where>
       r."del_flag" = 0
       <if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
@@ -164,6 +178,7 @@
         AND r."create_by"  = #{createBy.id}
       </if>
       AND r."audit_user_id" = s."id"
+--         AND r."create_by" = s2."id"
     </where>
   </select>
 

@@ -2,6 +2,7 @@ package com.office.system.modlues.sysMsgM.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -38,12 +39,18 @@ public class SysOUserService extends CrudService<SysOUserDao,SysOUser>{
 //   		sysOUserDao.insert(sysOUser);
 //   		
 //	}
+	@Override
 	//删除
 	public void delete(SysOUser sysOUser){
 		super.delete(sysOUser);
 		sysOUserDao.deleteGetSysOUserEmail(sysOUser);
 		sysOUserDao.deleteSendSysOUserEmail(sysOUser);
 	}
-	
+	public SysOUser getHrInfo(){
+		return sysOUserDao.getHrInfo();
+	}
+	public List<SysOUser> getManagerInfoList (){
+		return sysOUserDao.getManagerInfoList();
+	}
 
 }

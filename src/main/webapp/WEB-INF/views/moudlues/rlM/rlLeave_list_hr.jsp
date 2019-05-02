@@ -54,6 +54,7 @@
 				<th width="100">创建时间</th>
 				<th width="100">开始时间</th>
 				<th width="100">结束时间</th>
+				<th width="100">申请人</th>
 				<th width="100">受理人</th>
 				<th width="130">类型</th>
 				<th width="100">操作</th>
@@ -79,6 +80,7 @@
 						<td><fmt:formatDate value="${rlLeaveList.createDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 						<td>${rlLeaveList.startDate}</td>
 						<td>${rlLeaveList.endDate}</td>
+						<td>${rlLeaveList.createBy.name}</td>
 						<td>${rlLeaveList.auditUser.name}</td>
 						<td>${rlLeaveList.leaveType}</td>
 						<td class="td-manage">
