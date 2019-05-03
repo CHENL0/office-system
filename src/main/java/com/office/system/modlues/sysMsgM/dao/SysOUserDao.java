@@ -18,5 +18,10 @@ public interface SysOUserDao extends CrudDao<SysOUser>{
 	public void deleteSendSysOUserEmail(SysOUser sysOUser);
 	//更新部门
 	public void updateDepartment(SysOUser sysOUser);
+	
+	//获取所有用户创建时间（按年分组）
+	public List<String> getListGroupByCreateTime();
+	
+	public List<String> getListGroupByCreateTimeWithDept(SysOUser sysOUser);
    
 }

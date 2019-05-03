@@ -39,7 +39,8 @@
 	</div>
 
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
-		<a href="javascript:;" onclick="member_add('申请请假','<%=basePath%>RlLeave/submitLeave.do?delFlag=1&current_user_Id=${param.currentUserId}&department_name=${param.departmentName}','','510')" class="btn btn-primary radius">
+		<a href="javascript:;" 
+		onclick="member_add('申请请假','<%=basePath%>RlLeave/submitLeave.do?delFlag=1&current_user_Id=${param.currentUserId}&department_name=${param.departmentName}','','510')" class="btn btn-primary radius">
 			<i class="Hui-iconfont">&#xe600;</i>申请请假
 		</a>
 	</span>

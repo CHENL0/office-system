@@ -107,7 +107,7 @@
 						<c:if test="${currentUser.sysORole.name == 'hr'}">
 							<li><a data-href="<%=basePath%>a/sysODepartment/list.do?currentUserId=${currentUser.id}" data-title="部门管理" href="javascript:;">部门管理</a></li>
 						</c:if>
-						<li><a data-href="<%=basePath%>/a/infEmail/list.?getUser.id=${currentUser.id}&sendUser.id=${currentUser.id}&current_user_Id=${currentUser.id}" data-title="邮件信息管理" href="javascript:void(0)">邮件信息管理</a></li>
+						<li><a data-href="<%=basePath%>/a/infEmail/list.do?getUser.id=${currentUser.id}&sendUser.id=${currentUser.id}&current_user_Id=${currentUser.id}" data-title="邮件信息管理" href="javascript:void(0)">邮件信息管理</a></li>
 					</ul>
 				</dd>
 			</dl>
@@ -187,7 +187,7 @@
 		<div class="Hui-tabNav-wp">
 			<ul id="min_title_list" class="acrossTab cl">
 				<li class="active">
-					<span title="我的桌面" data-href="<%=basePath%>welcome.html">我的桌面</span>
+					<span title="我的桌面" data-href="<%=basePath%>welcome.jsp">我的桌面</span>
 					<em></em></li>
 		</ul>
 	</div>
@@ -196,7 +196,7 @@
 	<div id="iframe_box" class="Hui-article">
 		<div class="show_iframe">
 			<div style="display:none" class="loading"></div>
-			<iframe scrolling="yes" frameborder="0" src="<%=basePath%>welcome.html"></iframe>
+			<iframe scrolling="yes" frameborder="0" src="<%=basePath%>welcome.jsp"></iframe>
 	</div>
 </div>
 </section>
