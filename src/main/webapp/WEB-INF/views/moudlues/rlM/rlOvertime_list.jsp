@@ -75,7 +75,7 @@
                        <td><fmt:formatDate value="${rlOvertimeList.createDate}" pattern="yyyy-MM-dd HH:mm"/></td>
                         <td>${rlOvertimeList.startDate}</td>
                         <td>${rlOvertimeList.endDate}</td>
-                        <td>${rlOvertimeList.auditUser.name}</td>
+                        <td>${rlOvertimeList.auditUserId.name}</td>
                         <td class="td-manage">
                             <a title="编辑" href="javascript:;" onclick="member_show('加班详细','<%=basePath%>RlOvertime/showLeave.do?overtimeId=${rlOvertimeList.id}','10001','360','400')" class="ml-5" style="text-decoration:none">
                                 <i class="Hui-iconfont">&#xe631;</i>

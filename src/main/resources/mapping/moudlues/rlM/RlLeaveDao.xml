@@ -155,10 +155,11 @@
       <if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
         AND r."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
       </if>
-      <if test="createBy != null and createBy.id != null and createBy.id != ''">
-        AND r."create_by"  = s."id"
-      </if>
+      <!--<if test="createBy != null and createBy.id != null and createBy.id != ''">-->
+        <!--AND r."create_by"  = s."id"-->
+      <!--</if>-->
       AND r."audit_user_id" = #{auditUserId}
+      AND r."audit_user_id" = s."id"
     </where>
   </select>
 
