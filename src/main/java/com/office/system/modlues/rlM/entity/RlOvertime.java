@@ -12,20 +12,20 @@ public class RlOvertime extends DataEntity<RlOvertime>{
 //    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private String endDate;
 
-    private String auditUserId;
+//    private String auditUserId;
 
     private String reason;
 
     private int overtimeStatus;
 
-    private SysOUser auditUser;
+    private SysOUser auditUserId;
 
-    public SysOUser getAuditUser() {
-        return auditUser;
+    public SysOUser getAuditUserId() {
+        return auditUserId;
     }
 
-    public void setAuditUser(SysOUser auditUser) {
-        this.auditUser = auditUser;
+    public void setAuditUserId(SysOUser auditUserId) {
+        this.auditUserId = auditUserId;
     }
 
     public int getOvertimeStatus() {
@@ -52,13 +52,13 @@ public class RlOvertime extends DataEntity<RlOvertime>{
         this.endDate = endDate;
     }
 
-    public String getAuditUserId() {
-        return auditUserId;
-    }
-
-    public void setAuditUserId(String auditUserId) {
-        this.auditUserId = auditUserId == null ? null : auditUserId.trim();
-    }
+//    public String getAuditUserId() {
+//        return auditUserId;
+//    }
+//
+//    public void setAuditUserId(String auditUserId) {
+//        this.auditUserId = auditUserId == null ? null : auditUserId.trim();
+//    }
 
     public String getReason() {
         return reason;
