@@ -49,8 +49,8 @@ DD_belatedPNG.fix('*');
       </div>
       <div class="row cl">
         <div class="formControls col-xs-8 col-xs-offset-3">
-            <div id="v_container" style="width: 200px;height: 50px;"></div>
-          <input id="code_input" class="input-text size-L" required="required" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
+          <input id="code_input" class="input-text size-L" required="required" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;height: 50px">
+          <div id="v_container" style="width: 200px;height: 50px;display:inline-block"></div>
           <%--<img src="/SessionTest/VerificodeServlet" id="image"> <a id="kanbuq" href="javascript:change();">看不清，换一张</a> </div>--%>
       </div>
     <!--   <div class="row cl">
