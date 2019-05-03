@@ -3,22 +3,41 @@
 <mapper namespace="com.office.system.modlues.rlM.dao.RlOvertimeDao" >
   <resultMap id="BaseResultMap" type="RlOvertime" >
     <id column="id" property="id" jdbcType="VARCHAR" />
-    <result column="start_date" property="startDate" jdbcType="DATE" />
-    <result column="end_date" property="endDate" jdbcType="DATE" />
+    <result column="start_date" property="startDate" jdbcType="VARCHAR" />
+    <result column="end_date" property="endDate" jdbcType="VARCHAR" />
 <!--     <result column="create_by" property="createBy.id" jdbcType="VARCHAR" />
  -->    <result column="create_date" property="createDate" jdbcType="DATE" />
-    <result column="audit_user_id" property="auditUserId" jdbcType="VARCHAR" />
+    <!--<result column="audit_user_id" property="auditUserId.id"  />-->
     <result column="reason" property="reason" jdbcType="VARCHAR" />
     <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
     <result column="del_flag_audit" property="delFlagAudit" jdbcType="VARCHAR" />
 <!--     <result column="update_by" property="updateBy.id" jdbcType="VARCHAR" />
  -->    <result column="update_date" property="updateDate" jdbcType="DATE" />
     <result column="overtime_status" property="overtimeStatus" jdbcType="INTEGER" />
-    <association property="auditUser" javaType="com.office.system.modlues.sysMsgM.entity.SysOUser">
-      <id column="id" property="id"/>
-      <result column="name" property="name"/>
+    <!--<association property="auditUser" javaType="com.office.system.modlues.sysMsgM.entity.SysOUser">-->
+      <!--<id column="id" property="id"/>-->
+      <!--<result column="name" property="name"/>-->
+    <!--</association>-->
+      <!--<association property="createBy" javaType="SysOUser">-->
+          <!--<id  column="id" property="id"/>-->
+          <!--<result column="name" property="name"/>-->
+      <!--</association>-->
+      <association property="auditUserId"
+                   javaType="com.office.system.modlues.sysMsgM.entity.SysOUser"
+                   column="audit_user_id"
+                   select="findSysOUserBase"
+      >
+      </association>
+    <association property="createBy"
+                 javaType="SysOUser"
+                 column="create_by"
+                 select="findSysOUserBase"
+    >
     </association>
   </resultMap>
+    <select id="findSysOUserBase" resultType="SysOUser">
+   select * from SYS_O_USER where "id"=#{xxx}
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -98,16 +117,18 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from RL_OVERTIME
-    where "id" = #{overtimeId,jdbcType=VARCHAR}
+    from RL_OVERTIME r
+    where r."id" = #{overtimeId,jdbcType=VARCHAR}
   </select>
 
 
   <select id="selectAllByCreateBy" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
      r."id", r."reason", r."start_date", r."end_date", r."create_date", r."audit_user_id",
-     r."update_date", r."overtime_status",r."del_flag",s."id",s."name"
-    from RL_OVERTIME r ,SYS_O_USER s
+     r."update_date", r."overtime_status",r."del_flag"
+--     ,s."id",s."name"
+    from RL_OVERTIME r
+--     ,SYS_O_USER s
     where
     r."del_flag" = 0
     <if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
@@ -116,52 +137,86 @@
     <if test="createBy != null and createBy.id != null and createBy.id != ''">
       AND r."create_by"  = #{createBy.id}
     </if>
-    and r."audit_user_id" = s."id"
+    <if test="auditUserId != null and auditUserId.id != null and auditUserId.id != ''">
+      AND r."audit_user_id"  = #{auditUserId.id}
+    </if>
   </select>
-  <select id="selectAllByAudit" resultMap="BaseResultMap" parameterType="java.lang.String" >
+
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
-     r."id", r."reason", r."start_date", r."end_date", r."create_date", r."audit_user_id",
-     r."update_date", r."overtime_status",r."del_flag",s."id",s."name"
-    from RL_OVERTIME r ,SYS_O_USER s
+    r."id", r."reason", r."start_date", r."end_date", r."create_date", r."audit_user_id",
+    r."update_date", r."overtime_status",r."del_flag"
+
+    from RL_OVERTIME r
+
+    where
+    r."del_flag" = 0
+    <if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
+      AND r."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
+    </if>
+    <if test="createBy != null and createBy.id != null and createBy.id != ''">
+      AND r."create_by"  = #{createBy.id}
+    </if>
+    <if test="auditUserId != null and auditUserId.id != null and auditUserId.id != ''">
+      AND r."audit_user_id" = #{auditUserId.id}
+    </if>
+  </select>
+
+  <select id="selectAllByAudit" resultMap="BaseResultMap"  >
+    select
+     r."id", r."reason", r."start_date", r."end_date", r."create_date",
+     r."update_date", r."overtime_status",r."del_flag"
+--     ,s."id",s."name"
+    from RL_OVERTIME r
+--     ,SYS_O_USER s
     where
     r."del_flag_audit" = 0
     <if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
       AND r."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
     </if>
+    <!--<if test="createBy != null and createBy.id != null and createBy.id != ''">-->
+      <!--AND r."create_by"  = s."id"-->
+    <!--</if>-->
+  <!--<if test="auditUserId != null and auditUserId.id != null and auditUserId.id != ''">-->
+    <!--AND r."audit_user_id" = #{auditUserId.id}-->
+  <!--</if>-->
+
+--     AND r."audit_user_id" = #{auditUserId}
+</select>
+
+<select id="findList" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List" />
+--     ,s."id",s."name",s2."id",s2."name"
+  from RL_OVERTIME r
+--       ，SYS_O_USER s,SYS_O_USER s2
+  <where>
+    r."del_flag" = 0
+    <if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
+      AND r."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
+    </if>
     <if test="createBy != null and createBy.id != null and createBy.id != ''">
-      AND r."create_by"  = s."id"
+      AND r."create_by"  = #{createBy.id}
     </if>
-    AND r."audit_user_id" = #{auditUserId}
-  </select>
-
-  <select id="findList" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    ,s."id",s."name"
-    from RL_OVERTIME r，SYS_O_USER s
-    <where>
-      r."del_flag" = 0
-      <if test="datemin != null and datemin != '' and datemax != null and datemax != ''">
-        AND r."create_date" between to_date(#{datemin},'yyyy-MM-dd') and to_date(#{datemax},'yyyy-MM-dd')
-      </if>
-      <if test="createBy != null and createBy.id != null and createBy.id != ''">
-        AND r."create_by"  = #{createBy.id}
-      </if>
-      AND r."audit_user_id" = s."id"
-    </where>
-  </select>
+    <if test="auditUserId != null and auditUserId.id != null and auditUserId.id != ''">
+      AND r."audit_user_id" = #{auditUserId.id}
+    </if>
+--       AND r."audit_user_id" = s."id"
+--         AND r."create_by" = s2."id"
+  </where>
+</select>
 
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from RL_OVERTIME
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
+<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  delete from RL_OVERTIME
+  where id = #{id,jdbcType=VARCHAR}
+</delete>
 <!--   <delete id="deleteByExample" parameterType="com.itheima.mybatis.pojo.RlOvertimeExample" >
-    delete from RL_OVERTIME
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete> -->
+  delete from RL_OVERTIME
+  <if test="_parameter != null" >
+    <include refid="Example_Where_Clause" />
+  </if>
+</delete> -->
   <insert id="insert" parameterType="RlOvertime" >
     <selectKey keyProperty="id" resultType="String" order="BEFORE">
       select  lower(sys_guid()) from DUAL
@@ -170,8 +225,8 @@
      "create_by","create_date" ,"audit_user_id",
     "reason" ,"del_flag","del_flag_audit", "update_by" ,
     "update_date","overtime_status")
-    values (#{id,jdbcType=VARCHAR}, #{startDate,jdbcType=DATE}, #{endDate,jdbcType=DATE}, 
-       #{createBy.id,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, #{auditUserId,jdbcType=VARCHAR},
+    values (#{id,jdbcType=VARCHAR},#{startDate},#{endDate},
+       #{createBy.id,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, #{auditUserId.id,jdbcType=VARCHAR},
       #{reason,jdbcType=VARCHAR}, #{delFlag,jdbcType=VARCHAR}, #{delFlagAudit,jdbcType=VARCHAR},
     #{updateBy.id,jdbcType=VARCHAR}, #{updateDate,jdbcType=DATE},#{overtimeStatus,jdbcType=INTEGER})
   </insert>
@@ -194,7 +249,7 @@
         create_date,
       </if>
       <if test="auditUserId != null" >
-        audit_user_id,
+--         audit_user_id,
       </if>
       <if test="reason != null" >
         reason,
@@ -226,7 +281,7 @@
         #{createDate,jdbcType=DATE},
       </if>
       <if test="auditUserId != null" >
-        #{auditUserId,jdbcType=VARCHAR},
+        #{auditUserId.id,jdbcType=VARCHAR},
       </if>
       <if test="reason != null" >
         #{reason,jdbcType=VARCHAR},
@@ -267,7 +322,7 @@
         create_date = #{record.createDate,jdbcType=DATE},
       </if>
       <if test="record.auditUserId != null" >
-        audit_user_id = #{record.auditUserId,jdbcType=VARCHAR},
+        audit_user_id = #{record.auditUserId.id,jdbcType=VARCHAR},
       </if>
       <if test="record.reason != null" >
         reason = #{record.reason,jdbcType=VARCHAR},
@@ -293,7 +348,7 @@
       "end_date" = #{record.endDate,jdbcType=DATE},
        "create_by" = #{record.createBy.id,jdbcType=VARCHAR},
       "create_date" = #{record.createDate,jdbcType=DATE},
-      "audit_user_id" = #{record.auditUserId,jdbcType=VARCHAR},
+      "audit_user_id" = #{record.auditUserId.id,jdbcType=VARCHAR},
       "reason = #{record.reason,jdbcType=VARCHAR},
       "del_flag = #{record.delFlag,jdbcType=VARCHAR},
        "update_by" = #{record.updateBy.id,jdbcType=VARCHAR},
@@ -344,7 +399,7 @@
       end_date = #{endDate,jdbcType=DATE},
 <!--       create_by = #{createBy.id,jdbcType=VARCHAR},
  -->      create_date = #{createDate,jdbcType=DATE},
-      audit_user_id = #{auditUserId,jdbcType=VARCHAR},
+      audit_user_id = #{auditUserId.id,jdbcType=VARCHAR},
       reason = #{reason,jdbcType=VARCHAR},
       del_flag = #{delFlag,jdbcType=VARCHAR},
 <!--       update_by = #{updateBy.id,jdbcType=VARCHAR},

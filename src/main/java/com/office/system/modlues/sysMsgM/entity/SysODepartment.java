@@ -12,7 +12,6 @@ public class SysODepartment extends DataEntity<SysODepartment> {
 
     private String text;
     
-    private List<User> users = new ArrayList<>();
     
     public SysODepartment(){
     }
@@ -36,12 +35,6 @@ public class SysODepartment extends DataEntity<SysODepartment> {
         this.text = text == null ? null : text.trim();
     }
 
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
+	
     
 }

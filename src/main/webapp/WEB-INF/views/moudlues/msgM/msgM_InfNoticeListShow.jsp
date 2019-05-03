@@ -30,12 +30,12 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 公告查看 <span class="c-gray en">&gt;</span> 用户管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div class="text-c">
-	  <form action="<%=basePath%>a/infNotice/list.do" method="post">
+	  <form action="<%=basePath%>a/infNotice/listShow.do" method="post">
 		 日期范围：<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" name="datemin" class="input-text Wdate" style="width:120px;">
 		-
 		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" name="datemax" class="input-text Wdate" style="width:120px;">
 		<input type="text" class="input-text" style="width:250px" placeholder="输入公告标题" id="title" name="title">
-		<button type="submit" class="btn btn-success radius" id="title" name="title"><i class="Hui-iconfont">&#xe665;</i> 搜标题</button>
+		<button type="submit" class="btn btn-success radius" id="title" name="title"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
 	   </form>
 	</div>
 	
@@ -56,7 +56,7 @@
 				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','<%=basePath%>a/infNotice/show.do?id=${infNotice.id}','10001','360','400')">${infNotice.title}</u></td>
 				<td>${infNotice.createBy.name}</td>
 				<td>${infNotice.type.name}</td>
-				<td>${infNotice.pushDate}</td>
+				<td><fmt:formatDate value="${infNotice.pushDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 			</tr>
 			</c:forEach>
 		</tbody>
@@ -80,7 +80,7 @@ $(function(){
 		"bStateSave": true,//状态保存
 		"aoColumnDefs": [
 		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		  {"orderable":false,"aTargets":0}// 制定列不参与排序
 		]
 	});
 	

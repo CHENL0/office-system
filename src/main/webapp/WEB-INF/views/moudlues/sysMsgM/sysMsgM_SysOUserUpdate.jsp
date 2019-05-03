@@ -48,13 +48,19 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>登陆名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="${sysOUser.loginName }" placeholder="" id="loginName" name="loginName">
+				<input type="text" class="input-text" value="${sysOUser.loginName }" placeholder="" id="loginName" name="loginName" ${currentUser.sysORole.name =='普通员工' ? 'readonly="readonly" ' : ''}>
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>工号：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" value="${sysOUser.no }" placeholder="" id="no" name="no" ${currentUser.sysORole.name =='普通员工' ? 'readonly="readonly" ' : ''}>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>地址：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="${sysOUser.adress }" placeholder="" id="adress" name="adress" ${currentUser.sysORole.name =='普通员工' ? 'readonly="readonly" ' : ''}>
 			</div>
 		</div>
 		<div class="row cl">
@@ -100,44 +106,15 @@
 				<input type="text" class="input-text" value="${sysOUser.email }"placeholder="@" name="email" id="email">
 			</div>
 		</div>
-		<%--  <div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">所属部门：</label>
-			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select class="select" size="1" name="sysODepartment.id" id="sysODepartment.id">
-					<option value="" selected>请部门</option>
-					<c:forEach items="${sysODepartments}" var="sysODepartment">
-					<option value="${sysODepartment.id }">${sysODepartment.name }</option>
-					</c:forEach>
-				</select>
-				</span> 
-				</div>
-		</div> --%>
-		<!-- <div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">附件：</label>
-			<div class="formControls col-xs-8 col-sm-9"> <span class="btn-upload form-group">
-				<input class="input-text upload-url" type="text" name="uploadfile" id="uploadfile" readonly nullmsg="请添加附件！" style="width:200px">
-				<a href="javascript:void();" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont">&#xe642;</i> 浏览文件</a>
-				<input type="file" multiple name="file-2" class="input-file">
-				</span> </div>
-		</div> -->
-		<!-- <div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">所在城市：</label>
-			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select class="select" size="1" name="city">
-					<option value="" selected>请选择城市</option>
-					<option value="1">北京</option>
-					<option value="2">上海</option>
-					<option value="3">广州</option>
-				</select>
-				</span> </div>
-		</div>
+		<!-- 
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">备注：</label>
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>个人密码：<input type="button" value="修改密码" click="ableInput()"></label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="beizhu" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"></textarea>
-				<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+				<input  type="text" class="input-text"  disabled="disabled" placeholder="**********" name="newPassword" id="newPassword">
 			</div>
-		</div> -->
+		</div>
+		 -->
+
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
 				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
@@ -204,11 +181,15 @@ $(function(){
 		success:"valid",
 		submitHandler:function(form){
 			form.submit();
+            document.getElementById("newPassword").disabled=true;
 		/* 	//$(form).ajaxSubmit();
 			var index = parent.layer.getFrameIndex(window.name);
 			//parent.$('.btn-refresh').click();
 			parent.layer.close(index); */
-		}
+		},
+        ableInput:function () {
+            document.getElementById("newPassword").disabled=false;
+        }
 	});
 });
 </script> 

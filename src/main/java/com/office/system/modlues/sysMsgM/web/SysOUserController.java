@@ -1,7 +1,9 @@
 package com.office.system.modlues.sysMsgM.web;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,14 +22,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.office.system.modlues.sysMsgM.entity.SysODepartment;
 import com.office.system.modlues.sysMsgM.entity.SysORole;
 import com.office.system.modlues.sysMsgM.entity.SysOUser;
-import com.office.system.modlues.sysMsgM.entity.User;
 import com.office.system.modlues.sysMsgM.service.SysODepartmentService;
 import com.office.system.modlues.sysMsgM.service.SysORoleService;
 import com.office.system.modlues.sysMsgM.service.SysOUserService;
-import com.office.system.modlues.sysMsgM.service.UserService;
 
 /**
- * 个人信息和用户的所有信息模块
+ * 涓汉淇℃伅鍜岀敤鎴风殑鎵�鏈変俊鎭ā鍧�
  * @author lzc
  *
  */
@@ -45,15 +45,16 @@ public class SysOUserController {
     SysORoleService sysORoleService;
     
     
-    //保存
+    //淇濆瓨
 	@RequestMapping(value="/save.do",method=RequestMethod.POST)
-	public String save(Model model,@RequestParam MultipartFile Mphoto,SysOUser sysOUser,HttpSession session) throws IllegalStateException, IOException{
+	public String save(Model model,SysOUser sysOUser,HttpSession session) throws IllegalStateException, IOException{
 		
 		if (sysOUser !=null && sysOUser.getDelFlag().equals("0")) {
 			String passwordMD5 =DigestUtils.md5Hex(sysOUser.getPassword());
 			sysOUser.setPassword(passwordMD5);
-			sysOUserService.save(sysOUser,Mphoto,session);
-			String msg = "添加成功!";
+//			sysOUserService.save(sysOUser,Mphoto,session);
+			sysOUserService.save(sysOUser);
+			String msg = "娣诲姞鎴愬姛!";
 			model.addAttribute("msg", msg);
 		}
 		return "moudlues/sysMsgM/sysMsgM_SysOUserAdd";
@@ -66,22 +67,23 @@ public class SysOUserController {
 		model.addAttribute("sysORoles", sysORoles);
 		return "moudlues/sysMsgM/sysMsgM_SysOUserAdd";
 	}
-	//列表上用户的信息，post请求的更新，要做更新
+	//鍒楄〃涓婄敤鎴风殑淇℃伅锛宲ost璇锋眰鐨勬洿鏂帮紝瑕佸仛鏇存柊
 	@RequestMapping(value="/update.do",method=RequestMethod.POST)
-	public String updateForPost(Model model,SysOUser sysOUser){
-		String passwordMD5 =DigestUtils.md5Hex(sysOUser.getPassword());
-		sysOUser.setPassword(passwordMD5);
+	public String updateForPost(Model model,SysOUser sysOUser,String newPassword){
+//		String passwordMD5 =DigestUtils.md5Hex(newPassword);
+//		sysOUser.setPassword(passwordMD5);
 		sysOUserService.update(sysOUser);
 		SysOUser sysOUser2 = sysOUserService.get(sysOUser);
 		model.addAttribute("sysOUser", sysOUser2);
-		String msg = "修改成功!";
+		String msg = "淇敼鎴愬姛!";
 		model.addAttribute("msg", msg);
 		return "moudlues/sysMsgM/sysMsgM_SysOUserUpdate";
 	}
-	//get请求的更新，不做更新，只负责跳转页面
+	//get璇锋眰鐨勬洿鏂帮紝涓嶅仛鏇存柊锛屽彧璐熻矗璺宠浆椤甸潰
 	@RequestMapping(value="/update.do",method=RequestMethod.GET)
 	public String updateForGet(Model model,SysOUser sysOUser,String current_user_Id){
 		SysOUser sysOUser2 = sysOUserService.get(sysOUser);
+
 		SysOUser currentUser = sysOUserService.get(current_user_Id);
 		model.addAttribute("sysOUser", sysOUser2);
 		model.addAttribute("currentUser", currentUser);
@@ -91,50 +93,61 @@ public class SysOUserController {
 		model.addAttribute("sysORoles", sysORoles);
 		return "moudlues/sysMsgM/sysMsgM_SysOUserUpdate";
 	}
-/*	//修改当前用户信息
+/*	//淇敼褰撳墠鐢ㄦ埛淇℃伅
 	@RequestMapping(value="/updateCurrentUser.do",method=RequestMethod.POST)
 	public String updateForPostCurrentUser(Model model,SysOUser sysOUser){
 		sysOUserService.update(sysOUser);
 		model.addAttribute("sysOUser", sysOUser);
-		String msg = "修改成功!";
+		String msg = "淇敼鎴愬姛!";
 		model.addAttribute("msg", msg);
 		return "moudlues/sysMsgM/sysMsgM_SysOUserUpdate";
 	}*/
-	//post更新密码
+	//post鏇存柊瀵嗙爜
 	@RequestMapping(value="/updatePassword.do",method=RequestMethod.POST)
 	public String updatePasswordForPost(Model model,SysOUser sysOUser){
+		String passwordMD5 =DigestUtils.md5Hex(sysOUser.getPassword());
+		sysOUser.setPassword(passwordMD5);
 		sysOUserService.updatePasswordById(sysOUser);
-		String msg = "修改密码成功!";
+		String msg = "淇敼瀵嗙爜鎴愬姛!";
 		model.addAttribute("msg", msg);
-		return "moudlues/sysMsgM/sysMsgM_SysOUserUpdatePassword";
+		return "common/index";
 	}
-	//get更新密码
+	//get鏇存柊瀵嗙爜
 	@RequestMapping(value="/updatePassword.do",method=RequestMethod.GET)
 	public String updatePasswordForGet(Model model,SysOUser sysOUser){
 		SysOUser sysOUser2 = sysOUserService.get(sysOUser);
 		model.addAttribute("sysOUser", sysOUser2);
 		return "moudlues/sysMsgM/sysMsgM_SysOUserUpdatePassword";
 	}
-	//逻辑上删除
+	//閫昏緫涓婂垹闄�
 	@RequestMapping("/del.do")
 	@ResponseBody
-	public String del(Model model,SysOUser sysOUser){
+	public Object del(Model model,SysOUser sysOUser){
 		sysOUserService.delete(sysOUser);
-		return "删除成功!";
+	    Map<String, String> responseDataMap = new HashMap<>();
+	    responseDataMap.put("responseData","success");
+	    return responseDataMap;
 	}
-	//查询个人信息
+	//鏌ヨ涓汉淇℃伅
 	@RequestMapping("/show.do")
 	public String from(Model model,SysOUser sysOUser){
 		SysOUser sysOUser2 = sysOUserService.get(sysOUser);
 		model.addAttribute("sysOUser", sysOUser2);
 		return "moudlues/sysMsgM/sysMsgM_SysOUserShow";
 	}
-	//展示所有用户和分页查询用户（前台已做好分页）
+	//灞曠ず鎵�鏈夌敤鎴峰拰鍒嗛〉鏌ヨ鐢ㄦ埛锛堝墠鍙板凡鍋氬ソ鍒嗛〉锛�
 	@RequestMapping("/list.do")
 	public String list(Model model,SysOUser sysOUser){
 		List<SysOUser> sysOUsers = sysOUserService.findList(sysOUser);
 		model.addAttribute("sysOUserList", sysOUsers);
 		return "moudlues/sysMsgM/sysMsgM_SysOUserList";
+	}
+	//灞曠ず鎵�鏈夌敤鎴峰拰鍒嗛〉鏌ヨ鐢ㄦ埛锛堝墠鍙板凡鍋氬ソ鍒嗛〉锛� 涓轰簡缁檋r閲嶇疆瀵嗙爜
+	@RequestMapping("/listForHr.do")
+	public String listForHr(Model model,SysOUser sysOUser){
+		List<SysOUser> sysOUsers = sysOUserService.findList(sysOUser);
+		model.addAttribute("sysOUserList", sysOUsers);
+		return "moudlues/sysMsgM/sysMsgM_SysOUserListForHr";
 	}
 
 }

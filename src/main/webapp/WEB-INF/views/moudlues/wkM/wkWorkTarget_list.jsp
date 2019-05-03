@@ -34,13 +34,13 @@
 			日期范围：<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" name="datemin" class="input-text Wdate" style="width:120px;">
 			-
 			<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" name="datemax" class="input-text Wdate" style="width:120px;">
-			<input type="text" class="input-text" style="width:250px" placeholder="输入制度的标题" id="ruleTitle" name="ruleTitle">
-			<button type="submit" class="btn btn-success radius" ><i class="Hui-iconfont">&#xe665;</i> 搜标题</button>
+			<%--<input type="text" class="input-text" style="width:250px" placeholder="输入制度的标题" id="ruleTitle" name="ruleTitle">--%>
+			<button type="submit" class="btn btn-success radius" ><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
 		</form>
 	</div>
 
 	<div class="cl pd-5 bg-1 bk-gray mt-20">
-		<c:if test="${sessionScope.currentRoleName == '经理' || sessionScope.currentRoleName == '系统管理员'}">
+		<c:if test="${sessionScope.currentRoleName == '经理'}">
 		<%--<c:if test="${param.currentUserRole == '经理' || param.currentUserRole == '系统管理员'}">--%>
 			<span class="l">
 				<a href="javascript:;" onclick="member_add('添加工作目标','<%=basePath%>WkWorkTarget/submitWkWorkTarget.do?delFlag=1&current_user_Id=${param.currentUserId }','','510')" class="btn btn-primary radius">
@@ -49,8 +49,8 @@
 				</a>
 			</span>
 		</c:if>
-		<span class="r">共有数据：<strong>88</strong> 条
-		</span>
+		<%--<span class="r">共有数据：<strong>88</strong> 条--%>
+		<%--</span>--%>
 	</div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
@@ -59,6 +59,7 @@
 				<!-- 				<th width="25"><input type="checkbox" name="" value=""></th>
                  -->
 				<th width="100">部门</th>
+				<th width="100">创建时间</th>
 				<th width="100">开始时间</th>
 				<th width="100">结束时间</th>
 				<th width="100">提出者</th>
@@ -69,6 +70,7 @@
 			<c:forEach items="${wkWorkTargetList }" var="wkWorkTargetList">
 					<tr class="text-c" >
 						<td>${wkWorkTargetList.sysODepartment.name}</td>
+						<td><fmt:formatDate value="${wkWorkTargetList.createDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 						<td><fmt:formatDate value="${wkWorkTargetList.startDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 						<td><fmt:formatDate value="${wkWorkTargetList.endDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 						<td>${wkWorkTargetList.createBy.name}</td>
@@ -108,7 +110,7 @@
             "bStateSave": true,//状态保存
             "aoColumnDefs": [
                 //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-                {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+                {"orderable":false,"aTargets":0}// 制定列不参与排序
             ]
         });
 

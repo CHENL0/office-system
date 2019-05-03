@@ -33,33 +33,17 @@
 	<div class="navbar navbar-fixed-top">
 		<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml">中小企业办公系统</a> <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml">H-ui</a> 
 			<a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
-            <!--
-			<nav class="nav navbar-nav">
-				<ul class="cl">
-					<li class="dropDown dropDown_hover"><a href="javascript:;" class="dropDown_A"><i class="Hui-iconfont">&#xe600;</i> 新增 <i class="Hui-iconfont">&#xe6d5;</i></a>
-						<ul class="dropDown-menu menu radius box-shadow">
-							<li><a href="javascript:;" onclick="article_add('添加资讯','article-add.html')"><i class="Hui-iconfont">&#xe616;</i> 资讯</a></li>
-							<li><a href="javascript:;" onclick="picture_add('添加资讯','picture-add.html')"><i class="Hui-iconfont">&#xe613;</i> 图片</a></li>
-							<li><a href="javascript:;" onclick="product_add('添加资讯','product-add.html')"><i class="Hui-iconfont">&#xe620;</i> 产品</a></li>
-							<li><a href="javascript:;" onclick="member_add('添加用户','rlLeave_list.jsp','','510')"><i class="Hui-iconfont">&#xe60d;</i> 用户</a></li>
-					</ul>
-				</li>
-			</ul>
-		</nav>
-        -->
 		<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 			<ul class="cl">
 				<li>${currentUser.sysORole.name}</li>
 				<li class="dropDown dropDown_hover">
 					<a href="#" class="dropDown_A">${currentUser.loginName}<i class="Hui-iconfont">&#xe6d5;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
-						<!--<li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>-->
-						<!-- <li><a href="#">切换账户</a></li> -->
 						<li><a href="<%=basePath%>/a/logout.do">退出</a></li>
+						<li class="dropDown-menu-item"><a data-open-type="0" data-href="<%=basePath%>a/sysUser/updatePassword.do?id=${currentUser.id}" data-title="修改密码" >修改密码</a></li>
+						<li class="dropDown-menu-item"><a data-open-type="1" data-href="<%=basePath%>a/sysUser/update.do?id=${currentUser.id}&current_user_Id=${currentUser.id}" data-title="修改个人信息">修改个人信息</a></li>
 				</ul>
 			</li>
-            <!--
-				<li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger">1</span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a> </li>-->
 				<li id="Hui-skin" class="dropDown right dropDown_hover"> <a href="javascript:;" class="dropDown_A" title="换肤"><i class="Hui-iconfont" style="font-size:18px">&#xe62a;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
 						<li><a href="javascript:;" data-val="default" title="默认（黑色）">默认（黑色）</a></li>
@@ -78,123 +62,123 @@
 <aside class="Hui-aside">
 	<div class="menu_dropdown bk_2">
 		<dl id="menu-article">
-			<dt><i class="Hui-iconfont">&#xe616;</i> 信息管理系统<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe616;</i> 部门管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-                <!--
-					<li><a data-href="article-list.html" data-title="资讯管理" href="javascript:void(0)">资讯管理</a></li>-->
+					<c:if test="${currentUser.sysORole.name == 'hr'}">
+						<li><a data-href="<%=basePath%>/RlLeave/LeavePageForHr.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="请假信息" href="javascript:void(0)">请假信息查看</a></li>
+					</c:if>
+					<c:if test="${currentUser.sysORole.name == 'hr'}">
+						<li><a data-href="<%=basePath%>/RlOvertime/overtimePageForHr.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="加班信息" href="javascript:void(0)">加班信息查看</a></li>
+					</c:if>
 					<c:if test="${currentUser.sysORole.name == '经理'}">
-                    <li><a data-href="<%=basePath%>/a/infNotice/list.do?current_user_Id=${currentUser.id}"" data-title="公告信息管理" href="javascript:void(0)">公告信息管理</a></li>
-                    </c:if>
-                    <li><a data-href="<%=basePath%>/a/infNotice/listShow.do?" data-title="公告查看" href="javascript:void(0)">公告查看</a></li>
-                    <li><a data-href="<%=basePath%>/a/infEmail/list.do?getUser.id=${currentUser.id}&createBy.id=${currentUser.id}&current_user_Id=${currentUser.id}" data-title="邮件信息管理" href="javascript:void(0)">邮件信息管理</a></li>
-			</ul>
-		</dd>
-	</dl>
-		<dl id="menu-picture">
-			<dt><i class="Hui-iconfont">&#xe613;</i> 图片管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a data-href="picture-list.html" data-title="图片管理" href="javascript:void(0)">图片管理</a></li>
-			</ul>
-		</dd>
-	</dl>
-		<dl id="menu-product">
-			<dt><i class="Hui-iconfont">&#xe620;</i> 制度管理系统<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<c:if test="${currentUser.sysORole.name == '经理' ||currentUser.sysORole.name == '系统管理员'}">
-						<li><a data-href="<%=basePath%>/RlLeave/auditLeavePage.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="请假审批管理" href="javascript:void(0)">请假审批管理</a></li>
+						<li><a data-href="<%=basePath%>/RlLeave/auditLeavePage.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="请假管理" href="javascript:void(0)">请假审批管理</a></li>
 					</c:if>
-						<li><a data-href="<%=basePath%>/RlLeave/leavePage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="申请请假" href="javascript:void(0)">申请请假</a></li>
-					<%--<li><a data-href="<%=basePath%>/RlLeave/leavePage.do" data-title="请假信息管理" href="<%=basePath%>/RlLeave/leavePage.do"></a></li>--%>
-					<li><a data-href="<%=basePath%>RlOvertime/auditOvertimePage.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="加班审批管理" href="javascript:void(0)">加班审批管理</a></li>
-					<li><a data-href="<%=basePath%>RlOvertime/overtimePage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="加班信息管理" href="javascript:void(0)">加班信息管理</a></li>
-                      <li><a data-href="<%=basePath%>RlRuleMessage/ruleMessagePage.do?currentUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="公司规章制度信息管理" href="javascript:void(0)">公司规章制度信息管理</a></li>
-
-			</ul>
-		</dd>
-	</dl>
-		<dl id="menu-comments">
-			<dt><i class="Hui-iconfont">&#xe622;</i> 工作管理系统<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-                <!--
-					<li><a data-href="http://h-ui.duoshuo.com/admin/" data-title="评论列表" href="javascript:;">评论列表</a></li>
-					<li><a data-href="feedback-list.html" data-title="意见反馈" href="javascript:void(0)">意见反馈</a></li>
-                    -->
-					<li><a data-href="<%=basePath%>WkWorkTarget/wkWorkTargetPage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="工作目标信息" href="javascript:void(0)">工作目标信息</a></li>
-					<c:if test="${currentUser.sysORole.name == '经理' ||currentUser.sysORole.name == '系统管理员'}">
-						<li><a data-href="<%=basePath%>WkWorkReport/auditWkWorkReportPage.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="汇报信息管理" href="javascript:void(0)">汇报信息管理</a></li>
+					<li><a data-href="<%=basePath%>/RlLeave/leavePage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}&departmentName=${currentUser.sysODepartment.name}" data-title="申请请假" href="javascript:void(0)">申请请假</a></li>
+					<c:if test="${currentUser.sysORole.name == '经理'}">
+						<li><a data-href="<%=basePath%>RlOvertime/auditOvertimePage.do?currentUserId=${currentUser.id}&auditUserId.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="加班审批管理" href="javascript:void(0)">加班审批管理</a></li>
 					</c:if>
-					<li><a data-href="<%=basePath%>WkWorkReport/wkWorkReportPage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="工作情况汇报" href="javascript:void(0)">工作情况汇报</a></li>
-
+					<li><a data-href="<%=basePath%>RlOvertime/overtimePage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}&departmentName=${currentUser.sysODepartment.name}" data-title="申请加班" href="javascript:void(0)">申请加班</a></li>
+					<c:if test="${currentUser.sysORole.name == 'hr'}">
+						<li><a data-href="<%=basePath%>a/sysUser/list.do?currentUserId=${currentUser.id}" data-title="员工信息" href="javascript:;">员工信息</a></li>
+					</c:if>
 				</ul>
-		</dd>
-	</dl>
-		<dl id="menu-member">
-			<dt><i class="Hui-iconfont">&#xe60d;</i> 系统信息管理系统<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-                <!--
-					<li><a data-href="member-list.html" data-title="会员列表" href="javascript:;">会员列表</a></li>
-					<li><a data-href="member-del.html" data-title="删除的会员" href="javascript:;">删除的会员</a></li>
-					<li><a data-href="member-level.html" data-title="等级管理" href="javascript:;">等级管理</a></li>
-					<li><a data-href="member-scoreoperation.html" data-title="积分管理" href="javascript:;">积分管理</a></li>
-					<li><a data-href="member-record-browse.html" data-title="浏览记录" href="javascript:void(0)">浏览记录</a></li>
-					<li><a data-href="member-record-download.html" data-title="下载记录" href="javascript:void(0)">下载记录</a></li>
-					<li><a data-href="member-record-share.html" data-title="分享记录" href="javascript:void(0)">分享记录</a></li>
-                    -->
-                    <li><a data-href="<%=basePath%>a/sysUser/updatePassword.do?id=${currentUser.id}" data-title="修改密码" href="javascript:;">修改密码</a></li>
-                    <li><a data-href="<%=basePath%>a/sysUser/update.do?id=${currentUser.id}&current_user_Id=${currentUser.id}" data-title="修改个人信息" href="javascript:;">修改个人信息</a></li>
-                    <li><a data-href="<%=basePath%>a/sysODepartmentDispatch/list.do?currentUserId=${currentUser.id}" data-title="部门调度信息" href="javascript:;">部门调度信息</a></li>
-                     <c:if test="${currentUser.sysORole.name == '经理'}">
-                    <li><a data-href="<%=basePath%>a/sysODepartment/list.do?currentUserId=${currentUser.id}" data-title="部门管理" href="javascript:;">部门管理</a></li>
-<%--                     <li><a data-href="<%=basePath%>a/sysORole/list.do?currentUserId=${currentUser.id}" data-title="角色管理" href="javascript:;">角色管理</a></li>
- --%>                    </c:if>
-                    <c:if test="${currentUser.sysORole.name != '普通员工'}">
-                    <li><a data-href="<%=basePath%>a/sysUser/list.do?currentUserId=${currentUser.id}" data-title="员工信息" href="javascript:;">员工信息</a></li>
-                    </c:if>
-			</ul>
-		</dd>
-	</dl>
-		<!-- <dl id="menu-admin">
-			<dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a data-href="admin-role.html" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
-					<li><a data-href="admin-permission.html" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>
-					<li><a data-href="admin-list.html" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
-			</ul>
-		</dd>
-	</dl>
-		<dl id="menu-tongji">
-			<dt><i class="Hui-iconfont">&#xe61a;</i> 系统统计<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a data-href="charts-1.html" data-title="折线图" href="javascript:void(0)">折线图</a></li>
-					<li><a data-href="charts-2.html" data-title="时间轴折线图" href="javascript:void(0)">时间轴折线图</a></li>
-					<li><a data-href="charts-3.html" data-title="区域图" href="javascript:void(0)">区域图</a></li>
-					<li><a data-href="charts-4.html" data-title="柱状图" href="javascript:void(0)">柱状图</a></li>
-					<li><a data-href="charts-5.html" data-title="饼状图" href="javascript:void(0)">饼状图</a></li>
-					<li><a data-href="charts-6.html" data-title="3D柱状图" href="javascript:void(0)">3D柱状图</a></li>
-					<li><a data-href="charts-7.html" data-title="3D饼状图" href="javascript:void(0)">3D饼状图</a></li>
-			</ul>
-		</dd>
-	</dl>
-		<dl id="menu-system">
-			<dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a data-href="system-base.html" data-title="系统设置" href="javascript:void(0)">系统设置</a></li>
-					<li><a data-href="system-category.html" data-title="栏目管理" href="javascript:void(0)">栏目管理</a></li>
-					<li><a data-href="system-data.html" data-title="数据字典" href="javascript:void(0)">数据字典</a></li>
-					<li><a data-href="system-shielding.html" data-title="屏蔽词" href="javascript:void(0)">屏蔽词</a></li>
-					<li><a data-href="system-log.html" data-title="系统日志" href="javascript:void(0)">系统日志</a></li>
-			</ul>
-		</dd>
-	</dl>
-    -->
+			</dd>
+		<%--<dl id="menu-article">--%>
+			<%--<dt><i class="Hui-iconfont">&#xe616;</i> 信息管理系统<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>--%>
+			<%--<dd>--%>
+				<%--<ul>--%>
+					<%--<c:if test="${currentUser.sysORole.name == '经理'}">--%>
+                    <%--<li><a data-href="<%=basePath%>/a/infNotice/list.do?current_user_Id=${currentUser.id}" data-title="公告信息管理" href="javascript:void(0)">公告信息管理</a></li>--%>
+                    <%--</c:if>--%>
+                    <%--<li><a data-href="<%=basePath%>/a/infNotice/listShow.do?" data-title="公告查看" href="javascript:void(0)">公告查看</a></li>--%>
+                    <%--<li><a data-href="<%=basePath%>/a/infEmail/list.do?getUser.id=${currentUser.id}&sendUser.id=${currentUser.id}&current_user_Id=${currentUser.id}" data-title="邮件信息管理" href="javascript:void(0)">邮件信息管理</a></li>--%>
+			<%--</ul>--%>
+		<%--</dd>--%>
+	<%--</dl>--%>
+			<dl id="menu-product">
+				<dt><i class="Hui-iconfont">&#xe620;</i> 公司管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+				<dd>
+					<ul>
+						<li><a data-href="<%=basePath%>RlRuleMessage/ruleMessagePage.do?currentUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="公司规章制度信息管理" href="javascript:void(0)">公司规章制度信息管理</a></li>
+						<c:if test="${currentUser.sysORole.name == 'hr'}">
+							<li><a data-href="<%=basePath%>a/sysODepartmentDispatch/list.do?currentUserId=${currentUser.id}" data-title="部门调度信息" href="javascript:;">部门调度信息</a></li>
+						</c:if>
+						<c:if test="${currentUser.sysORole.name == 'hr'}">
+							<li><a data-href="<%=basePath%>a/sysODepartment/list.do?currentUserId=${currentUser.id}" data-title="部门管理" href="javascript:;">部门管理</a></li>
+						</c:if>
+						<li><a data-href="<%=basePath%>/a/infEmail/list.do?getUser.id=${currentUser.id}&sendUser.id=${currentUser.id}&current_user_Id=${currentUser.id}" data-title="邮件信息管理" href="javascript:void(0)">邮件信息管理</a></li>
+					</ul>
+				</dd>
+			</dl>
+		<%--<dl id="menu-product">--%>
+			<%--<dt><i class="Hui-iconfont">&#xe620;</i> 制度管理系统<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>--%>
+			<%--<dd>--%>
+				<%--<ul>--%>
+					<%--<c:if test="${currentUser.sysORole.name == '经理' ||currentUser.sysORole.name == 'hr'}">--%>
+						<%--<li><a data-href="<%=basePath%>/RlLeave/auditLeavePage.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="请假审批管理" href="javascript:void(0)">请假审批管理</a></li>--%>
+					<%--</c:if>--%>
+						<%--<li><a data-href="<%=basePath%>/RlLeave/leavePage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="申请请假" href="javascript:void(0)">申请请假</a></li>--%>
+					<%--<c:if test="${currentUser.sysORole.name == '经理' ||currentUser.sysORole.name == 'hr'}">--%>
+						<%--<li><a data-href="<%=basePath%>RlOvertime/auditOvertimePage.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="加班审批管理" href="javascript:void(0)">加班审批管理</a></li>--%>
+					<%--</c:if>--%>
+					<%--<li><a data-href="<%=basePath%>RlOvertime/overtimePage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="申请加班" href="javascript:void(0)">申请加班</a></li>--%>
+                      <%--<li><a data-href="<%=basePath%>RlRuleMessage/ruleMessagePage.do?currentUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="公司规章制度信息管理" href="javascript:void(0)">公司规章制度信息管理</a></li>--%>
+				<%--</ul>--%>
+			<%--</dd>--%>
+		<%--</dl>--%>
+			<dl id="menu-comments">
+				<dt><i class="Hui-iconfont">&#xe622;</i> 工作汇报<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+				<dd>
+					<ul>
+						<li><a data-href="<%=basePath%>WkWorkTarget/wkWorkTargetPage.do?currentUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}&departmentId=${currentUser.sysODepartment.id}" data-title="工作目标信息" href="javascript:void(0)">工作目标信息</a></li>
+						<c:if test="${currentUser.sysORole.name == '经理'}">
+							<li><a data-href="<%=basePath%>WkWorkReport/auditWkWorkReportPage.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="汇报信息管理" href="javascript:void(0)">汇报信息管理</a></li>
+						</c:if>
+						<c:if test="${currentUser.sysORole.name == '普通员工'}">
+							<li><a data-href="<%=basePath%>WkWorkReport/wkWorkReportPage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}
+							&departmentName=${currentUser.sysODepartment.name}&departmentId=${currentUser.sysODepartment.id}" data-title="工作情况汇报" href="javascript:void(0)">工作情况汇报</a></li>
+						</c:if>
+					</ul>
+				</dd>
+			</dl>
+		<%--<dl id="menu-comments">--%>
+			<%--<dt><i class="Hui-iconfont">&#xe622;</i> 工作管理系统<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>--%>
+			<%--<dd>--%>
+				<%--<ul>--%>
+					<%--<li><a data-href="<%=basePath%>WkWorkTarget/wkWorkTargetPage.do?currentUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="工作目标信息" href="javascript:void(0)">工作目标信息</a></li>--%>
+					<%--<c:if test="${currentUser.sysORole.name == '经理'}">--%>
+						<%--<li><a data-href="<%=basePath%>WkWorkReport/auditWkWorkReportPage.do?currentUserId=${currentUser.id}&auditUserId=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="汇报信息管理" href="javascript:void(0)">汇报信息管理</a></li>--%>
+					<%--</c:if>--%>
+					<%--<li><a data-href="<%=basePath%>WkWorkReport/wkWorkReportPage.do?currentUserId=${currentUser.id}&createBy.id=${currentUser.id}&currentUserRole=${currentUser.sysORole.name}" data-title="工作情况汇报" href="javascript:void(0)">工作情况汇报</a></li>--%>
+				<%--</ul>--%>
+			<%--</dd>--%>
+		<%--</dl>--%>
+			<dl id="menu-member">
+				<dt><i class="Hui-iconfont">&#xe60d;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+				<dd>
+					<ul>
+						<c:if test="${currentUser.sysORole.name == 'hr'}">
+							<li><a data-href="<%=basePath%>/a/infNotice/list.do?current_user_Id=${currentUser.id}" data-title="公告信息管理" href="javascript:void(0)">公告信息管理</a></li>
+						</c:if>
+						<li><a data-href="<%=basePath%>/a/infNotice/listShow.do?" data-title="公告查看" href="javascript:void(0)">公告查看</a></li>
+					</ul>
+				</dd>
+			</dl>
+		<%--<dl id="menu-member">--%>
+			<%--<dt><i class="Hui-iconfont">&#xe60d;</i> 系统信息管理系统<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>--%>
+			<%--<dd>--%>
+				<%--<ul>--%>
+                    <%--<li><a data-href="<%=basePath%>a/sysODepartmentDispatch/list.do?currentUserId=${currentUser.id}" data-title="部门调度信息" href="javascript:;">部门调度信息</a></li>--%>
+                     <%--<c:if test="${currentUser.sysORole.name == '经理'}">--%>
+                    <%--<li><a data-href="<%=basePath%>a/sysODepartment/list.do?currentUserId=${currentUser.id}" data-title="部门管理" href="javascript:;">部门管理</a></li>--%>
+                    <%--</c:if>--%>
+                    <%--<c:if test="${currentUser.sysORole.name != '普通员工'}">--%>
+                    <%--<li><a data-href="<%=basePath%>a/sysUser/list.do?currentUserId=${currentUser.id}" data-title="员工信息" href="javascript:;">员工信息</a></li>--%>
+                    <%--</c:if>--%>
+				<%--</ul>--%>
+			<%--</dd>--%>
+		<%--</dl>--%>
 </div>
 </aside>
 <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
@@ -203,7 +187,7 @@
 		<div class="Hui-tabNav-wp">
 			<ul id="min_title_list" class="acrossTab cl">
 				<li class="active">
-					<span title="我的桌面" data-href="<%=basePath%>welcome.html">我的桌面</span>
+					<span title="我的桌面" data-href="<%=basePath%>welcome.jsp">我的桌面</span>
 					<em></em></li>
 		</ul>
 	</div>
@@ -212,7 +196,7 @@
 	<div id="iframe_box" class="Hui-article">
 		<div class="show_iframe">
 			<div style="display:none" class="loading"></div>
-			<iframe scrolling="yes" frameborder="0" src="<%=basePath%>welcome.html"></iframe>
+			<iframe scrolling="yes" frameborder="0" src="<%=basePath%>welcome.jsp"></iframe>
 	</div>
 </div>
 </section>
@@ -233,19 +217,24 @@
 <script type="text/javascript" src="<%=basePath%>static/lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
 <script type="text/javascript">
 $(function(){
-	/*$("#min_title_list li").contextMenu('Huiadminmenu', {
-		bindings: {
-			'closethis': function(t) {
-				console.log(t);
-				if(t.find("i")){
-					t.find("i").trigger("click");
-				}		
-			},
-			'closeall': function(t) {
-				alert('Trigger was '+t.id+'\nAction was Email');
-			},
+	$('.dropDown-menu-item').off('click').on('click',function(){
+		var type = $(this).children('a').attr('data-open-type');
+		if(type == 0){
+			layer.open({
+				type:2,
+				area:[500,300],
+				content:$(this).children('a').attr('data-href')
+			})
+		}else if(type == 1){
+			layer.open({
+				type:2,
+				area:[700,500],
+				content:$(this).children('a').attr('data-href')
+			})
 		}
-	});*/
+		
+		
+	})
 });
 /*个人信息*/
 function myselfinfo(){

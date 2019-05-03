@@ -42,6 +42,20 @@ public class RlLeaveController {
     }
 
     /**
+     * @Description //TODO to RlLeaveForHr.html
+     * @Author Chen
+     * @DateTime 2019/1/17
+     * @Param
+     * @Return
+     */
+    @RequestMapping(value = "/LeavePageForHr.do")
+    public Object toLeavePageForHr(Model model) {
+        List<RlLeave> rlLeaveList = rlLeaveService.selectAll();
+        model.addAttribute("rlLeaveList", rlLeaveList);
+        return "moudlues/rlM/rlLeave_list_hr";
+    }
+
+    /**
      * @Description //TODO to RlLeave.html
      * @Author Chen
      * @DateTime 2019/1/17
@@ -78,7 +92,7 @@ public class RlLeaveController {
      */
     @RequestMapping(value = "/submitLeave.do")
     public Object submitLeave(Model model,RlLeave rlLeave) {
-        if(rlLeave != null && rlLeave.getDelFlag().equals("0")){
+         if(rlLeave != null && rlLeave.getDelFlag().equals("0")){
              rlLeaveService.save(rlLeave);
             String msg = "提交成功!";
             model.addAttribute("msg", msg);

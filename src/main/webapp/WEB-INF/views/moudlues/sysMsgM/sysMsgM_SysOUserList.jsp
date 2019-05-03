@@ -31,9 +31,9 @@
 <div class="page-container">
 	<div class="text-c">
 	  <form action="<%=basePath%>a/sysUser/list.do" method="post">
-		 日期范围：<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" name="datemin" class="input-text Wdate" style="width:120px;" value="123">
+		 日期范围：<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" name="datemin" class="input-text Wdate" style="width:120px;" >
 		-
-		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" name="datemin" class="input-text Wdate" style="width:120px;" value="123">
+		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" name="datemin" class="input-text Wdate" style="width:120px;" >
 		<input type="text" class="input-text" style="width:250px" placeholder="输入用户姓名" id="name" name="name">
 		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
 	   </form>
@@ -44,7 +44,7 @@
 		<thead>
 			<tr class="text-c">
 <!-- 				<th width="25"><input type="checkbox" name="" value=""></th>
- -->				<th width="80">ID</th>
+ -->				
 				<th width="100">姓名</th>
 				<th width="100">登录名</th>
 				<th width="40">性别</th>
@@ -52,7 +52,6 @@
 				<th width="150">邮箱</th>
 				<th width="">地址</th>
 				<th width="130">加入时间</th>
-				<th width="70">状态</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>
@@ -60,16 +59,20 @@
 		   <c:forEach items="${sysOUserList }" var="sysOUser">
 			<tr class="text-c">
 <!-- 				<td><input type="checkbox" value="1" name=""></td>
- -->				<td>${sysOUser.id}</td>
+ -->			
 				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','<%=basePath%>a/sysUser/show.do?id=${sysOUser.id}','10001','360','400')">${sysOUser.name}</u></td>
 				<td>${sysOUser.loginName}</td>
 				<td>${sysOUser.sex}</td>
 				<td>${sysOUser.phone}</td>
 				<td>${sysOUser.email}</td>
 				<td class="text-l">${sysOUser.adress}</td>
-				<td>${sysOUser.id}</td>
-				<td class="td-status"><span class="label label-success radius">已启用</span></td>
-				<td class="td-manage"><a style="text-decoration:none"  href="<%=basePath%>a/sysODepartmentDispatch/save.do?id=${sysOUser.id}&current_user_Id=${param.currentUserId }" title="调部门"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="member_edit('编辑','<%=basePath%>a/sysUser/update.do?id=${sysOUser.id}&current_user_Id=${param.currentUserId }','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> <a title="删除" <%-- href="<%=basePath%>a/sysUser/del.do?id=${sysOUser.id}" onclick="" --%> onClick="member_del(this,'${sysOUser.id}')" href="javascript:;"class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				<td><fmt:formatDate value="${sysOUser.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+				<td class="td-manage">
+					<a style="text-decoration:none"  href="<%=basePath%>a/sysODepartmentDispatch/save.do?id=${sysOUser.id}&current_user_Id=${param.currentUserId }" title="调部门"><i class="Hui-iconfont">&#xe631;</i></a>
+					<a title="编辑" href="javascript:;"
+					   onclick="member_edit('编辑','<%=basePath%>a/sysUser/update.do?id=${sysOUser.id}&current_user_Id=${param.currentUserId }','4','','510')" class="ml-5" style="text-decoration:none">
+						<i class="Hui-iconfont">&#xe6df;</i></a>
+					<!-- <a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> --> <a title="删除" <%-- href="<%=basePath%>a/sysUser/del.do?id=${sysOUser.id}" onclick="" --%> onClick="member_del(this,'${sysOUser.id}')" href="javascript:;"class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
 			</c:forEach>
 		</tbody>
@@ -93,7 +96,7 @@ $(function(){
 		"bStateSave": true,//状态保存
 		"aoColumnDefs": [
 		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		  {"orderable":false,"aTargets":0}// 制定列不参与排序
 		]
 	});
 	

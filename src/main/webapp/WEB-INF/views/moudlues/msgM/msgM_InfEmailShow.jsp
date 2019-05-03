@@ -40,7 +40,7 @@
 			</tr>
 			<tr>
 				<th class="text-r">发送时间：</th>
-				<td>${infEmail.sendTime }</td>
+				<td><fmt:formatDate value="${infEmail.sendTime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 			</tr>
 			
 		</tbody>

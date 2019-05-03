@@ -41,7 +41,19 @@ public class RlOvertimeController {
         model.addAttribute("rlOvertimeList", rlOvertimeList);
         return "moudlues/rlM/rlOvertime_list";
     }
-
+    /**
+     * @Description //TODO get list of one user by  he's id for showing all data;
+     * @Author Chen
+     * @DateTime 2019/1/24
+     * @Param
+     * @Return
+     */
+    @RequestMapping(value = "/overtimePageForHr.do")
+    public Object toOvertimePage(Model model) {
+        List<RlOvertime> rlOvertimeList = rlOvertimeService.selectAll();
+        model.addAttribute("rlOvertimeList", rlOvertimeList);
+        return "moudlues/rlM/rlOvertime_list_hr";
+    }
     /**
      * @Description //TODO get list of one user by  he's id for showing all data;
      * @Author Chen
@@ -51,7 +63,7 @@ public class RlOvertimeController {
      */
     @RequestMapping(value = "/auditOvertimePage.do")
     public Object toAuditOvertimePage(Model model, RlOvertime rlOvertime) {
-        List<RlOvertime> rlOvertimeList = rlOvertimeService.selectAllByAudit(rlOvertime);
+            List<RlOvertime> rlOvertimeList = rlOvertimeService.selectAllByAudit(rlOvertime);
         model.addAttribute("rlOvertimeList", rlOvertimeList);
         return "moudlues/rlM/rlOvertime_list_audit";
     }

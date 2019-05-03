@@ -39,7 +39,7 @@
 	     <input type="hidden" value="${param.current_user_Id}" name="createBy.id" id="createBy.id" >
 	     <input type="hidden" value="${param.current_user_Id}" name="sendUser.id" id="sendUser.id" >
 	     <input type="hidden" value="${nowDate}" name="createDate" id="createDate">
-	     <input type="hidden" value="${nowDate}" name="sendDate" id="sendDate">
+	     <input type="hidden" value="${nowDate}" name="sendTime" id="sendTime">
 	     <!-- <input  type="hidden" value="已发送" name="staut" id="staut"> -->
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>标题：</label>
@@ -50,7 +50,7 @@
 			<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3">内容：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="beizhu" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"id="text" name="text" ></textarea>
+				<textarea  cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" onKeyUp="$.Huitextarealength(this,100)"id="text" name="text" ></textarea>
 				<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
 			</div>
 		</div>

@@ -100,7 +100,7 @@
       #{delFlag,jdbcType=VARCHAR}, #{createBy.id,jdbcType=VARCHAR}, #{createDate,jdbcType=DATE}, 
       #{updateBy.id,jdbcType=VARCHAR}, #{updateDate,jdbcType=DATE})
   </insert>
-     <!-- 逻辑删除邮件，设置发件人是为了防止两端删除 -->
+     <!-- 逻辑删除邮件，设置发件人和接收人是为了防止两端删除 -->
   <update id="delete">
 		UPDATE INF_EMAIL SET 
 			"get_user_id" = #{getUser.id},"send_user_id" = #{sendUser.id}

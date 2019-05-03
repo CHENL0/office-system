@@ -44,7 +44,7 @@
 		<thead>
 			<tr class="text-c">
 <!-- 				<th width="25"><input type="checkbox" name="" value=""></th>
- -->				<th width="80">ID</th>
+ -->				
 				<th width="100">被调转人的姓名</th>
 				<th width="40">原因</th>
 				<th width="150">旧部门</th>
@@ -59,7 +59,7 @@
 		   <c:forEach items="${sysODepartmentDispatchs }" var="sysODepartmentDispatch">
 			<tr class="text-c">
 <!-- 				<td><input type="checkbox" value="1" name=""></td>
- -->				<td>${sysODepartmentDispatch.id}</td>
+ -->			
 				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','<%=basePath%>a/sysODepartmentDispatch/show.do?id=${sysODepartmentDispatch.id}','10001','360','400')">${sysODepartmentDispatch.dispatchUser.name}</u></td>
 				<td>${sysODepartmentDispatch.reason}</td>
 				<td>${sysODepartmentDispatch.oldDepartment.name}</td>
@@ -67,7 +67,11 @@
 				<td>${sysODepartmentDispatch.oldRole.name}</td>
 				<td>${sysODepartmentDispatch.newRole.name}</td>
 				<td>${sysODepartmentDispatch.createBy.name}</td>
-				<td class="td-manage"> <a title="删除" <%-- href="<%=basePath%>a/sysUser/del.do?id=${sysOUser.id}" onclick="" --%> onClick="member_del(this,'${sysODepartmentDispatch.id}')" href="javascript:;"class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				<td class="td-manage">
+				 <c:if test="${sysOUser.sysORole.name!='普通员工' }">
+				 <a title="删除" <%-- href="<%=basePath%>a/sysUser/del.do?id=${sysOUser.id}" onclick="" --%> onClick="member_del(this,'${sysODepartmentDispatch.id}')" href="javascript:;"class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+				 </c:if>
+				 </td>
 			</tr>
 			</c:forEach>
 		</tbody>
@@ -91,7 +95,7 @@ $(function(){
 		"bStateSave": true,//状态保存
 		"aoColumnDefs": [
 		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		  {"orderable":false,"aTargets":0}// 制定列不参与排序
 		]
 	});
 	

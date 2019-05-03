@@ -11,10 +11,17 @@ import java.util.List;
 public interface SysOUserDao extends CrudDao<SysOUser>{
 	//更新密码
 	public void updatePasswordById(SysOUser sysOUser);
+	SysOUser getHrInfo();
+	List<SysOUser> getManagerInfoList();
 	//逻辑上删除用户所拥有的邮件
 	public void deleteGetSysOUserEmail(SysOUser sysOUser);
 	public void deleteSendSysOUserEmail(SysOUser sysOUser);
 	//更新部门
 	public void updateDepartment(SysOUser sysOUser);
+	
+	//获取所有用户创建时间（按年分组）
+	public List<String> getListGroupByCreateTime();
+	
+	public List<String> getListGroupByCreateTimeWithDept(SysOUser sysOUser);
    
 }

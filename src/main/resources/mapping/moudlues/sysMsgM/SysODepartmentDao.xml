@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="SysODepartment" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="DATE" />
+     <result column="update_date" property="updateDate" jdbcType="DATE" />
     <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="text" property="text" jdbcType="VARCHAR" />
@@ -110,12 +111,12 @@
   <!-- 更新 -->
  <update id="update" parameterType="SysODepartment" >
     update SYS_O_DEPARTMENT
-    set "create_by" = #{createBy.id,jdbcType=VARCHAR},
+    set <!-- "create_by" = #{createBy.id,jdbcType=VARCHAR},
       "create_date" = #{createDate,jdbcType=DATE},
-      "del_flag" = #{delFlag,jdbcType=VARCHAR},
-      "name" = #{name,jdbcType=VARCHAR},
-      "update_by" = #{updateBy.id,jdbcType=VARCHAR},
-      "update_date" = #{updateDate,jdbcType=VARCHAR}
+      "del_flag" = #{delFlag,jdbcType=VARCHAR}, -->
+      "name" = #{name,jdbcType=VARCHAR}
+<!--       "update_by" = #{updateBy.id,jdbcType=VARCHAR},
+      "update_date" = #{updateDate,jdbcType=VARCHAR} -->
 <!--       text = #{text,jdbcType=VARCHAR}
  -->    where "id" = #{id,jdbcType=VARCHAR}
   </update>

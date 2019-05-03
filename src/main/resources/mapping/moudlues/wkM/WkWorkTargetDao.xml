@@ -126,6 +126,9 @@
       <if test="createBy != null and createBy.id != null and createBy.id != ''">
         AND w."create_by"  = #{createBy.id}
       </if>
+      <if test="departmentId !=null ">
+        AND w."department_id"  = #{departmentId}
+      </if>
       AND s."id" = w."create_by"
       And  w."department_id" = d."id"
     </where>
@@ -263,7 +266,7 @@
  -->  </update>
 
     <update id="updateDelFlagById">
-    update RL_OVERTIME
+    update WK_WORK_TARGET
     set
     "del_flag" = 1
     where "id" = #{id,jdbcType=VARCHAR}

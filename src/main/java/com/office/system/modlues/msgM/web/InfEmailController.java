@@ -1,6 +1,8 @@
 package com.office.system.modlues.msgM.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,9 +46,11 @@ public class InfEmailController {
 	
 	@RequestMapping("/del.do")
 	@ResponseBody
-	public String del(InfEmail infEmail,Model model){
+	public Object del(InfEmail infEmail,Model model){
 		infEmailSeivice.delete(infEmail);
-		return "删除成功";
+		   Map<String, String> responseDataMap = new HashMap<>();
+	       responseDataMap.put("responseData","success");
+	       return responseDataMap;
 	}
 	
 	@RequestMapping("/save.do")

@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.office.system.common.baseService.IndexService;
 import com.office.system.modlues.sysMsgM.entity.SysOUser;
-import com.office.system.modlues.sysMsgM.entity.User;
 import com.office.system.modlues.sysMsgM.service.SysOUserService;
-import com.office.system.modlues.sysMsgM.service.UserService;
 
+import java.util.List;
 
 
 /**
@@ -25,6 +26,14 @@ public class IndexController {
 	
 	@Autowired
 	SysOUserService sysOUserService;
+	@Autowired
+	IndexService indexService;
+	
+	@RequestMapping(value={"/getRightCharts.do"})
+	@ResponseBody
+	public List<List<String>> getRightCharts() {
+		return indexService.getListGroupBtCreateTime();
+	}
 	
 	@RequestMapping(value={"/index.do",""})
 	public String index(HttpServletRequest request,Model model){
@@ -36,11 +45,17 @@ public class IndexController {
 			//向model添加内容
 			  SysOUser currentUser = sysOUserService.get(new SysOUser(currentUserId));
 			  model.addAttribute("currentUser",currentUser);
+			  model.addAttribute("rightChartsData", indexService.getListGroupBtCreateTime());
 			return "common/index";
 		  }
 		}
 		return "common/login";
-		
+	}
+	@RequestMapping(value={"/data.do"})
+	public String getData(HttpServletRequest request,Model model){
+		SysOUser hrInfo = sysOUserService.getHrInfo();
+		List<SysOUser> managerInfoList = sysOUserService.getManagerInfoList();
+		return "common/login";
 	}
 
 }

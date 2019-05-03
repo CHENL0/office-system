@@ -1,13 +1,9 @@
-/**
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- */
 package com.office.system.common.baseEntity;
 
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.office.system.modlues.sysMsgM.entity.SysOUser;
-import com.office.system.modlues.sysMsgM.entity.User;
 
 /**
  * 数据Entity类,搜索框上的条件，可能是日期，文本框等等，数据库不设置对应的字段

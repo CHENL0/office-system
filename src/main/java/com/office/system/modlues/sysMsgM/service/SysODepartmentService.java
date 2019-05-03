@@ -6,9 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.office.system.common.baseService.CrudService;
 import com.office.system.modlues.sysMsgM.dao.SysODepartmentDao;
-import com.office.system.modlues.sysMsgM.dao.UserDao;
 import com.office.system.modlues.sysMsgM.entity.SysODepartment;
-import com.office.system.modlues.sysMsgM.entity.User;
 
 @Service
 @Transactional(readOnly = true)

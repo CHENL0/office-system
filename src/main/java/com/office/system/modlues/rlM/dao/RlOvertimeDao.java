@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface RlOvertimeDao extends CrudDao<RlOvertime> {
     List<RlOvertime> selectAllByCreateBy (RlOvertime rlOvertime);
+    List<RlOvertime> findList ();
     List<RlOvertime> selectAllByAudit (RlOvertime rlOvertime);
     RlOvertime selectByPrimaryKey (String overtimeId);
     void updateDelFlagByIdForUser(String id);

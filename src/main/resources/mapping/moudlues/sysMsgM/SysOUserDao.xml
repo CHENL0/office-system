@@ -56,6 +56,25 @@
 		<include refid="sysMsgMUserJoins"/>
 		WHERE a."id" = #{id}
 	</select>
+
+
+	<select id="getHrInfo" resultType="SysOUser">
+		SELECT
+		<include refid="sysMsgMUserColumns"/>
+		FROM  SYS_O_USER a
+		<include refid="sysMsgMUserJoins"/>
+		WHERE a."role_id" = "003"
+	</select>
+
+	<select id="getManagerInfoList" resultType="SysOUser">
+		SELECT
+		<include refid="sysMsgMUserColumns"/>
+		FROM  SYS_O_USER a
+		<include refid="sysMsgMUserJoins"/>
+		WHERE a."role_id" = "002"
+	</select>
+
+
 	<!-- 查询用户信息 -->
 	<select id="findList" resultType="SysOUser">
 		SELECT 
@@ -167,6 +186,32 @@
 			"departme_id" = #{sysODepartment.id},"role_id" = #{sysORole.id}
 		WHERE "id" = #{id}
 	</update>
+	
+	<!-- 获取所有用户创建时间（按年分组） -->
+	<select id="getListGroupByCreateTime" resultType="String">
+		select 
+			"TO_CHAR"(a."create_date",'yyyy') 
+		FROM 
+			SYS_O_USER a 
+		where 
+			a."del_flag" = 0 
+		GROUP BY 
+			"TO_CHAR"(a."create_date",'yyyy')
+	</select>
+	
+	<!--  -->
+	<select id="getListGroupByCreateTimeWithDept" parameterType="SysOUser" resultType="String">
+		select 
+			count(*) 
+		FROM 
+			SYS_O_USER a 
+		where 
+			a."del_flag" = 0 
+		AND 
+			a."departme_id" = #{sysODepartment.id} 
+		GROUP BY 
+			"TO_CHAR"(a."create_date",'yyyy')
+	</select>
 </mapper> 
 	
 	

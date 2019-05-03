@@ -34,15 +34,17 @@
 			日期范围：<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" name="datemin" class="input-text Wdate" style="width:120px;">
 			-
 			<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" name="datemax" class="input-text Wdate" style="width:120px;">
-			<button type="submit" class="btn btn-success radius" ><i class="Hui-iconfont">&#xe665;</i> 搜标题</button>
+			<button type="submit" class="btn btn-success radius" ><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
 		</form>
 	</div>
 
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l">
-		<a href="javascript:;" onclick="member_add('申请请假','<%=basePath%>RlLeave/submitLeave.do?delFlag=1&current_user_Id=${param.currentUserId }','','510')" class="btn btn-primary radius">
+		<a href="javascript:;" 
+		onclick="member_add('申请请假','<%=basePath%>RlLeave/submitLeave.do?delFlag=1&current_user_Id=${param.currentUserId}&department_name=${param.departmentName}','','510')" class="btn btn-primary radius">
 			<i class="Hui-iconfont">&#xe600;</i>申请请假
 		</a>
-	</span> <span class="r">共有数据：<strong>88</strong> 条</span>
+	</span>
+		<%--<span class="r">共有数据：<strong>88</strong> 条</span>--%>
 	</div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
@@ -76,8 +78,8 @@
 							<td><span style="color: #A60000">审核被拒</span></td>
 						</c:if>
 						<td><fmt:formatDate value="${rlLeaveList.createDate}" pattern="yyyy-MM-dd HH:mm"/></td>
-						<td><fmt:formatDate value="${rlLeaveList.startDate}" pattern="yyyy-MM-dd HH:mm"/></td>
-						<td><fmt:formatDate value="${rlLeaveList.endDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+						<td>${rlLeaveList.startDate}</td>
+						<td>${rlLeaveList.endDate}</td>
 						<td>${rlLeaveList.auditUser.name}</td>
 						<td>${rlLeaveList.leaveType}</td>
 						<td class="td-manage">
@@ -121,7 +123,7 @@
             "bStateSave": true,//状态保存
             "aoColumnDefs": [
                 //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-                {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+                {"orderable":false,"aTargets":0}// 制定列不参与排序
             ]
         });
 

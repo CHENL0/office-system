@@ -44,7 +44,7 @@
 		<thead>
 			<tr class="text-c">
 <!-- 				<th width="25"><input type="checkbox" name="" value=""></th>
- -->				<th width="80">ID</th>
+ -->				
 				<th width="100">部门名</th>
 				<th width="100">创建时间</th>
 				<th width="40">创建人</th>
@@ -55,9 +55,9 @@
 		   <c:forEach items="${sysODepartments }" var="sysODepartment">
 			<tr class="text-c">
 <!-- 				<td><input type="checkbox" value="1" name=""></td>
- -->				<td>${sysODepartment.id}</td>
+ -->				
 				<td>${sysODepartment.name}</td>
-				<td>${sysODepartment.createDate}</td>
+				<td><fmt:formatDate value="${sysODepartment.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 				<td>${sysODepartment.createBy.name}</td>
 				<td class="td-manage"> <a title="编辑" href="javascript:;" onclick="member_edit('编辑','<%=basePath%>a/sysODepartment/update.do?id=${sysODepartment.id}&current_user_Id=${param.currentUserId }&delFlag=1','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除"  onClick="member_del(this,'${sysODepartment.id}')" href="javascript:;"class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 			</tr>
@@ -83,7 +83,7 @@ $(function(){
 		"bStateSave": true,//状态保存
 		"aoColumnDefs": [
 		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		  {"orderable":false,"aTargets":0}// 制定列不参与排序
 		]
 	});
 	

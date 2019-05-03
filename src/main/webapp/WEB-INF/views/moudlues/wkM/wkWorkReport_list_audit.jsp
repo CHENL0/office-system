@@ -39,8 +39,8 @@
 	</div>
 
 	<div class="cl pd-5 bg-1 bk-gray mt-20">
-		<span class="r">共有数据：<strong>88</strong> 条
-		</span>
+		<%--<span class="r">共有数据：<strong>88</strong> 条--%>
+		<%--</span>--%>
 	</div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
@@ -49,6 +49,7 @@
 				<!-- 				<th width="25"><input type="checkbox" name="" value=""></th>
                  -->
 				<th width="100">部门</th>
+				<th width="100">创建时间</th>
 				<th width="100">开始时间</th>
 				<th width="100">结束时间</th>
 				<th width="100">发布者</th>
@@ -61,6 +62,7 @@
 					<tr class="text-c" >
 						<td>${wkWorkReportList.sysODepartment.name}</td>
 						<td><fmt:formatDate value="${wkWorkReportList.createDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+						<td><fmt:formatDate value="${wkWorkReportList.startDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 						<td><fmt:formatDate value="${wkWorkReportList.endDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 						<td>${wkWorkReportList.createBy.name}</td>
 						<td class="td-manage">
@@ -100,7 +102,7 @@
             "bStateSave": true,//状态保存
             "aoColumnDefs": [
                 //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-                {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+                {"orderable":false,"aTargets":0}// 制定列不参与排序
             ]
         });
 

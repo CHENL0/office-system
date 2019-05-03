@@ -4,10 +4,11 @@
   <resultMap id="BaseResultMap" type="SysODepartmentDispatch" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="DATE" />
+     <result column="update_date" property="updateDate" jdbcType="DATE" />
     <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
     <result column="reason" property="reason" jdbcType="VARCHAR" />
-    <result column="text" property="text" jdbcType="VARCHAR" />
-    <association property="updateBy"
+<!--     <result column="text" property="text" jdbcType="VARCHAR" />
+ -->    <association property="updateBy"
                  javaType="SysOUser"
                  column="update_by"
                  select="findSysOUserBase">
@@ -35,12 +36,12 @@
      <association property="oldRole"
                  javaType="SysORole"
                  column="old_role_id"
-                 select="findSysODepartmentBase">
+                 select="findSysORoleBase">
     </association>
      <association property="newRole"
                  javaType="SysORole"
                  column="new_role_id"
-                 select="findSysODepartmentBase">
+                 select="findSysORoleBase">
     </association>
   </resultMap>
   <select id="findSysOUserBase" resultType="SysOUser">

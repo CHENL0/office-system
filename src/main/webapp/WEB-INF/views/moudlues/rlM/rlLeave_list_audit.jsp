@@ -34,7 +34,7 @@
 			日期范围：<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" name="datemin" class="input-text Wdate" style="width:120px;">
 			-
 			<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" name="datemax" class="input-text Wdate" style="width:120px;">
-			<button type="submit" class="btn btn-success radius" ><i class="Hui-iconfont">&#xe665;</i> 搜标题</button>
+			<button type="submit" class="btn btn-success radius" ><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
 		</form>
 	</div>
 
@@ -42,7 +42,8 @@
 		<%--<a href="javascript:;" onclick="member_add('申请请假','<%=basePath%>RlLeave/submitLeave.do?delFlag=1&current_user_Id=${param.currentUserId }','','510')" class="btn btn-primary radius">--%>
 			<%--<i class="Hui-iconfont">&#xe600;</i>申请请假--%>
 		<%--</a>--%>
-	</span> <span class="r">共有数据：<strong>88</strong> 条</span>
+	</span>
+		<%--<span class="r">共有数据：<strong>88</strong> 条</span>--%>
 	</div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">
@@ -53,6 +54,7 @@
 				<th width="100">创建时间</th>
 				<th width="100">开始时间</th>
 				<th width="100">结束时间</th>
+				<th width="100">申请人</th>
 				<th width="100">受理人</th>
 				<th width="130">类型</th>
 				<th width="100">操作</th>
@@ -76,8 +78,9 @@
 							<td><span style="color: #A60000">审核被拒</span></td>
 						</c:if>
 						<td><fmt:formatDate value="${rlLeaveList.createDate}" pattern="yyyy-MM-dd HH:mm"/></td>
-						<td><fmt:formatDate value="${rlLeaveList.startDate}" pattern="yyyy-MM-dd HH:mm"/></td>
-						<td><fmt:formatDate value="${rlLeaveList.endDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+						<td>${rlLeaveList.startDate}"</td>
+						<td>${rlLeaveList.endDate}"</td>
+						<td>${rlLeaveList.createBy.name}</td>
 						<td>${rlLeaveList.auditUser.name}</td>
 						<td>${rlLeaveList.leaveType}</td>
 						<td class="td-manage">
@@ -87,14 +90,14 @@
 								<i class="Hui-iconfont">&#xe631;</i>
 							</a>
 							<%--<c:if test="${sessionScope.currentRoleName == '经理' || sessionScope.currentRoleName == '系统管理员'}">--%>
-							<%--<c:if test="${param.currentUserRole == '经理' || param.currentUserRole == '系统管理员'}">--%>
+							<c:if test="${param.currentUserRole == '经理'}">
 								<a title="审核" href="javascript:;" onclick="member_edit('审核请假','<%=basePath%>RlLeave/updateLeaveStatus.do?leaveId=${rlLeaveList.id}&leaveStatus=0','10001','360','400')" class="ml-5" style="text-decoration:none">
 									<i class="Hui-iconfont">&#xe631;</i>
 								</a>
-							<%--</c:if>--%>
-							<a title="删除" href="javascript:;" onClick="member_del(this,'${rlLeaveList.id}')" class="ml-5" style="text-decoration:none">
-								<i class="Hui-iconfont">&#xe6e2;</i>
-							</a>
+								<a title="删除" href="javascript:;" onClick="member_del(this,'${rlLeaveList.id}')" class="ml-5" style="text-decoration:none">
+									<i class="Hui-iconfont">&#xe6e2;</i>
+								</a>
+							</c:if>
 						</td>
 					</tr>
 				<%--</c:if>--%>
@@ -121,7 +124,7 @@
             "bStateSave": true,//状态保存
             "aoColumnDefs": [
                 //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-                {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+                {"orderable":false,"aTargets":0}// 制定列不参与排序
             ]
         });
 

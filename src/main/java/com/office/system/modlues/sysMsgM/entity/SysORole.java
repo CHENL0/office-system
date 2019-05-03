@@ -12,6 +12,7 @@ public class SysORole extends DataEntity<SysORole>{
     	
     }
     public SysORole(String id) {
+    	this.id = id;
 	}
 
 	public String getName() {
