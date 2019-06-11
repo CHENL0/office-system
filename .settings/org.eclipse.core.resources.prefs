@@ -25,5 +25,8 @@ encoding//src/main/java/com/office/system/modlues/rlM/controller/RlRuleMessageCo
 encoding//src/main/java/com/office/system/modlues/rlM/dao/RlLeaveDao.java=UTF-8
 encoding//src/main/java/com/office/system/modlues/sysMsgM/dao/SysOUserDao.java=UTF-8
 encoding//src/main/java/com/office/system/modlues/sysMsgM/entity/SysOUser.java=UTF-8
+encoding//src/main/java/com/office/system/modlues/sysMsgM/web/SysODepartmentController.java=UTF-8
+encoding//src/main/java/com/office/system/modlues/sysMsgM/web/SysODepartmentDispatchController.java=UTF-8
+encoding//src/main/java/com/office/system/modlues/wkM/controller/WkWorkReportController.java=UTF-8
 encoding//src/main/resources=UTF-8
 encoding/<project>=UTF-8
